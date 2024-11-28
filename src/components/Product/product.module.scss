@@ -1,0 +1,76 @@
+.product {
+  max-width: 300px;
+  width: 30%;
+  flex-direction: column;
+  row-gap: 20px;
+
+  &Image {
+    background-color: #e6e6ea;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    position: relative;
+    max-height: 300px;
+    height: 100%;
+    img {
+      object-fit: none;
+    }
+  }
+  &Title {
+    color: #282121;
+    font-size: 18px;
+    span {
+      font-size: 16px;
+      color: #e6e6ea;
+    }
+  }
+  &Info {
+    color: #282121;
+    justify-content: space-between;
+    span {
+      font-size: 16px;
+      color: #e6e6ea;
+    }
+  }
+  &Action {
+    justify-content: space-between;
+    &Input {
+      align-items: center;
+      &Add {
+        svg {
+          transform: rotate(180deg);
+          path {
+            fill: #fbab20;
+          }
+        }
+      }
+      &Substract {
+        svg {
+          path {
+            fill: #fbab20;
+          }
+        }
+      }
+      input {
+        margin: 0 20px;
+        width: 20px;
+        height: 23px;
+        text-align: center;
+        font-size: 16px;
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          appearance: none;
+          -moz-appearance: textfield;
+        }
+      }
+    }
+    &Order {
+      background: #fbab20;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: #e6e6ea;
+      font-size: 16px;
+    }
+  }
+}

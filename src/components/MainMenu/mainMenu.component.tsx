@@ -48,9 +48,14 @@ export default function MainMenu() {
                 {d.name}
               </button>
               <ol id={`subclass_${key}`}>
-                {d.data.map((el, key) => (
-                  <li key={`0_${key}`}>{el}</li>
-                ))}
+                {d.data.map((el, key) => {
+                  return (
+                    <div key={`0_${key}`} className={`flex`}>
+                      <input type="checkbox" name="cat" id={`cat_${key}`} />
+                      <label htmlFor={`cat_${key}`}>{el}</label>
+                    </div>
+                  );
+                })}
               </ol>
             </li>
           ))}

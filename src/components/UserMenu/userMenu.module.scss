@@ -1,7 +1,8 @@
 .userMenu {
+  background-color: #282121;
   width: 20%;
   height: 100%;
-  border-right: 2px solid #f6f6f6;
+
   padding-top: 50px;
   padding-left: 10px;
   padding-right: 10px;
@@ -16,16 +17,32 @@
   }
   &Logo {
     height: 32px;
-    // width: 32px;
     width: 100%;
+    svg {
+      height: 100%;
+      width: 100%;
+      path {
+        fill: #fbab20;
+      }
+    }
   }
   &Cart {
     margin-bottom: 15px;
     height: 32px;
     width: 32px;
+    svg {
+      path {
+        fill: #fbab20;
+      }
+    }
   }
   &Avatar {
     height: 32px;
     width: 32px;
+    svg {
+      path {
+        fill: #fbab20;
+      }
+    }
   }
 }
