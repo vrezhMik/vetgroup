@@ -4,5 +4,23 @@
   border-right: 2px solid #f6f6f6;
   padding-top: 50px;
   padding-bottom: 30px;
-  padding-left: 70px;
+  padding-left: 30px;
+  nav {
+    ul {
+      li {
+        margin-bottom: 20px;
+        button {
+          font-size: 17px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    ol {
+      display: none;
+      margin-left: 20px;
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
