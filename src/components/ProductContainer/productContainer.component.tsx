@@ -7,6 +7,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
+    sale: 10,
   },
   {
     name: "Dog Food",
@@ -14,6 +15,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
+    sale: 10,
   },
   {
     name: "Dog Food",
@@ -21,6 +23,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
+    sale: 0,
   },
   {
     name: "Dog Food",
@@ -28,6 +31,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
+    sale: 10,
   },
   {
     name: "Dog Food",
@@ -35,6 +39,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
+    sale: 10,
   },
   {
     name: "Dog Food",
@@ -42,13 +47,7 @@ const products = [
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
-  },
-  {
-    name: "Dog Food",
-    weight: 800,
-    price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
+    sale: 10,
   },
 ];
 
