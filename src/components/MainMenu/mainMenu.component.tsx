@@ -2,7 +2,7 @@
 import style from "./mainMenu.module.scss";
 import { useState } from "react";
 import Link from "next/link";
-import Logo from "../Icons/Logo";
+import Logo from "../Icons/LogoSVG";
 
 const data = [
   {

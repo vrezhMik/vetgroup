@@ -1,4 +1,4 @@
-export default function Avatar() {
+export default function AvatarSVG() {
   return (
     <svg
       version="1.1"

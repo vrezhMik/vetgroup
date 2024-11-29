@@ -1,0 +1,33 @@
+.search {
+  align-items: center;
+  &Input {
+    border: 1px solid #e6e6ea;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    height: 40px;
+    width: 40%;
+    border-right: none;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: #282121;
+    &::placeholder {
+      color: #e6e6ea;
+      font-size: 18px;
+    }
+  }
+  &Button {
+    border: 1px solid #e6e6ea;
+    border-left: none;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 5px 10px;
+    svg {
+      height: 25px;
+      path {
+        fill: #fbab20;
+      }
+    }
+  }
+}

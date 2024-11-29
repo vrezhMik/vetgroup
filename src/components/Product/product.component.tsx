@@ -3,7 +3,7 @@ import ImageComponent from "../Image/image.component";
 import style from "./product.module.scss";
 import { Roboto } from "next/font/google";
 import { useState, useEffect } from "react";
-import Arrow from "../Icons/Arrow";
+import Arrow from "../Icons/ArrowSVG";
 
 const roboto = Roboto({
   weight: "400",
@@ -42,7 +42,7 @@ export default function Product({ data }: ProductPropsInterface) {
   };
 
   return (
-    <div className={`${style.product} ${roboto.className} flex`}>
+    <section className={`${style.product} ${roboto.className} flex`}>
       <div className={style.productImage}>
         {data.sale > 0 && (
           <div className={style.productImageSale}>
@@ -97,6 +97,6 @@ export default function Product({ data }: ProductPropsInterface) {
           <button className={`${style.productActionOrder}`}>Order</button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

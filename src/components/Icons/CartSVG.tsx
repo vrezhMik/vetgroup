@@ -1,4 +1,4 @@
-export default function Cart() {
+export default function CartSVG() {
   return (
     <svg
       version="1.1"
