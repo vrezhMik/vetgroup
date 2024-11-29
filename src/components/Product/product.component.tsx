@@ -51,22 +51,26 @@ export default function Product({ data }: ProductPropsInterface) {
         )}
         <ImageComponent alt={data.name} url={data.image} />
       </div>
+      <div className={`${style.productInfo} flex`}>
+        <div className={`${style.productInfoPrice} flex`}>
+          <p className={data.sale > 0 ? style.productInfoPriceSale : ""}>
+            {saledPrice * quantity} AMD
+          </p>
+          {data.sale > 0 && (
+            <span className={style.productOldPrice}>{data.price}AMD</span>
+          )}
+        </div>
+        <div className={`${style.productInfoAvailability}`}>
+          <span>On Demand</span>
+        </div>
+      </div>
       <div className={style.productTitle}>
         <h2>
           {data.name}
           <span> ({(data.weight * quantity) / 1000}kg)</span>
         </h2>
       </div>
-      {data.sale > 0 && (
-        <span className={style.productOldPrice}>{data.price}AMD</span>
-      )}
-      <div className={`${style.productInfo} flex`}>
-        <div>
-          {saledPrice * quantity}
-          <span> AMD</span>
-        </div>
-        <div>On Demand</div>
-      </div>
+
       <div className={`flex ${style.productAction}`}>
         <div className={`${style.productActionInput} flex`}>
           <button
