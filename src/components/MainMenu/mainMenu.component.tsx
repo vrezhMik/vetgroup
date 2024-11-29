@@ -1,6 +1,9 @@
 "use client";
 import style from "./mainMenu.module.scss";
 import { useState } from "react";
+import Link from "next/link";
+import Logo from "../Icons/Logo";
+
 const data = [
   {
     name: "Category",
@@ -21,42 +24,45 @@ const data = [
 ];
 
 export default function MainMenu() {
-  const [currentSubMenu, setCurrentSubMenu] = useState(-1);
-  const showSubMenu = (id: number) => {
-    if (id == currentSubMenu) {
-      const nextSubClass = document.getElementById(`subclass_${id}`);
-      if (nextSubClass) nextSubClass.style.display = "none";
-      setCurrentSubMenu(-1);
-      return;
-    }
-    const prevSubClass = document.getElementById(`subclass_${currentSubMenu}`);
-    if (prevSubClass) prevSubClass.style.display = "none";
-    const nextSubClass = document.getElementById(`subclass_${id}`);
-    if (nextSubClass) nextSubClass.style.display = "block";
-    setCurrentSubMenu(id);
+  const [currentSubMenu, setCurrentSubMenu] = useState<number | null>(null);
+
+  const toggleSubMenu = (id: number) => {
+    setCurrentSubMenu((prev) => (prev === id ? null : id));
   };
+
   return (
     <div className={style.mainMenu}>
+      <div className={style.mainMenuLogo}>
+        <Link href={"/"}>
+          <Logo />
+        </Link>
+      </div>
       <nav>
         <ul>
-          {data.map((d, key) => (
-            <li key={key}>
+          {data.map((category, index) => (
+            <li key={index}>
               <button
-                onClick={() => showSubMenu(key)}
-                className={`${key == currentSubMenu ? style.active : ""}`}
+                onClick={() => toggleSubMenu(index)}
+                className={`${index === currentSubMenu ? style.active : ""}`}
               >
-                {d.name}
+                {category.name}
               </button>
-              <ol id={`subclass_${key}`}>
-                {d.data.map((el, key) => {
-                  return (
-                    <div key={`0_${key}`} className={`flex`}>
-                      <input type="checkbox" name="cat" id={`cat_${key}`} />
-                      <label htmlFor={`cat_${key}`}>{el}</label>
+              {index == currentSubMenu && (
+                <ol className={style.subMenu}>
+                  {category.data.map((subCategory, subIndex) => (
+                    <div key={subIndex} className="flex">
+                      <input
+                        type="checkbox"
+                        name={`cat_${subIndex}`}
+                        id={`cat_${index}_${subIndex}`}
+                      />
+                      <label htmlFor={`cat_${index}_${subIndex}`}>
+                        {subCategory}
+                      </label>
                     </div>
-                  );
-                })}
-              </ol>
+                  ))}
+                </ol>
+              )}
             </li>
           ))}
         </ul>
