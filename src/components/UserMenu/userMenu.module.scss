@@ -8,34 +8,8 @@
   padding-right: 10px;
   padding-bottom: 30px;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  &Logo,
-  &Cart,
-  &Avatar {
-    position: relative;
-  }
-  &Logo {
-    height: 32px;
-    width: 100%;
-    svg {
-      height: 100%;
-      width: 100%;
-      path {
-        fill: #fbab20;
-      }
-    }
-  }
-  &Cart {
-    margin-bottom: 15px;
-    height: 32px;
-    width: 32px;
-    svg {
-      path {
-        fill: #fbab20;
-      }
-    }
-  }
   &Avatar {
     height: 32px;
     width: 32px;
