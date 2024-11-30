@@ -4,21 +4,13 @@ import style from "./product.module.scss";
 import { Roboto } from "next/font/google";
 import { useState, useEffect } from "react";
 import Arrow from "../Icons/ArrowSVG";
+import { ProductPropsInterface } from "@/utils/Interfaces";
 
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
 });
-interface ProductPropsInterface {
-  data: {
-    name: string;
-    weight: number;
-    price: number;
-    image: string;
-    qty: number;
-    sale: number;
-  };
-}
+
 export default function Product({ data }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
   const [saledPrice, setSaledPrice] = useState(
