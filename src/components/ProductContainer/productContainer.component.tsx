@@ -60,7 +60,10 @@ export default function ProductContainer() {
       <div className={`${style.mainContainerSearchBar} flex`}>
         <SearchBar />
         <div className={`${style.mainContainerSearchBarCart}`}>
-          <button>
+          <button className={`${style.mainContainerSearchBarCartButton}`}>
+            <div className={`${style.mainContainerSearchBarCartButtonItems}`}>
+              10
+            </div>
             <CartSVG />
           </button>
         </div>
