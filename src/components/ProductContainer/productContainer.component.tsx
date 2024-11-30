@@ -1,6 +1,8 @@
 import style from "./productContainer.module.scss";
 import Product from "../Product/product.component";
 import SearchBar from "../SearchBar/searchBar.component";
+import CartSVG from "../Icons/CartSVG";
+
 const products = [
   {
     name: "Dog Food",
@@ -55,8 +57,13 @@ const products = [
 export default function ProductContainer() {
   return (
     <div className={`${style.mainContainer}`}>
-      <div className={`${style.mainContainerSearchBar}`}>
+      <div className={`${style.mainContainerSearchBar} flex`}>
         <SearchBar />
+        <div className={`${style.mainContainerSearchBarCart}`}>
+          <button>
+            <CartSVG />
+          </button>
+        </div>
       </div>
       <div className={`${style.mainContainerProductContainer} flex`}>
         {products.map((element, key) => (

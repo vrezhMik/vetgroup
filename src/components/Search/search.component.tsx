@@ -5,9 +5,9 @@ export default function Search() {
   return (
     <div className={`${style.search} flex`}>
       <input type="text" className={style.searchInput} placeholder="Search" />
-      <button className={style.searchButton}>
+      {/* <button className={style.searchButton}>
         <SearchSVG />
-      </button>
+      </button> */}
     </div>
   );
 }
