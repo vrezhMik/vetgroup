@@ -5,13 +5,14 @@ import { Roboto } from "next/font/google";
 import { useState, useEffect } from "react";
 import Arrow from "../Icons/ArrowSVG";
 import { ProductPropsInterface } from "@/utils/Interfaces";
-
+import { useCart } from "@/store/store";
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
 });
 
 export default function Product({ data }: ProductPropsInterface) {
+  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [saledPrice, setSaledPrice] = useState(
     data.price - (data.price * data.sale) / 100
@@ -62,7 +63,6 @@ export default function Product({ data }: ProductPropsInterface) {
           <span> ({(data.weight * quantity) / 1000}kg)</span>
         </h2>
       </div>
-
       <div className={`flex ${style.productAction}`}>
         <div className={`${style.productActionInput} flex`}>
           <button
@@ -86,7 +86,12 @@ export default function Product({ data }: ProductPropsInterface) {
           </button>
         </div>
         <div>
-          <button className={`${style.productActionOrder}`}>Order</button>
+          <button
+            className={`${style.productActionOrder}`}
+            onClick={() => addItem(data)}
+          >
+            Order
+          </button>
         </div>
       </div>
     </section>

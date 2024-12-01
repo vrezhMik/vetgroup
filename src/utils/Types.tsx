@@ -1,7 +1,11 @@
 export type CartItemType = {
-  id: number;
+  id: string;
   name: string;
+  weight: number;
   price: number;
+  image: string;
+  qty: number;
+  sale: number;
 };
 
 export type FilterType = {

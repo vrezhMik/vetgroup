@@ -1,23 +1,22 @@
 import { FilterType } from "./Types";
-
+import { CartItemType } from "./Types";
 export interface ImagePropsInterface {
   url: string;
   alt: string;
 }
 
 export interface ProductPropsInterface {
-  data: {
-    name: string;
-    weight: number;
-    price: number;
-    image: string;
-    qty: number;
-    sale: number;
-  };
+  data: CartItemType;
 }
 
 export interface FiltersStateInterface {
   filters: FilterType[];
   addFilter: (filter: FilterType) => void;
   removeFilter: (id: string) => void;
+}
+export interface CartStateInterface {
+  cartItems: CartItemType[];
+  addItem: (item: CartItemType) => void;
+  removeItem: (id: string) => void;
+  getItemCount: () => number;
 }

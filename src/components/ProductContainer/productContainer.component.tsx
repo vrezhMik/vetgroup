@@ -1,10 +1,13 @@
+"use client";
+
 import style from "./productContainer.module.scss";
 import Product from "../Product/product.component";
 import SearchBar from "../SearchBar/searchBar.component";
 import CartSVG from "../Icons/CartSVG";
-
+import { useCart } from "@/store/store";
 const products = [
   {
+    id: "01",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -13,6 +16,7 @@ const products = [
     sale: 10,
   },
   {
+    id: "02",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -21,6 +25,7 @@ const products = [
     sale: 10,
   },
   {
+    id: "03",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -29,6 +34,7 @@ const products = [
     sale: 0,
   },
   {
+    id: "04",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -37,6 +43,7 @@ const products = [
     sale: 10,
   },
   {
+    id: "05",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -45,6 +52,7 @@ const products = [
     sale: 10,
   },
   {
+    id: "06",
     name: "Dog Food",
     weight: 800,
     price: 1200,
@@ -55,6 +63,7 @@ const products = [
 ];
 
 export default function ProductContainer() {
+  const { getItemCount } = useCart();
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>
@@ -62,7 +71,7 @@ export default function ProductContainer() {
         <div className={`${style.mainContainerSearchBarCart}`}>
           <button className={`${style.mainContainerSearchBarCartButton}`}>
             <div className={`${style.mainContainerSearchBarCartButtonItems}`}>
-              10
+              {getItemCount()}
             </div>
             <CartSVG />
           </button>
