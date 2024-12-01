@@ -3,3 +3,8 @@ export type CartItemType = {
   name: string;
   price: number;
 };
+
+export type FilterType = {
+  id: string;
+  value: string;
+};

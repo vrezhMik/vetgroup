@@ -1,8 +1,9 @@
 "use client";
 import style from "./mainMenu.module.scss";
-import { useState } from "react";
+import { ReactEventHandler, useState } from "react";
 import Link from "next/link";
 import Logo from "../Icons/LogoSVG";
+import { useFilters } from "@/store/store";
 
 const data = [
   {
@@ -25,6 +26,15 @@ const data = [
 
 export default function MainMenu() {
   const [currentSubMenu, setCurrentSubMenu] = useState<number | null>(null);
+  const { addFilter, removeFilter } = useFilters();
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    const value = event.target.value;
+    const id = event.target.id;
+    if (checked) addFilter({ id, value });
+    else removeFilter(id);
+  };
 
   const toggleSubMenu = (id: number) => {
     setCurrentSubMenu((prev) => (prev === id ? null : id));
@@ -54,7 +64,9 @@ export default function MainMenu() {
                       <input
                         type="checkbox"
                         name={`cat_${subIndex}`}
+                        value={subCategory}
                         id={`cat_${index}_${subIndex}`}
+                        onChange={handleCheck}
                       />
                       <label htmlFor={`cat_${index}_${subIndex}`}>
                         {subCategory}
