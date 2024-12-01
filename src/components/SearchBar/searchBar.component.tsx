@@ -4,14 +4,17 @@ import Search from "../Search/search.component";
 import style from "./searchbar.module.scss";
 import { useFilters } from "@/store/store";
 export default function SearchBar() {
-  const { filters } = useFilters();
+  const { filters, removeFilter } = useFilters();
 
   return (
-    <div className={style.searchBar}>
+    <div className={`${style.searchBar} flex`}>
       <Search />
-      <div>
+      <div className={`${style.searchBarFilters}`}>
         {filters.map((filter, key) => (
-          <span key={key}>{filter.value}</span>
+          <div key={key} className={`${style.searchBarFiltersFilter}`}>
+            <span>{filter.value}</span>
+            <button onClick={() => removeFilter(filter.id)}>x</button>
+          </div>
         ))}
       </div>
     </div>

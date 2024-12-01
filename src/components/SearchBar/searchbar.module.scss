@@ -1,3 +1,21 @@
 .searchBar {
-  width: 50%;
+  width: 100%;
+  column-gap: 20px;
+  align-items: center;
+  &Filters {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    &Filter {
+      background-color: #fbab20;
+      border-radius: 10px;
+      align-items: center;
+
+      span,
+      button {
+        color: #e6e6ea;
+        padding: 5px 10px;
+      }
+    }
+  }
 }

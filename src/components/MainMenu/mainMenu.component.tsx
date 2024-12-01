@@ -1,6 +1,6 @@
 "use client";
 import style from "./mainMenu.module.scss";
-import { ReactEventHandler, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Logo from "../Icons/LogoSVG";
 import { useFilters } from "@/store/store";
@@ -8,25 +8,25 @@ import { useFilters } from "@/store/store";
 const data = [
   {
     name: "Category",
-    data: ["Sub Category", "Sub Category", "Sub Category", "Sub Category"],
+    data: ["Sub 0", "Sub 01", "Sub 02", "Sub 03"],
   },
   {
     name: "Category1",
-    data: ["Sub Category1", "Sub Category", "Sub Category", "Sub Category"],
+    data: ["Sub 1", "Sub 11", "Sub 12", "Sub 13"],
   },
   {
     name: "Category2",
-    data: ["Sub Category2", "Sub Category", "Sub Category", "Sub Category"],
+    data: ["Sub 2", "Sub 21", "Sub 22", "Sub 23"],
   },
   {
     name: "Category3",
-    data: ["Sub Category3", "Sub Category", "Sub Category", "Sub Category"],
+    data: ["Sub 3", "Sub 31", "Sub 32", "Sub 33"],
   },
 ];
 
 export default function MainMenu() {
   const [currentSubMenu, setCurrentSubMenu] = useState<number | null>(null);
-  const { addFilter, removeFilter } = useFilters();
+  const { addFilter, removeFilter, filters } = useFilters();
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
@@ -38,6 +38,10 @@ export default function MainMenu() {
 
   const toggleSubMenu = (id: number) => {
     setCurrentSubMenu((prev) => (prev === id ? null : id));
+  };
+
+  const isChecked = (id: string) => {
+    return filters.some((filter) => filter.id === id);
   };
 
   return (
@@ -59,20 +63,22 @@ export default function MainMenu() {
               </button>
               {index == currentSubMenu && (
                 <ol className={style.subMenu}>
-                  {category.data.map((subCategory, subIndex) => (
-                    <div key={subIndex} className="flex">
-                      <input
-                        type="checkbox"
-                        name={`cat_${subIndex}`}
-                        value={subCategory}
-                        id={`cat_${index}_${subIndex}`}
-                        onChange={handleCheck}
-                      />
-                      <label htmlFor={`cat_${index}_${subIndex}`}>
-                        {subCategory}
-                      </label>
-                    </div>
-                  ))}
+                  {category.data.map((subCategory, subIndex) => {
+                    const checkboxId = `cat_${index}_${subIndex}`;
+                    return (
+                      <div key={subIndex} className="flex">
+                        <input
+                          type="checkbox"
+                          name={`cat_${subIndex}`}
+                          value={subCategory}
+                          id={checkboxId}
+                          checked={isChecked(checkboxId)}
+                          onChange={handleCheck}
+                        />
+                        <label htmlFor={checkboxId}>{subCategory}</label>
+                      </div>
+                    );
+                  })}
                 </ol>
               )}
             </li>
