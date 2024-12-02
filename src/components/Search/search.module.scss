@@ -8,9 +8,6 @@
     font-size: 20px;
     height: 40px;
     width: 100%;
-    // border-right: none;
-    // border-top-right-radius: 0px;
-    // border-bottom-right-radius: 0px;
     color: #282121;
     &::placeholder {
       color: #e6e6ea;
@@ -30,5 +27,11 @@
         fill: #fbab20;
       }
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .search {
+    width: 90%;
   }
 }

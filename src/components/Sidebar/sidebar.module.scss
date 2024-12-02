@@ -3,3 +3,10 @@
   width: 20%;
   height: 100svh;
 }
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 40%;
+    display: none;
+  }
+}

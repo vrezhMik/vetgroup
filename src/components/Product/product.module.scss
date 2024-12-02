@@ -2,7 +2,6 @@
   max-width: 300px;
   width: 30%;
   flex-direction: column;
-
   &Image {
     margin-bottom: 20px;
     &Sale {
@@ -75,7 +74,6 @@
       }
     }
   }
-
   &Action {
     justify-content: space-between;
     &Input {
@@ -119,5 +117,11 @@
       color: #e6e6ea;
       font-size: 16px;
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .product {
+    width: 100%;
   }
 }

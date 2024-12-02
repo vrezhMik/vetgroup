@@ -2,7 +2,6 @@
   background-color: #282121;
   width: 20%;
   height: 100%;
-
   padding-top: 50px;
   padding-left: 10px;
   padding-right: 10px;
@@ -18,5 +17,12 @@
         fill: #fbab20;
       }
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .userMenu {
+    // width: 30%;
+    display: none;
   }
 }

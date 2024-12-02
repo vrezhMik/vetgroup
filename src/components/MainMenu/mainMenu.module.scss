@@ -66,3 +66,9 @@
 .active {
   color: #fbab20 !important;
 }
+
+@media (max-width: 480px) {
+  .mainMenu {
+    display: none;
+  }
+}
