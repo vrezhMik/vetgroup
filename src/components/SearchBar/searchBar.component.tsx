@@ -7,7 +7,7 @@ export default function SearchBar() {
   const { filters, removeFilter } = useFilters();
 
   return (
-    <div className={`${style.searchBar}`}>
+    <div className={`${style.searchBar} flex`}>
       <Search />
       <div className={`${style.searchBarFilters}`}>
         {filters.map((filter, key) => (

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { FiltersStateInterface } from "@/utils/Interfaces";
 import { CartStateInterface } from "@/utils/Interfaces";
-
+import { CardStateInterface } from "@/utils/Interfaces";
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
   addFilter: (filter) =>
@@ -25,4 +25,12 @@ export const useCart = create<CartStateInterface>((set, get) => ({
       cartItems: state.cartItems.filter((item) => item.id !== id),
     })),
   getItemCount: () => get().cartItems.length,
+}));
+
+export const useCard = create<CardStateInterface>((set) => ({
+  cardState: false,
+  setCardState: (value: boolean) =>
+    set(() => ({
+      cardState: value,
+    })),
 }));

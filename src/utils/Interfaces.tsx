@@ -20,3 +20,8 @@ export interface CartStateInterface {
   removeItem: (id: string) => void;
   getItemCount: () => number;
 }
+
+export interface CardStateInterface {
+  cardState: boolean;
+  setCardState: (value: boolean) => void;
+}
