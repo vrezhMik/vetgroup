@@ -1,12 +1,13 @@
 export type CartItemType = {
-  id: string | null;
-  name: string | null;
-  description: string | null;
-  weight: number | null;
-  price: number | null;
-  image: string | null;
-  qty: number | null;
-  sale: number | null;
+  id: string;
+  name: string;
+  description: string;
+  weight: number;
+  price: number;
+  image: string;
+  qty: number;
+  salePrcentage: number;
+  saledPrice: number;
 };
 
 export type FilterType = {

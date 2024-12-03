@@ -6,7 +6,7 @@ import ImageComponent from "../Image/image.component";
 import { Item } from "@/classes/ItemClass";
 export default function Card() {
   const { cardState, setCardState, currentItem, setCurrentItem } = useCard();
-  const CARD_ITEM = new Item(currentItem);
+  const CARD_ITEM = currentItem;
   return (
     <div
       className={style.cardContainer}
@@ -17,7 +17,7 @@ export default function Card() {
           <button
             onClick={() => {
               setCardState(false);
-              setCurrentItem(null);
+              setCurrentItem(currentItem);
             }}
           >
             X
@@ -30,10 +30,10 @@ export default function Card() {
           <div className={`${style.cardInfo}`}>
             <div className={`${style.cardInfoTitle}`}>
               {CARD_ITEM.getTitle()}
-              <span>{CARD_ITEM.getWeight()}</span>
+              <span> {CARD_ITEM.getWeight() / 1000}kg</span>
             </div>
             <div className={`${style.cardInfoPrice}`}>
-              {CARD_ITEM.getPrice()}
+              <p>{CARD_ITEM.getPrice()} AMD</p>
             </div>
             <div className={`${style.cardInfoDescription}`}>
               {CARD_ITEM.getDescription()}

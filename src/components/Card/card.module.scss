@@ -46,6 +46,10 @@
     &Title {
       font-size: 45px;
       margin-bottom: 20px;
+      span {
+        color: $theme-color-light;
+        font-size: 20px;
+      }
     }
     &Price {
       font-size: 30px;

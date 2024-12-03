@@ -1,5 +1,6 @@
 import { FilterType } from "./Types";
 import { CartItemType } from "./Types";
+import { Item } from "@/classes/ItemClass";
 export interface ImagePropsInterface {
   url: string;
   alt: string;
@@ -23,7 +24,7 @@ export interface CartStateInterface {
 
 export interface CardStateInterface {
   cardState: boolean;
-  currentItem: CartItemType | null;
-  setCurrentItem: (item: CartItemType | null) => void;
+  currentItem: Item;
+  setCurrentItem: (item: Item) => void;
   setCardState: (value: boolean) => void;
 }

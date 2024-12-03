@@ -16,69 +16,76 @@ const products = [
     image: "http://127.0.0.1:3000/dog.webp",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
-    qty: 100,
-    sale: 10,
+    qty: 1,
+    salePrcentage: 0,
+    saledPrice: 0,
   },
   {
     id: "02",
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    image: "http://127.0.0.1:3000/dog.webp",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
-    image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
-    sale: 10,
+    qty: 1,
+    salePrcentage: 10,
+    saledPrice: 0,
   },
   {
     id: "03",
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    image: "http://127.0.0.1:3000/dog.webp",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
-    image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
-    sale: 0,
+    qty: 1,
+    salePrcentage: 10,
+    saledPrice: 0,
   },
   {
     id: "04",
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    image: "http://127.0.0.1:3000/dog.webp",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
-    image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
-    sale: 10,
+    qty: 1,
+    salePrcentage: 10,
+    saledPrice: 0,
   },
   {
     id: "05",
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    image: "http://127.0.0.1:3000/dog.webp",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
-    image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
-    sale: 10,
+    qty: 1,
+    salePrcentage: 10,
+    saledPrice: 0,
   },
   {
-    id: "06",
+    id: "05",
     name: "Dog Food",
     weight: 800,
-    description:
-      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
-    qty: 100,
-    sale: 10,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
+    qty: 1,
+    salePrcentage: 10,
+    saledPrice: 0,
   },
 ];
 
 export default function ProductContainer() {
   const { getItemCount } = useCart();
   const { cardState } = useCard();
+
   useEffect(
     () => () => {
       const body = document.getElementsByTagName("body")[0];
@@ -87,6 +94,7 @@ export default function ProductContainer() {
     },
     [cardState]
   );
+
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>

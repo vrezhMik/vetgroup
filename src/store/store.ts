@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { FiltersStateInterface } from "@/utils/Interfaces";
 import { CartStateInterface } from "@/utils/Interfaces";
 import { CardStateInterface } from "@/utils/Interfaces";
+import { Item } from "@/classes/ItemClass";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -30,7 +31,17 @@ export const useCart = create<CartStateInterface>((set, get) => ({
 
 export const useCard = create<CardStateInterface>((set) => ({
   cardState: false,
-  currentItem: null,
+  currentItem: new Item({
+    id: "",
+    name: "",
+    description: "",
+    weight: 0,
+    price: 0,
+    image: "",
+    qty: 0,
+    salePrcentage: 0,
+    saledPrice: 0,
+  }),
 
   setCardState: (value) =>
     set(() => ({
