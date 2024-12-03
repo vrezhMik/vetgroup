@@ -1,7 +1,8 @@
+@import "./../../styles/variables";
 .mainMenu {
   height: 100%;
   width: 75%;
-  border-right: 1px solid #e6e6ea;
+  border-right: 1px solid $theme-color-light;
   padding-top: 50px;
   padding-bottom: 30px;
   &Logo {
@@ -13,7 +14,7 @@
         height: 100%;
         width: 100%;
         path {
-          fill: #fbab20;
+          fill: $theme-color;
         }
       }
     }
@@ -26,10 +27,10 @@
         margin-bottom: 20px;
         button {
           font-size: 17px;
-          color: #282121;
+          color: $theme-color-dark;
           margin-bottom: 10px;
           &:hover {
-            color: #fbab20 !important;
+            color: $theme-color !important;
           }
         }
       }
@@ -40,7 +41,7 @@
         margin-bottom: 10px;
         align-items: center;
         label {
-          color: #282121;
+          color: $theme-color-dark;
           font-size: 18px;
           margin-left: 10px;
         }
@@ -55,7 +56,7 @@
           cursor: pointer;
           transition: background-color 0.2s ease;
           &:checked {
-            background-color: #fbab20;
+            background-color: $theme-color;
           }
         }
       }
@@ -64,7 +65,7 @@
 }
 
 .active {
-  color: #fbab20 !important;
+  color: $theme-color !important;
 }
 
 @media (max-width: 480px) {

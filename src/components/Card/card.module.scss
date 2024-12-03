@@ -1,3 +1,4 @@
+@import "./../../styles/variables";
 .cardContainer {
   position: absolute;
   height: 100%;
@@ -25,10 +26,10 @@
   &Button {
     button {
       float: right;
-      background-color: #fbab20;
+      background-color: $theme-color;
       padding: 5px;
       border-radius: 7px 5px;
-      color: #e6e6ea;
+      color: $theme-color-light;
     }
   }
   &Image {
@@ -41,14 +42,14 @@
   }
   &Info {
     width: 40%;
-    color: #282121;
+    color: $theme-color-dark;
     &Title {
       font-size: 45px;
       margin-bottom: 20px;
     }
     &Price {
       font-size: 30px;
-      color: #cc2936;
+      color: $theme-second-color;
       margin-bottom: 20px;
     }
     &Description {

@@ -1,3 +1,5 @@
+@import "./../../styles/variables";
+
 .product {
   max-width: 300px;
   width: 30%;
@@ -15,13 +17,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #e6e6ea;
-      background-color: #cc2936;
+      color: $theme-color-light;
+      background-color: $theme-second-color;
       top: 20px;
       left: 20px;
       font-size: 20px;
     }
-    background-color: #e6e6ea;
+    background-color: $theme-color-light;
     border-radius: 10px;
     padding: 30px;
     position: relative;
@@ -37,43 +39,43 @@
   }
   &Info {
     margin-bottom: 20px;
-    color: #282121;
+    color: $theme-color-dark;
     justify-content: space-between;
     align-items: center;
     &Price {
       &Sale {
-        color: #cc2936 !important ;
+        color: $theme-second-color !important ;
       }
       align-items: center;
       column-gap: 10px;
       p {
-        color: #282121;
+        color: $theme-color-dark;
         font-size: 22px;
       }
       span {
         text-decoration: line-through;
         opacity: 0.5;
-        color: #e6e6ea;
+        color: $theme-color-light;
       }
     }
     &Availability {
       span {
         font-size: 16px;
-        color: #e6e6ea;
+        color: $theme-color-light;
       }
     }
   }
   &Title {
-    color: #282121;
+    color: $theme-color-dark;
     font-size: 18px;
     margin-bottom: 20px;
     h2 {
-      color: #282121;
+      color: $theme-color-dark;
       font-weight: normal;
       font-size: 18px;
       span {
         font-size: 16px;
-        color: #e6e6ea;
+        color: $theme-color-light;
       }
     }
   }
@@ -86,7 +88,7 @@
           transform: rotate(180deg);
           height: 10px;
           path {
-            fill: #fbab20;
+            fill: $theme-color;
           }
         }
       }
@@ -94,7 +96,7 @@
         svg {
           height: 10px;
           path {
-            fill: #fbab20;
+            fill: $theme-color;
           }
         }
       }
@@ -104,7 +106,7 @@
         height: 23px;
         text-align: center;
         font-size: 16px;
-        color: #282121;
+        color: $theme-color-dark;
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
           -webkit-appearance: none;
@@ -114,10 +116,10 @@
       }
     }
     &Order {
-      background: #fbab20;
+      background: $theme-color;
       padding: 7px 10px;
       border-radius: 10px;
-      color: #e6e6ea;
+      color: $theme-color-light;
       font-size: 16px;
     }
   }

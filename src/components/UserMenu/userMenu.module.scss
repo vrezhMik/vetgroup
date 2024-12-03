@@ -1,5 +1,7 @@
+@import "./../../styles/variables";
+
 .userMenu {
-  background-color: #282121;
+  background-color: $theme-color-dark;
   width: 20%;
   height: 100%;
   padding-top: 50px;
@@ -14,7 +16,7 @@
     width: 32px;
     svg {
       path {
-        fill: #fbab20;
+        fill: $theme-color;
       }
     }
   }

@@ -1,3 +1,5 @@
+@import "./../../styles/variables";
+
 .searchBar {
   width: 100%;
   column-gap: 20px;
@@ -7,13 +9,13 @@
     gap: 5px;
     flex-wrap: wrap;
     &Filter {
-      background-color: #fbab20;
+      background-color: $theme-color;
       border-radius: 10px;
       align-items: center;
 
       span,
       button {
-        color: #e6e6ea;
+        color: $theme-color-light;
         padding: 5px 10px;
       }
     }

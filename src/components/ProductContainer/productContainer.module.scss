@@ -1,3 +1,5 @@
+@import "./../../styles/variables";
+
 .mainContainer {
   width: 80%;
   margin-left: 20%;
@@ -24,14 +26,14 @@
           top: -15px;
           right: -15px;
           font-size: 14px;
-          background-color: #cc2936;
-          color: #e6e6ea;
+          background-color: $theme-second-color;
+          color: $theme-color-light;
           padding: 5px 5px;
           border-radius: 50%;
         }
         svg {
           path {
-            fill: #fbab20;
+            fill: $theme-color;
           }
         }
       }

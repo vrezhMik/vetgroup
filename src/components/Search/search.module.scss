@@ -1,21 +1,23 @@
+@import "./../../styles/variables";
+
 .search {
   align-items: center;
   width: 50%;
   &Input {
-    border: 1px solid #e6e6ea;
+    border: 1px solid $theme-color-light;
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 20px;
     height: 40px;
     width: 100%;
-    color: #282121;
+    color: $theme-color-dark;
     &::placeholder {
-      color: #e6e6ea;
+      color: $theme-color-light;
       font-size: 18px;
     }
   }
   &Button {
-    border: 1px solid #e6e6ea;
+    border: 1px solid $theme-color-light;
     border-left: none;
     border-radius: 10px;
     border-top-left-radius: 0px;
@@ -24,7 +26,7 @@
     svg {
       height: 25px;
       path {
-        fill: #fbab20;
+        fill: $theme-color;
       }
     }
   }
