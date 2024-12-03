@@ -45,35 +45,52 @@ export default function Card() {
             </div>
           </div>
         ) : (
-          <table className={`row ${style.cardTable}`}>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div className={`${style.cardTable}`}>
+            <div className={`${style.cardTableRow} flex row`}>
+              <div className={` ${style.cardTableTitle}`}>
+                <span>Name</span>
+              </div>
+              <div className={` ${style.cardTableTitle}`}>
+                <span>Price</span>
+              </div>
+              <div className={` ${style.cardTableTitle}`}>
+                <span>Qty</span>
+              </div>
+              <div className={` ${style.cardTableTitle}`}>
+                <span>Total</span>
+              </div>
+            </div>
+            <div className={`${style.cardTableData}`}>
               {cartItems.map((item, key) => (
-                <tr key={key}>
-                  <td>{item.getTitle()}</td>
+                <div className={`row flex ${style.cardTableDataRow}`} key={key}>
+                  <div className={`${style.cardTableDataRowElement}`}>
+                    <span>{item.getTitle()}</span>
+                  </div>
                   {item.hasSale() ? (
-                    <td>{item.getSalePrice()}</td>
+                    <div className={`${style.cardTableDataRowElement}`}>
+                      <span>{item.getSalePrice()}</span>
+                    </div>
                   ) : (
-                    <td>{item.getPrice()}</td>
+                    <div className={`${style.cardTableDataRowElement}`}>
+                      <span>{item.getPrice()}</span>
+                    </div>
                   )}
-                  <td>{item.getQty()}</td>
-                  <td>{item.getTotalPrice()}</td>
-                  <td>
+
+                  <div className={`${style.cardTableDataRowElement}`}>
+                    <span>{item.getQty()}</span>
+                  </div>
+                  <div className={`${style.cardTableDataRowElement}`}>
+                    <span>{item.getTotalPrice()}</span>
+                  </div>
+                  <div className={`${style.cardTableDataRowElement}`}>
                     <button>
                       <TrashSVG />
                     </button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         )}
       </div>
     </div>
