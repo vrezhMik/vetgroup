@@ -1,14 +1,14 @@
 "use client";
-import ImageComponent from "../Image/image.component";
 import style from "./product.module.scss";
 import { Roboto } from "next/font/google";
-import { useState, useEffect } from "react";
-import Arrow from "../Icons/ArrowSVG";
+import { useState } from "react";
+import { useCart, useCard, useCardView } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
-import { useCart } from "@/store/store";
-import { useCard } from "@/store/store";
-import { CartItemType } from "@/utils/Types";
+import { CartItemType, CardView } from "@/utils/Types";
 import { Item } from "@/classes/ItemClass";
+
+import ImageComponent from "../Image/image.component";
+import Arrow from "../Icons/ArrowSVG";
 
 const roboto = Roboto({
   weight: "400",
@@ -16,9 +16,11 @@ const roboto = Roboto({
 });
 
 export default function Product({ data }: ProductPropsInterface) {
-  const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const { setCardState, setCurrentItem } = useCard();
+  const { addItem } = useCart();
+  const { setCardView } = useCardView();
+  const currentProduct = new Item(data);
 
   const increment = () => {
     currentProduct.setQty(quantity + 1);
@@ -38,18 +40,23 @@ export default function Product({ data }: ProductPropsInterface) {
     }
   };
 
-  const handleClick = (state: boolean, data: CartItemType): void => {
+  const handleClick = (state: boolean, data: Item): void => {
     setCardState(true);
     setCurrentItem(currentProduct);
+    setCardView(CardView.Product);
   };
 
-  const currentProduct = new Item(data);
+  const orderItem = (): void => {
+    currentProduct.setTotal();
+    addItem(currentProduct);
+  };
+
   return (
     <section className={`${style.product} ${roboto.className} flex`}>
       <div
         className={style.productImage}
         onClick={() => {
-          handleClick(true, data);
+          handleClick(true, currentProduct);
         }}
       >
         {currentProduct.hasSale() && (
@@ -59,7 +66,7 @@ export default function Product({ data }: ProductPropsInterface) {
         )}
         <ImageComponent
           alt={currentProduct.getTitle() || ""}
-          url={data.image || "/"}
+          url={currentProduct.getImage() || "/"}
         />
       </div>
 
@@ -120,10 +127,7 @@ export default function Product({ data }: ProductPropsInterface) {
           </button>
         </div>
         <div>
-          <button
-            className={`${style.productActionOrder}`}
-            onClick={() => addItem(data)}
-          >
+          <button className={`${style.productActionOrder}`} onClick={orderItem}>
             Order
           </button>
         </div>

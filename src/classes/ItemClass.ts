@@ -52,6 +52,12 @@ export class Item {
     return this.currentItem.saledPrice;
   }
 
+  getTotalPrice(): number {
+    if (this.isEmpty()) return 0;
+    this.setSalePrice();
+    return this.currentItem.totalPrice;
+  }
+
   hasSale(): boolean {
     if (this.isEmpty()) return false;
     return this.currentItem.salePrcentage > 0;
@@ -72,5 +78,14 @@ export class Item {
   setQty(value: number): void {
     if (this.isEmpty()) return;
     this.currentItem.qty = value;
+  }
+
+  setTotal(): void {
+    if (this.isEmpty()) return;
+    let finalPrice = 0;
+    finalPrice = this.hasSale()
+      ? this.getSalePrice()
+      : (finalPrice = this.getPrice());
+    this.currentItem.totalPrice = finalPrice * this.getQty();
   }
 }

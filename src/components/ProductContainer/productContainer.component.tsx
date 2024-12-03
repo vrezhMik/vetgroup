@@ -1,12 +1,13 @@
 "use client";
-
 import style from "./productContainer.module.scss";
+
+import { useEffect } from "react";
+import { useCart, useCard } from "@/store/store";
+
 import Product from "../Product/product.component";
 import SearchBar from "../SearchBar/searchBar.component";
 import CartSVG from "../Icons/CartSVG";
-import { useCart } from "@/store/store";
-import { useCard } from "@/store/store";
-import { useEffect } from "react";
+
 const products = [
   {
     id: "01",
@@ -19,6 +20,7 @@ const products = [
     qty: 1,
     salePrcentage: 0,
     saledPrice: 0,
+    totalPrice: 0,
   },
   {
     id: "02",
@@ -31,6 +33,7 @@ const products = [
     qty: 1,
     salePrcentage: 10,
     saledPrice: 0,
+    totalPrice: 0,
   },
   {
     id: "03",
@@ -43,6 +46,7 @@ const products = [
     qty: 1,
     salePrcentage: 10,
     saledPrice: 0,
+    totalPrice: 0,
   },
   {
     id: "04",
@@ -55,6 +59,7 @@ const products = [
     qty: 1,
     salePrcentage: 10,
     saledPrice: 0,
+    totalPrice: 0,
   },
   {
     id: "05",
@@ -67,6 +72,7 @@ const products = [
     qty: 1,
     salePrcentage: 10,
     saledPrice: 0,
+    totalPrice: 0,
   },
   {
     id: "05",
@@ -79,12 +85,13 @@ const products = [
     qty: 1,
     salePrcentage: 10,
     saledPrice: 0,
+    totalPrice: 0,
   },
 ];
 
 export default function ProductContainer() {
-  const { getItemCount } = useCart();
-  const { cardState } = useCard();
+  const { getItemCount, cartItems } = useCart();
+  const { cardState, setCardState } = useCard();
 
   useEffect(
     () => () => {
@@ -95,12 +102,19 @@ export default function ProductContainer() {
     [cardState]
   );
 
+  const showCart = () => {
+    setCardState(true);
+  };
+
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>
         <SearchBar />
         <div className={`${style.mainContainerSearchBarCart}`}>
-          <button className={`${style.mainContainerSearchBarCartButton}`}>
+          <button
+            className={`${style.mainContainerSearchBarCartButton}`}
+            onClick={showCart}
+          >
             <div className={`${style.mainContainerSearchBarCartButtonItems}`}>
               {getItemCount()}
             </div>

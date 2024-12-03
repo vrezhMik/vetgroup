@@ -2,7 +2,11 @@ import { create } from "zustand";
 import { FiltersStateInterface } from "@/utils/Interfaces";
 import { CartStateInterface } from "@/utils/Interfaces";
 import { CardStateInterface } from "@/utils/Interfaces";
+import { CardViewInterface } from "@/utils/Interfaces";
 import { Item } from "@/classes/ItemClass";
+import Card from "@/components/Card/card.component";
+import { CardView } from "@/utils/Types";
+import { Value } from "sass";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -50,5 +54,13 @@ export const useCard = create<CardStateInterface>((set) => ({
   setCurrentItem: (item) =>
     set((state) => ({
       currentItem: item,
+    })),
+}));
+
+export const useCardView = create<CardViewInterface>((set) => ({
+  cardViewState: CardView.List,
+  setCardView: (value) =>
+    set((state) => ({
+      cardViewState: value,
     })),
 }));

@@ -20,9 +20,6 @@
   background-color: #fdfdfd;
   padding: 20px;
   border-radius: 10px;
-  &Content {
-    height: 100%;
-  }
   &Button {
     button {
       float: right;
@@ -32,33 +29,66 @@
       color: $theme-color-light;
     }
   }
-  &Image {
-    width: 60%;
-    height: 500px;
-    position: relative;
-    img {
-      object-fit: contain;
-    }
-  }
-  &Info {
-    width: 40%;
-    color: $theme-color-dark;
-    &Title {
-      font-size: 45px;
-      margin-bottom: 20px;
-      span {
-        color: $theme-color-light;
-        font-size: 20px;
+  &Content {
+    height: 100%;
+
+    &Image {
+      width: 60%;
+      height: 500px;
+      position: relative;
+      img {
+        object-fit: contain;
       }
     }
-    &Price {
-      font-size: 30px;
-      color: $theme-second-color;
+    &Info {
+      width: 40%;
+      color: $theme-color-dark;
+      &Title {
+        font-size: 45px;
+        margin-bottom: 20px;
+        span {
+          color: $theme-color-light;
+          font-size: 20px;
+        }
+      }
+      &Price {
+        font-size: 30px;
+        color: $theme-second-color;
+        margin-bottom: 20px;
+      }
+      &Description {
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &Table {
+    thead {
+      th {
+        color: $theme-color;
+        font-size: 25px;
+        text-align: left;
+      }
       margin-bottom: 20px;
     }
-    &Description {
-      font-size: 25px;
-      margin-bottom: 20px;
+    tbody {
+      tr {
+        margin-top: 20px;
+        td {
+          color: $theme-color-dark;
+          font-size: 18px;
+          button {
+            svg {
+              height: 18px;
+              width: 18px;
+              path {
+                fill: $theme-color;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

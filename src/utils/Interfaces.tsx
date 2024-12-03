@@ -1,6 +1,7 @@
 import { FilterType } from "./Types";
 import { CartItemType } from "./Types";
 import { Item } from "@/classes/ItemClass";
+import { CardView } from "./Types";
 export interface ImagePropsInterface {
   url: string;
   alt: string;
@@ -16,8 +17,8 @@ export interface FiltersStateInterface {
   removeFilter: (id: string) => void;
 }
 export interface CartStateInterface {
-  cartItems: CartItemType[];
-  addItem: (item: CartItemType) => void;
+  cartItems: Item[];
+  addItem: (item: Item) => void;
   removeItem: (id: string) => void;
   getItemCount: () => number;
 }
@@ -27,4 +28,9 @@ export interface CardStateInterface {
   currentItem: Item;
   setCurrentItem: (item: Item) => void;
   setCardState: (value: boolean) => void;
+}
+
+export interface CardViewInterface {
+  cardViewState: CardView;
+  setCardView: (view: CardView) => void;
 }

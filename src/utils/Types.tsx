@@ -8,9 +8,15 @@ export type CartItemType = {
   qty: number;
   salePrcentage: number;
   saledPrice: number;
+  totalPrice: number;
 };
 
 export type FilterType = {
   id: string;
   value: string;
 };
+
+export enum CardView {
+  Product,
+  List,
+}
