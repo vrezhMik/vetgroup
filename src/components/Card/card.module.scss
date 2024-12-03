@@ -11,26 +11,49 @@
 
 .card {
   max-width: 50%;
-  max-height: 50%;
   width: 100%;
-  height: 100%;
   position: relative;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
+  background-color: #fdfdfd;
+  padding: 20px;
+  border-radius: 10px;
   &Content {
     height: 100%;
   }
   &Button {
     button {
       float: right;
+      background-color: #fbab20;
+      padding: 5px;
+      border-radius: 7px 5px;
+      color: #e6e6ea;
     }
   }
   &Image {
     width: 60%;
+    height: 500px;
     position: relative;
+    img {
+      object-fit: contain;
+    }
   }
   &Info {
     width: 40%;
+    color: #282121;
+    &Title {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+    &Price {
+      font-size: 30px;
+      color: #cc2936;
+      margin-bottom: 20px;
+    }
+    &Description {
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
   }
 }

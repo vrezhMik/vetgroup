@@ -5,6 +5,8 @@ import Product from "../Product/product.component";
 import SearchBar from "../SearchBar/searchBar.component";
 import CartSVG from "../Icons/CartSVG";
 import { useCart } from "@/store/store";
+import { useCard } from "@/store/store";
+import { useEffect } from "react";
 const products = [
   {
     id: "01",
@@ -12,6 +14,8 @@ const products = [
     weight: 800,
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 100,
     sale: 10,
   },
@@ -20,6 +24,8 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
     sale: 10,
@@ -29,6 +35,8 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
     sale: 0,
@@ -38,6 +46,8 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
     sale: 10,
@@ -47,6 +57,8 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
     sale: 10,
@@ -55,6 +67,8 @@ const products = [
     id: "06",
     name: "Dog Food",
     weight: 800,
+    description:
+      "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     price: 1200,
     image: "http://127.0.0.1:3000/dog.webp",
     qty: 100,
@@ -64,6 +78,15 @@ const products = [
 
 export default function ProductContainer() {
   const { getItemCount } = useCart();
+  const { cardState } = useCard();
+  useEffect(
+    () => () => {
+      const body = document.getElementsByTagName("body")[0];
+      const overflowStatus = cardState ? "scroll" : "hidden";
+      body.style.overflow = overflowStatus;
+    },
+    [cardState]
+  );
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>

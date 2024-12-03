@@ -7,6 +7,7 @@ import Arrow from "../Icons/ArrowSVG";
 import { ProductPropsInterface } from "@/utils/Interfaces";
 import { useCart } from "@/store/store";
 import { useCard } from "@/store/store";
+import { CartItemType } from "@/utils/Types";
 const roboto = Roboto({
   weight: "400",
   subsets: ["latin"],
@@ -15,7 +16,7 @@ const roboto = Roboto({
 export default function Product({ data }: ProductPropsInterface) {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const { setCardState } = useCard();
+  const { setCardState, setCurrentItem } = useCard();
   const [saledPrice, setSaledPrice] = useState(
     data.price - (data.price * data.sale) / 100
   );
@@ -36,9 +37,19 @@ export default function Product({ data }: ProductPropsInterface) {
     }
   };
 
+  const handleClick = (state: boolean, data: CartItemType): void => {
+    setCardState(true);
+    setCurrentItem(data);
+  };
+
   return (
     <section className={`${style.product} ${roboto.className} flex`}>
-      <div className={style.productImage} onClick={() => setCardState(true)}>
+      <div
+        className={style.productImage}
+        onClick={() => {
+          handleClick(true, data);
+        }}
+      >
         {data.sale > 0 && (
           <div className={style.productImageSale}>
             <span>-{data.sale}%</span>

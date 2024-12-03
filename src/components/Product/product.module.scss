@@ -4,6 +4,9 @@
   flex-direction: column;
   &Image {
     margin-bottom: 20px;
+    &:hover {
+      cursor: pointer;
+    }
     &Sale {
       position: absolute;
       width: 60px;
