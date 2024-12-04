@@ -3,10 +3,7 @@ import { FiltersStateInterface } from "@/utils/Interfaces";
 import { CartStateInterface } from "@/utils/Interfaces";
 import { CardStateInterface } from "@/utils/Interfaces";
 import { CardViewInterface } from "@/utils/Interfaces";
-import { Item } from "@/classes/ItemClass";
-import Card from "@/components/Card/card.component";
 import { CardView } from "@/utils/Types";
-import { Value } from "sass";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -22,14 +19,31 @@ export const useFilters = create<FiltersStateInterface>((set) => ({
 
 export const useCart = create<CartStateInterface>((set, get) => ({
   cartItems: [],
+  cartTotal: 0,
   addItem: (item) =>
     set((state) => ({
       cartItems: [...state.cartItems, item],
+      cartTotal:
+        state.cartTotal +
+        (item.hasSale() ? item.getSalePrice() : item.getPrice()) *
+          item.getQty(),
     })),
   removeItem: (id) =>
-    set((state) => ({
-      cartItems: state.cartItems.filter((item) => item.getId() !== id),
-    })),
+    set((state) => {
+      const itemToRemove = state.cartItems.find((item) => item.getId() === id);
+      if (!itemToRemove) {
+        return state;
+      }
+      const itemPrice =
+        (itemToRemove.hasSale()
+          ? itemToRemove.getSalePrice()
+          : itemToRemove.getPrice()) * itemToRemove.getQty();
+
+      return {
+        cartItems: state.cartItems.filter((item) => item.getId() !== id),
+        cartTotal: state.cartTotal - itemPrice,
+      };
+    }),
   getItemCount: () => get().cartItems.length,
 }));
 

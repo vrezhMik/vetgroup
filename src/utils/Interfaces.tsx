@@ -7,6 +7,10 @@ export interface ImagePropsInterface {
   alt: string;
 }
 
+export interface CardProductViewPropsInterface {
+  item: Item | null;
+}
+
 export interface ProductPropsInterface {
   data: CartItemType;
 }
@@ -18,6 +22,7 @@ export interface FiltersStateInterface {
 }
 export interface CartStateInterface {
   cartItems: Item[];
+  cartTotal: number;
   addItem: (item: Item) => void;
   removeItem: (id: string) => void;
   getItemCount: () => number;
