@@ -1,4 +1,6 @@
 "use client";
+import { usePathname } from "next/navigation";
+
 import style from "./mainMenu.module.scss";
 import { useState } from "react";
 import Link from "next/link";
@@ -25,6 +27,8 @@ const data = [
 ];
 
 export default function MainMenu() {
+  const pathname = usePathname();
+
   const [currentSubMenu, setCurrentSubMenu] = useState<number | null>(null);
   const { addFilter, removeFilter, filters } = useFilters();
 
@@ -51,40 +55,42 @@ export default function MainMenu() {
           <Logo />
         </Link>
       </div>
-      <nav>
-        <ul>
-          {data.map((category, index) => (
-            <li key={index}>
-              <button
-                onClick={() => toggleSubMenu(index)}
-                className={`${index === currentSubMenu ? style.active : ""}`}
-              >
-                {category.name}
-              </button>
-              {index == currentSubMenu && (
-                <ol className={style.subMenu}>
-                  {category.data.map((subCategory, subIndex) => {
-                    const checkboxId = `cat_${index}_${subIndex}`;
-                    return (
-                      <div key={subIndex} className="flex">
-                        <input
-                          type="checkbox"
-                          name={`cat_${subIndex}`}
-                          value={subCategory}
-                          id={checkboxId}
-                          checked={isChecked(checkboxId)}
-                          onChange={handleCheck}
-                        />
-                        <label htmlFor={checkboxId}>{subCategory}</label>
-                      </div>
-                    );
-                  })}
-                </ol>
-              )}
-            </li>
-          ))}
-        </ul>
-      </nav>
+      {pathname !== "/user" && (
+        <nav>
+          <ul>
+            {data.map((category, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => toggleSubMenu(index)}
+                  className={`${index === currentSubMenu ? style.active : ""}`}
+                >
+                  {category.name}
+                </button>
+                {index == currentSubMenu && (
+                  <ol className={style.subMenu}>
+                    {category.data.map((subCategory, subIndex) => {
+                      const checkboxId = `cat_${index}_${subIndex}`;
+                      return (
+                        <div key={subIndex} className="flex">
+                          <input
+                            type="checkbox"
+                            name={`cat_${subIndex}`}
+                            value={subCategory}
+                            id={checkboxId}
+                            checked={isChecked(checkboxId)}
+                            onChange={handleCheck}
+                          />
+                          <label htmlFor={checkboxId}>{subCategory}</label>
+                        </div>
+                      );
+                    })}
+                  </ol>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </div>
   );
 }
