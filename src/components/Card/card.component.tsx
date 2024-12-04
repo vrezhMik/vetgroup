@@ -8,7 +8,7 @@ import TrashSVG from "../Icons/TrashSVG";
 export default function Card() {
   const { cardState, setCardState, currentItem, setCurrentItem } = useCard();
   const { cardViewState, setCardView } = useCardView();
-  const { cartItems } = useCart();
+  const { cartItems, removeItem } = useCart();
   const CARD_ITEM = currentItem;
   return (
     <div
@@ -20,7 +20,7 @@ export default function Card() {
           <button
             onClick={() => {
               setCardState(false);
-              setCurrentItem(currentItem);
+              setCurrentItem(null);
             }}
           >
             X
@@ -29,39 +29,45 @@ export default function Card() {
         {cardViewState === CardView.Product ? (
           <div className={`row flex ${style.cardContent}`}>
             <div className={`${style.cardContentImage}`}>
-              <ImageComponent alt={"image"} url={CARD_ITEM.getImage() || "/"} />
+              <ImageComponent
+                alt={"image"}
+                url={CARD_ITEM?.getImage() || "/"}
+              />
             </div>
             <div className={`${style.cardContentInfo}`}>
               <div className={`${style.cardContentInfoTitle}`}>
-                {CARD_ITEM.getTitle()}
-                <span> {CARD_ITEM.getWeight() / 1000}kg</span>
+                {CARD_ITEM?.getTitle()}
+                <span>
+                  {" "}
+                  {CARD_ITEM?.getWeight() && CARD_ITEM?.getWeight() / 1000}kg
+                </span>
               </div>
               <div className={`${style.cardContentInfoPrice}`}>
-                <p>{CARD_ITEM.getPrice()} AMD</p>
+                <p>{CARD_ITEM?.getPrice()} AMD</p>
               </div>
               <div className={`${style.cardContentInfoDescription}`}>
-                {CARD_ITEM.getDescription()}
+                {CARD_ITEM?.getDescription()}
               </div>
             </div>
           </div>
         ) : (
           <div className={`${style.cardTable}`}>
             <div className={`${style.cardTableRow} flex row`}>
-              <div className={` ${style.cardTableTitle}`}>
+              <div className={` ${style.cardTableRowTitle}`}>
                 <span>Name</span>
               </div>
-              <div className={` ${style.cardTableTitle}`}>
+              <div className={` ${style.cardTableRowTitle}`}>
                 <span>Price</span>
               </div>
-              <div className={` ${style.cardTableTitle}`}>
+              <div className={` ${style.cardTableRowTitle}`}>
                 <span>Qty</span>
               </div>
-              <div className={` ${style.cardTableTitle}`}>
+              <div className={` ${style.cardTableRowTitle}`}>
                 <span>Total</span>
               </div>
             </div>
             <div className={`${style.cardTableData}`}>
-              {cartItems.map((item, key) => (
+              {cartItems?.map((item, key) => (
                 <div className={`row flex ${style.cardTableDataRow}`} key={key}>
                   <div className={`${style.cardTableDataRowElement}`}>
                     <span>{item.getTitle()}</span>
@@ -79,11 +85,9 @@ export default function Card() {
                   <div className={`${style.cardTableDataRowElement}`}>
                     <span>{item.getQty()}</span>
                   </div>
-                  <div className={`${style.cardTableDataRowElement}`}>
+                  <div className={`${style.cardTableDataRowElement} flex`}>
                     <span>{item.getTotalPrice()}</span>
-                  </div>
-                  <div className={`${style.cardTableDataRowElement}`}>
-                    <button>
+                    <button onClick={() => removeItem(item.getId())}>
                       <TrashSVG />
                     </button>
                   </div>

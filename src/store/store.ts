@@ -28,24 +28,14 @@ export const useCart = create<CartStateInterface>((set, get) => ({
     })),
   removeItem: (id) =>
     set((state) => ({
-      cartItems: state.cartItems.filter((item) => item.id !== id),
+      cartItems: state.cartItems.filter((item) => item.getId() !== id),
     })),
   getItemCount: () => get().cartItems.length,
 }));
 
 export const useCard = create<CardStateInterface>((set) => ({
   cardState: false,
-  currentItem: new Item({
-    id: "",
-    name: "",
-    description: "",
-    weight: 0,
-    price: 0,
-    image: "",
-    qty: 0,
-    salePrcentage: 0,
-    saledPrice: 0,
-  }),
+  currentItem: null,
 
   setCardState: (value) =>
     set(() => ({

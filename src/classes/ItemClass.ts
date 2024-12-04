@@ -7,6 +7,11 @@ export class Item {
     this.currentItem = item;
   }
 
+  getId(): string {
+    if (this.isEmpty()) return "";
+    return this.currentItem.id;
+  }
+
   getTitle(): string {
     if (this.isEmpty()) return "";
 
@@ -16,7 +21,7 @@ export class Item {
   getWeight(): number {
     if (this.isEmpty()) return 0;
 
-    return this.currentItem.weight;
+    return this.currentItem?.weight;
   }
 
   getPrice(): number {

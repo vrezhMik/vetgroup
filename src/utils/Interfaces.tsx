@@ -25,8 +25,8 @@ export interface CartStateInterface {
 
 export interface CardStateInterface {
   cardState: boolean;
-  currentItem: Item;
-  setCurrentItem: (item: Item) => void;
+  currentItem: Item | null;
+  setCurrentItem: (item: Item | null) => void;
   setCardState: (value: boolean) => void;
 }
 

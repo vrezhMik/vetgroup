@@ -2,11 +2,12 @@
 import style from "./productContainer.module.scss";
 
 import { useEffect } from "react";
-import { useCart, useCard } from "@/store/store";
+import { useCart, useCard, useCardView } from "@/store/store";
 
 import Product from "../Product/product.component";
 import SearchBar from "../SearchBar/searchBar.component";
 import CartSVG from "../Icons/CartSVG";
+import { CardView } from "@/utils/Types";
 
 const products = [
   {
@@ -90,8 +91,9 @@ const products = [
 ];
 
 export default function ProductContainer() {
-  const { getItemCount, cartItems } = useCart();
+  const { getItemCount } = useCart();
   const { cardState, setCardState } = useCard();
+  const { cardViewState, setCardView } = useCardView();
 
   useEffect(
     () => () => {
@@ -104,6 +106,7 @@ export default function ProductContainer() {
 
   const showCart = () => {
     setCardState(true);
+    setCardView(CardView.List);
   };
 
   return (
