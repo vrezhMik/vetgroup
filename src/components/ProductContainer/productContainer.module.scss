@@ -23,12 +23,12 @@
         position: relative;
         &Items {
           position: absolute;
-          top: -15px;
-          right: -15px;
+          top: -7px;
+          right: -7px;
           font-size: 14px;
           background-color: $theme-second-color;
           color: $theme-color-light;
-          padding: 5px 5px;
+          padding: 8px;
           border-radius: 50%;
         }
         svg {
