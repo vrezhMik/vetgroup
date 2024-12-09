@@ -3,7 +3,9 @@ import { FiltersStateInterface } from "@/utils/Interfaces";
 import { CartStateInterface } from "@/utils/Interfaces";
 import { CardStateInterface } from "@/utils/Interfaces";
 import { CardViewInterface } from "@/utils/Interfaces";
+import { UserMenuStateInterface } from "@/utils/Interfaces";
 import { CardView } from "@/utils/Types";
+import { UserMenu } from "@/utils/Types";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -66,5 +68,13 @@ export const useCardView = create<CardViewInterface>((set) => ({
   setCardView: (value) =>
     set((state) => ({
       cardViewState: value,
+    })),
+}));
+
+export const useUserPageMenu = create<UserMenuStateInterface>((set) => ({
+  activeState: UserMenu.History,
+  setActiveState: (value) =>
+    set((state) => ({
+      activeState: value,
     })),
 }));

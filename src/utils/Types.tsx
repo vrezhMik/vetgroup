@@ -20,3 +20,8 @@ export enum CardView {
   Product,
   List,
 }
+
+export enum UserMenu {
+  History,
+  Settings,
+}

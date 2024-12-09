@@ -1,21 +1,22 @@
 "use client";
-import { useState } from "react";
 import style from "./userPageMenu.module.scss";
+import { useUserPageMenu } from "@/store/store";
+import { UserMenu } from "@/utils/Types";
 
 export default function UserPageMenu() {
-  const [activeButton, setActiveButton] = useState("History");
+  const { setActiveState, activeState } = useUserPageMenu();
 
   return (
     <div className={`row flex ${style.menu}`}>
       <button
-        className={activeButton === "History" ? style.active : ""}
-        onClick={() => setActiveButton("History")}
+        className={activeState === UserMenu.History ? style.active : ""}
+        onClick={() => setActiveState(UserMenu.History)}
       >
         History
       </button>
       <button
-        className={activeButton === "Settings" ? style.active : ""}
-        onClick={() => setActiveButton("Settings")}
+        className={activeState === UserMenu.Settings ? style.active : ""}
+        onClick={() => setActiveState(UserMenu.Settings)}
       >
         Settings
       </button>

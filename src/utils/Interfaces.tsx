@@ -2,6 +2,8 @@ import { FilterType } from "./Types";
 import { CartItemType } from "./Types";
 import { Item } from "@/classes/ItemClass";
 import { CardView } from "./Types";
+import { UserMenu } from "./Types";
+
 export interface ImagePropsInterface {
   url: string;
   alt: string;
@@ -38,4 +40,9 @@ export interface CardStateInterface {
 export interface CardViewInterface {
   cardViewState: CardView;
   setCardView: (view: CardView) => void;
+}
+
+export interface UserMenuStateInterface {
+  activeState: UserMenu;
+  setActiveState: (value: UserMenu) => void;
 }
