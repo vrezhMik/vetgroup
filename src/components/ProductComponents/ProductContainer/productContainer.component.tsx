@@ -118,9 +118,11 @@ export default function ProductContainer() {
             className={`${style.mainContainerSearchBarCartButton}`}
             onClick={showCart}
           >
-            <div
-              className={`${style.mainContainerSearchBarCartButtonItems}`}
-            ></div>
+            {getItemCount() > 0 && (
+              <div
+                className={`${style.mainContainerSearchBarCartButtonItems}`}
+              ></div>
+            )}
             <CartSVG />
           </button>
         </div>

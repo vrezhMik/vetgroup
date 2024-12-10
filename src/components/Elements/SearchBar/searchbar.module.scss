@@ -12,11 +12,14 @@
       background-color: $theme-color;
       border-radius: 10px;
       align-items: center;
-
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 5px;
       span,
       button {
         color: $theme-default-color;
-        padding: 5px 10px;
       }
     }
   }

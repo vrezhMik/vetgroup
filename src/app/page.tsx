@@ -3,7 +3,7 @@ import ProductContainer from "@/components/ProductComponents/ProductContainer/pr
 import Card from "@/components/CardComponents/Card/card.component";
 export default function Home() {
   return (
-    <main className="flex relative" style={{ height: "100vh" }}>
+    <main className="flex ">
       <Sidebar />
       <ProductContainer />
     </main>

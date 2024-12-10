@@ -65,12 +65,12 @@ const historyData = [
 ];
 
 function HistoryList() {
-  const { cardState, setCardState } = useCard();
-  const { cardViewState, setCardView } = useCardView();
+  const { setCardState } = useCard();
+  const { setCardView } = useCardView();
   const { addItem } = useCart();
 
-  const showCart = (data: Array<T>) => {
-    const newData = data.map((el) => {
+  const showCart = (data: []) => {
+    data.map((el) => {
       const current = new Item(el);
       addItem(current);
     });
