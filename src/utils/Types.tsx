@@ -19,6 +19,7 @@ export type FilterType = {
 export enum CardView {
   Product,
   List,
+  History,
 }
 
 export enum UserMenu {

@@ -1,6 +1,7 @@
 import "@/styles/main.scss";
 import "@/styles/globals.scss";
 import type { Metadata } from "next";
+import Card from "@/components/CardComponents/Card/card.component";
 
 export const metadata: Metadata = {
   title: "VetGroup",
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="relative">
+        {children}
+        <Card />
+      </body>
     </html>
   );
 }

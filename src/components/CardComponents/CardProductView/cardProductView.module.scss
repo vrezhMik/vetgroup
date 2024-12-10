@@ -1,0 +1,35 @@
+@import "./../../../styles/variables";
+
+.cardProduct {
+  height: 100%;
+  column-gap: 20px;
+  &Image {
+    width: 40%;
+    height: 500px;
+    position: relative;
+    img {
+      object-fit: contain;
+    }
+  }
+  &Info {
+    width: 60%;
+    color: $theme-color-dark;
+    &Title {
+      font-size: 45px;
+      margin-bottom: 20px;
+      span {
+        color: $theme-color-light;
+        font-size: 20px;
+      }
+    }
+    &Price {
+      font-size: 30px;
+      color: $theme-second-color;
+      margin-bottom: 20px;
+    }
+    &Description {
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+  }
+}
