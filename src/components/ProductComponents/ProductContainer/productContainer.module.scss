@@ -52,6 +52,15 @@
   }
 }
 
+@media (max-width: 1080px) {
+  .mainContainer {
+    &ProductContainer {
+      justify-content: center;
+      padding: 0px 10px 50px 10px;
+    }
+  }
+}
+
 @media (max-width: 480px) {
   .mainContainer {
     width: 100%;
@@ -61,6 +70,7 @@
       padding-top: 20px;
     }
     &ProductContainer {
+      justify-content: center;
       padding: 0px 30px 50px 30px;
     }
   }

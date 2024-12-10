@@ -4,7 +4,7 @@ import Card from "@/components/CardComponents/Card/card.component";
 export default function Home() {
   return (
     <main className="flex relative" style={{ height: "100vh" }}>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <ProductContainer />
     </main>
   );

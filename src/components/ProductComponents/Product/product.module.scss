@@ -126,7 +126,13 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1300px) {
+  .product {
+    width: 45%;
+  }
+}
+
+@media (max-width: 780px) {
   .product {
     width: 100%;
   }
