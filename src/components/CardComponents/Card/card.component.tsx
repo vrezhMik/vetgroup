@@ -12,7 +12,7 @@ export default function Card() {
   return (
     <div
       className={style.cardContainer}
-      style={{ display: cardState ? "block" : "none" }}
+      style={{ display: cardState ? "flex" : "none" }}
     >
       <div className={`${style.card}`}>
         <div className={`row ${style.cardButton}`}>
