@@ -1,6 +1,5 @@
 "use client";
 import style from "./product.module.scss";
-import { Roboto } from "next/font/google";
 import { useState } from "react";
 import { useCart, useCard, useCardView } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
@@ -9,11 +8,6 @@ import { Item } from "@/classes/ItemClass";
 
 import ImageComponent from "@/components/Elements/Image/image.component";
 import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
-
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export default function Product({ data }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
@@ -52,7 +46,7 @@ export default function Product({ data }: ProductPropsInterface) {
   };
 
   return (
-    <section className={`${style.product} ${roboto.className} flex`}>
+    <section className={`${style.product} flex`}>
       <div
         className={style.productImage}
         onClick={() => {

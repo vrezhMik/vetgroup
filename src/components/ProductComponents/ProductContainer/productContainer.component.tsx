@@ -15,7 +15,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food3.png",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
@@ -28,7 +28,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food1.jpeg",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
@@ -41,7 +41,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food2.jpg",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
@@ -54,7 +54,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food2.jpg",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
@@ -67,7 +67,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food3.png",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
@@ -80,7 +80,7 @@ const products = [
     name: "Dog Food",
     weight: 800,
     price: 1200,
-    image: "http://127.0.0.1:3000/dog.webp",
+    image: "http://127.0.0.1:3000/food1.jpeg",
     description:
       "Give your furry friend the nutrition they deserve with our Premium Grain-Free Dog Food. Made with real chicken as the first ingredient, this formula provides high-quality protein to support strong muscles. Packed with wholesome vegetables like sweet potatoes and peas, it offers essential vitamins and minerals for overall health. Free from artificial colors, flavors, and preservatives, it's a natural and delicious choice for dogs of all breeds and sizes.",
     qty: 1,
