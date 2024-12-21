@@ -5,7 +5,7 @@ export default function UserMenu() {
   return (
     <div className={`${style.userMenu} flex`}>
       <div className={style.userMenuAvatar}>
-        <Link href={process.env.NEXT_APP_LOCALHOST + "/user"}>
+        <Link href={"/user"}>
           <Avatar />
         </Link>
       </div>
