@@ -1,7 +1,7 @@
 "use client";
 
 import HistoryList from "@/components/Elements/HistoryList/historyList.component";
-import Password from "../../Elements/Password/password.component";
+import UserSettings from "../../Elements/UserSettings/userSettings";
 import UserPageMenu from "../UserPageMenu/userPageMenu.component";
 import style from "./userPageContent.module.scss";
 import { useUserPageMenu } from "@/store/store";
@@ -12,7 +12,7 @@ export default function UserPageContent() {
   return (
     <div className={style.content}>
       <UserPageMenu />
-      {activeState === UserMenu.Settings && <Password />}
+      {activeState === UserMenu.Settings && <UserSettings />}
       {activeState === UserMenu.History && <HistoryList />}
     </div>
   );

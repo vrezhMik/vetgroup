@@ -1,10 +1,10 @@
 import Sidebar from "@/components/Elements/Sidebar/sidebar.component";
 import ProductContainer from "@/components/ProductComponents/ProductContainer/productContainer.component";
-import Card from "@/components/CardComponents/Card/card.component";
-export default function Home() {
+
+export default async function Home() {
   return (
     <main className="flex ">
-      <Sidebar />
+      <Sidebar current_user={null} />
       <ProductContainer />
     </main>
   );

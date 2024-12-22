@@ -3,13 +3,17 @@ import { DocumentNode, OperationVariables } from "@apollo/client";
 
 export async function graphQL_Query(
   query: DocumentNode,
-  variables: OperationVariables
+  variables: OperationVariables,
+  headers?: Record<string, string>
 ) {
   try {
     const { data, loading, error } = await client.query({
       query: query,
       fetchPolicy: "no-cache",
       variables: variables || null,
+      context: {
+        headers: headers || {}, // Pass headers here
+      },
     });
     if (loading) {
       console.log("Loading data...");

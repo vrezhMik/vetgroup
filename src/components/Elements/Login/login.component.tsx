@@ -6,7 +6,7 @@ import { login } from "@/utils/query";
 
 export default function Login() {
   const send_request = async () => {
-    await login("test@localhost.com", "test1234");
+    const response = await login("test@localhost.com", "test1234");
   };
 
   return (

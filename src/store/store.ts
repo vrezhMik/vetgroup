@@ -4,8 +4,10 @@ import { CartStateInterface } from "@/utils/Interfaces";
 import { CardStateInterface } from "@/utils/Interfaces";
 import { CardViewInterface } from "@/utils/Interfaces";
 import { UserMenuStateInterface } from "@/utils/Interfaces";
+import { CurrentUserStateInterface } from "@/utils/Interfaces";
 import { CardView } from "@/utils/Types";
 import { UserMenu } from "@/utils/Types";
+import { LoginStateInterface } from "@/utils/Interfaces";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -74,7 +76,28 @@ export const useCardView = create<CardViewInterface>((set) => ({
 export const useUserPageMenu = create<UserMenuStateInterface>((set) => ({
   activeState: UserMenu.History,
   setActiveState: (value) =>
-    set((state) => ({
+    set(() => ({
       activeState: value,
+    })),
+}));
+
+export const useCurrentUser = create<CurrentUserStateInterface>((set) => ({
+  user_data: {
+    documentId: "",
+    first_name: "",
+    last_name: "",
+    company: "",
+  },
+  set_current_user: (user) =>
+    set(() => ({
+      user_data: user,
+    })),
+}));
+
+export const logInState = create<LoginStateInterface>((set) => ({
+  is_logged_in: false,
+  set_logged_in_status: (status) =>
+    set(() => ({
+      is_logged_in: status,
     })),
 }));

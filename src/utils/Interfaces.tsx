@@ -3,6 +3,7 @@ import { CartItemType } from "./Types";
 import { Item } from "@/classes/ItemClass";
 import { CardView } from "./Types";
 import { UserMenu } from "./Types";
+import { CurrentUserType } from "./Types";
 
 export interface ImagePropsInterface {
   url: string;
@@ -45,4 +46,14 @@ export interface CardViewInterface {
 export interface UserMenuStateInterface {
   activeState: UserMenu;
   setActiveState: (value: UserMenu) => void;
+}
+
+export interface CurrentUserStateInterface {
+  user_data: CurrentUserType;
+  set_current_user: (user: CurrentUserType) => void;
+}
+
+export interface LoginStateInterface {
+  is_logged_in: boolean;
+  set_logged_in_status: (status: boolean) => void;
 }

@@ -26,3 +26,10 @@ export enum UserMenu {
   History,
   Settings,
 }
+
+export type CurrentUserType = {
+  documentId: string;
+  first_name: string;
+  last_name: string;
+  company: string;
+};
