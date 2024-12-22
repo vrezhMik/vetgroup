@@ -45,16 +45,21 @@ export default function UserSettings() {
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={logout}>logout</button>
+    <div className={style.content}>
+      <div className={style.contentLogout}>
+        <button onClick={logout}>Log Out</button>
       </div>
       <div className={style.user}>
-        <h3>
-          Name: {user_data.first_name}
-          {user_data.last_name}
+        <h3 className={style.userName}>
+          Name:
+          <span>
+            {" "}
+            {user_data.first_name} {user_data.last_name}
+          </span>
         </h3>
-        <h3>Company: {user_data.company}</h3>
+        <h3 className={style.userCompany}>
+          Company: <span>{user_data.company}</span>
+        </h3>
       </div>
       <div className={style.password}>
         <div className={`flex ${style.passwordInputRow}`}>
