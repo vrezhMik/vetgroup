@@ -1,4 +1,4 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .mainContainer {
   width: 80%;
@@ -26,14 +26,14 @@
           top: -7px;
           right: -7px;
           font-size: 14px;
-          background-color: $theme-second-color;
-          color: $theme-color-light;
+          background-color: variables.$theme-second-color;
+          color: variables.$theme-color-light;
           padding: 8px;
           border-radius: 50%;
         }
         svg {
           path {
-            fill: $theme-color;
+            fill: variables.$theme-color;
           }
         }
       }

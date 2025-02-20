@@ -1,4 +1,4 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .cardProduct {
   height: 100%;
@@ -13,18 +13,18 @@
   }
   &Info {
     width: 60%;
-    color: $theme-color-dark;
+    color: variables.$theme-color-dark;
     &Title {
       font-size: 45px;
       margin-bottom: 20px;
       span {
-        color: $theme-color-light;
+        color: variables.$theme-color-light;
         font-size: 20px;
       }
     }
     &Price {
       font-size: 30px;
-      color: $theme-second-color;
+      color: variables.$theme-second-color;
       margin-bottom: 20px;
     }
     &Description {

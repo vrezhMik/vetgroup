@@ -1,4 +1,4 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .history {
   width: 90%;
@@ -6,17 +6,17 @@
   &Title {
     margin-bottom: 50px;
     h1 {
-      color: $theme-color-dark;
+      color: variables.$theme-color-dark;
     }
   }
   &Elements {
     &Element {
       padding: 10px 0;
       margin-bottom: 10px;
-      border-bottom: 1px solid $theme-color-light;
+      border-bottom: 1px solid variables.$theme-color-light;
       justify-content: space-between;
       p {
-        color: $theme-color-dark;
+        color: variables.$theme-color-dark;
       }
       button {
         height: 30px;
@@ -25,7 +25,7 @@
           height: 100%;
           width: 100%;
           path {
-            fill: $theme-color;
+            fill: variables.$theme-color;
           }
         }
       }

@@ -1,4 +1,4 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .product {
   max-width: 300px;
@@ -17,8 +17,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: $theme-default-color;
-      background-color: $theme-second-color;
+      color: variables.$theme-default-color;
+      background-color: variables.$theme-second-color;
       top: 20px;
       left: 20px;
       font-size: 20px;
@@ -40,43 +40,43 @@
   }
   &Info {
     margin-bottom: 20px;
-    color: $theme-color-dark;
+    color: variables.$theme-color-dark;
     justify-content: space-between;
     align-items: center;
     &Price {
       &Sale {
-        color: $theme-second-color !important ;
+        color: variables.$theme-second-color !important;
       }
       align-items: center;
       column-gap: 10px;
       p {
-        color: $theme-color-dark;
+        color: variables.$theme-color-dark;
         font-size: 22px;
       }
       span {
         text-decoration: line-through;
         opacity: 0.5;
-        color: $theme-color-light;
+        color: variables.$theme-color-light;
       }
     }
     &Availability {
       span {
         font-size: 16px;
-        color: $theme-color-light;
+        color: variables.$theme-color-light;
       }
     }
   }
   &Title {
-    color: $theme-color-dark;
+    color: variables.$theme-color-dark;
     font-size: 18px;
     margin-bottom: 20px;
     h2 {
-      color: $theme-color-dark;
+      color: variables.$theme-color-dark;
       font-weight: normal;
       font-size: 18px;
       span {
         font-size: 16px;
-        color: $theme-color-light;
+        color: variables.$theme-color-light;
       }
     }
   }
@@ -89,7 +89,7 @@
           transform: rotate(180deg);
           height: 10px;
           path {
-            fill: $theme-color;
+            fill: variables.$theme-color;
           }
         }
       }
@@ -97,7 +97,7 @@
         svg {
           height: 10px;
           path {
-            fill: $theme-color;
+            fill: variables.$theme-color;
           }
         }
       }
@@ -107,7 +107,7 @@
         height: 23px;
         text-align: center;
         font-size: 16px;
-        color: $theme-color-dark;
+        color: variables.$theme-color-dark;
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
           -webkit-appearance: none;
@@ -117,10 +117,10 @@
       }
     }
     &Order {
-      background: $theme-color;
+      background: variables.$theme-color;
       padding: 7px 10px;
       border-radius: 10px;
-      color: $theme-default-color;
+      color: variables.$theme-default-color;
       font-size: 16px;
     }
   }

@@ -1,15 +1,15 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .menu {
   padding-top: 50px;
-  border-bottom: 1px solid $theme-color-dark;
+  border-bottom: 1px solid variables.$theme-color-dark;
   margin-bottom: 50px;
   button {
     font-size: 20px;
-    border: 1px solid $theme-color-dark;
+    border: 1px solid variables.$theme-color-dark;
     border-bottom: none;
     padding: 10px 15px;
-    color: $theme-color-dark;
+    color: variables.$theme-color-dark;
     &:last-child {
       border-left: none;
     }
@@ -17,6 +17,6 @@
 }
 
 .active {
-  color: $theme-default-color !important;
-  background-color: $theme-color-dark;
+  color: variables.$theme-default-color !important;
+  background-color: variables.$theme-color-dark;
 }

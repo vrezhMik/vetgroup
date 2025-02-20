@@ -1,4 +1,4 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .cardList {
   &Row {
@@ -6,7 +6,7 @@
     &Title {
       width: 25%;
       span {
-        color: $theme-color;
+        color: variables.$theme-color;
         font-size: 25px;
         text-align: left;
       }
@@ -25,7 +25,7 @@
         }
         width: 25%;
         span {
-          color: $theme-color-dark;
+          color: variables.$theme-color-dark;
           font-size: 20px;
         }
         button {
@@ -33,7 +33,7 @@
             height: 18px;
             width: 18px;
             path {
-              fill: $theme-color;
+              fill: variables.$theme-color;
             }
           }
         }
@@ -44,11 +44,11 @@
     align-items: center;
     justify-content: space-between;
     h1 {
-      color: $theme-color-dark;
+      color: variables.$theme-color-dark;
     }
     button {
-      background-color: $theme-color;
-      color: $theme-default-color;
+      background-color: variables.$theme-color;
+      color: variables.$theme-default-color;
       padding: 10px 15px;
       font-size: 24px;
     }

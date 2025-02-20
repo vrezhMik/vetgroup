@@ -5,6 +5,7 @@ import { useCart, useCard, useCardView } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
 import { CardView } from "@/utils/Types";
 import { Item } from "@/classes/ItemClass";
+// import { FileController } from "@/classes/FileController";
 
 import ImageComponent from "@/components/Elements/Image/image.component";
 import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
@@ -15,6 +16,7 @@ export default function Product({ data }: ProductPropsInterface) {
   const { addItem } = useCart();
   const { setCardView } = useCardView();
   const currentProduct = new Item(data);
+  // FileController.read_xlsx_file("./public/vet.xlsx");
 
   const increment = () => {
     currentProduct.setQty(quantity + 1);
@@ -92,7 +94,6 @@ export default function Product({ data }: ProductPropsInterface) {
         <h2>
           {currentProduct.getTitle()}
           <span>
-            {" "}
             ({(currentProduct.getWeight() * currentProduct.getQty()) / 1000} kg)
           </span>
         </h2>

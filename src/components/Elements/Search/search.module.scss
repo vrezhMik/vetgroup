@@ -1,23 +1,23 @@
-@import "./../../../styles/variables";
+@use "./../../../styles/variables" as variables;
 
 .search {
   align-items: center;
   width: 50%;
   &Input {
-    border: 1px solid $theme-color-light;
+    border: 1px solid variables.$theme-color-light;
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 20px;
     height: 40px;
     width: 100%;
-    color: $theme-color-dark;
+    color: variables.$theme-color-dark;
     &::placeholder {
-      color: $theme-color-light;
+      color: variables.$theme-color-light;
       font-size: 18px;
     }
   }
   &Button {
-    border: 1px solid $theme-color-light;
+    border: 1px solid variables.$theme-color-light;
     border-left: none;
     border-radius: 10px;
     border-top-left-radius: 0px;
@@ -26,7 +26,7 @@
     svg {
       height: 25px;
       path {
-        fill: $theme-color;
+        fill: variables.$theme-color;
       }
     }
   }
