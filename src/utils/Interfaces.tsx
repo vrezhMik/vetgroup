@@ -4,6 +4,7 @@ import { Item } from "@/classes/ItemClass";
 import { CardView } from "./Types";
 import { UserMenu } from "./Types";
 import { CurrentUserType } from "./Types";
+import { ProductType } from "./Types";
 
 export interface ImagePropsInterface {
   url: string;
@@ -15,7 +16,7 @@ export interface CardProductViewPropsInterface {
 }
 
 export interface ProductPropsInterface {
-  data: CartItemType;
+  data: ProductType;
 }
 
 export interface FiltersStateInterface {
@@ -23,6 +24,7 @@ export interface FiltersStateInterface {
   addFilter: (filter: FilterType) => void;
   removeFilter: (id: string) => void;
 }
+
 export interface CartStateInterface {
   cartItems: Item[];
   cartTotal: number;
@@ -56,4 +58,9 @@ export interface CurrentUserStateInterface {
 export interface LoginStateInterface {
   is_logged_in: boolean;
   set_logged_in_status: (status: boolean) => void;
+}
+
+export interface ProductsStateInterface {
+  products: ProductType[];
+  add_product: (product: ProductType[]) => void;
 }

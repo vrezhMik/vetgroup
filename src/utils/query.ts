@@ -2,6 +2,7 @@ import { graphQL_Query } from "./graphql";
 import { LOGIN_FRAGMENT } from "./fragments";
 import { USER_FRAGMENT } from "./fragments";
 import { CHANGE_PASSWORD_FRAGMENT } from "./fragments";
+import { GET_PRODUCTS_FRAGMENT } from "./fragments";
 import Cookies from "js-cookie";
 
 export async function login(identifier: string, password: string) {
@@ -60,7 +61,6 @@ export async function change_password_query(
 ) {
   try {
     const jwt = Cookies.get("jwt");
-    console.log(old_password, new_password, confirm_password);
     const response = await graphQL_Query(
       CHANGE_PASSWORD_FRAGMENT,
       {
@@ -70,6 +70,17 @@ export async function change_password_query(
       },
       { Authorization: `Bearer ${jwt}` }
     );
+    return response;
+  } catch (error: any) {
+    throw new Error(
+      error.message || "An unexpected error occurred during login"
+    );
+  }
+}
+
+export async function get_products() {
+  try {
+    const response = await graphQL_Query(GET_PRODUCTS_FRAGMENT, {});
     return response;
   } catch (error: any) {
     throw new Error(

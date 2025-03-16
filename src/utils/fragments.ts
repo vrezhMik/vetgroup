@@ -40,3 +40,17 @@ export const CHANGE_PASSWORD_FRAGMENT = gql`
     }
   }
 `;
+
+export const GET_PRODUCTS_FRAGMENT = gql`
+  query {
+    products(pagination: { limit: 10000 }) {
+      code
+      name
+      description
+      price
+      image {
+        url
+      }
+    }
+  }
+`;

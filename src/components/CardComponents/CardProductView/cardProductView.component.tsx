@@ -9,13 +9,13 @@ export default function CardProductView() {
   return (
     <div className={`row flex ${style.cardProduct}`}>
       <div className={`${style.cardProductImage}`}>
-        <ImageComponent alt={"image"} url={currentItem?.getImage() || "/"} />
+        <ImageComponent alt={"image"} url={"/placeholder.webp"} />
       </div>
       <div className={`${style.cardProductInfo}`}>
         <div className={`${style.cardProductInfoTitle}`}>
           {currentItem?.getTitle()}
           <span>
-            {currentItem?.getWeight() && currentItem?.getWeight() / 1000} kg
+            {/* {currentItem?.getWeight() && currentItem?.getWeight() / 1000} kg */}
           </span>
         </div>
         <div className={`${style.cardProductInfoPrice}`}>

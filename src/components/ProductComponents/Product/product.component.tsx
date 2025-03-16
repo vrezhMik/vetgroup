@@ -15,24 +15,28 @@ export default function Product({ data }: ProductPropsInterface) {
   const { setCardState, setCurrentItem } = useCard();
   const { addItem } = useCart();
   const { setCardView } = useCardView();
-  const currentProduct = new Item(data);
-  // FileController.read_xlsx_file("./public/vet.xlsx");
+  const [currentProduct, setCurrentProduct] = useState(new Item(data));
 
   const increment = () => {
-    currentProduct.setQty(quantity + 1);
-    setQuantity(quantity + 1);
+    const updatedProduct = new Item(currentProduct);
+    updatedProduct.setQty(quantity + 1);
+    setQuantity(updatedProduct.getQty());
+    setCurrentProduct(updatedProduct);
   };
 
   const decrement = () => {
     if (quantity <= 1) return;
-    currentProduct.setQty(quantity - 1);
-    setQuantity(quantity - 1);
+    const updatedProduct = new Item(currentProduct);
+    updatedProduct.setQty(quantity - 1);
+    setQuantity(updatedProduct.getQty());
+    setCurrentProduct(updatedProduct);
   };
 
   const handleChange = (e: any) => {
     const value = parseInt(e.target.value, 10);
     if (!isNaN(value)) {
       setQuantity(value);
+      currentProduct.setQty(value);
     }
   };
 
@@ -51,50 +55,44 @@ export default function Product({ data }: ProductPropsInterface) {
     <section className={`${style.product} flex`}>
       <div
         className={style.productImage}
-        onClick={() => {
-          handleClick(true, currentProduct);
-        }}
+        // onClick={() => {
+        //   handleClick(true, currentProduct);
+        // }}
       >
-        {currentProduct.hasSale() && (
+        {/* {currentProduct.hasSale() && (
           <div className={style.productImageSale}>
             <span>-{currentProduct.getSalePercentage()}%</span>
           </div>
-        )}
+        )} */}
         <ImageComponent
           alt={currentProduct.getTitle() || ""}
-          url={currentProduct.getImage() || "/"}
+          url={"/placeholder.webp"}
         />
       </div>
 
       <div className={`${style.productInfo} flex`}>
         <div className={`${style.productInfoPrice} flex`}>
-          <p
-            className={
-              currentProduct.hasSale() ? style.productInfoPriceSale : ""
-            }
-          >
-            {currentProduct.getQty() *
-              (currentProduct.hasSale()
-                ? currentProduct.getSalePrice()
-                : currentProduct.getPrice())}{" "}
+          <p className={style.productInfoPriceSale}>
+            {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
             AMD
           </p>
-          {currentProduct.hasSale() && (
-            <span className={style.productOldPrice}>
-              {currentProduct.getPrice()}AMD
-            </span>
-          )}
+          {/* <span className={style.productOldPrice}>
+            {currentProduct.getPrice()}AMD
+          </span> */}
         </div>
-        <div className={`${style.productInfoAvailability}`}>
+        {/* <div className={`${style.productInfoAvailability}`}>
           <span>On Demand</span>
-        </div>
+        </div> */}
       </div>
 
       <div className={style.productTitle}>
         <h2>
           {currentProduct.getTitle()}
+          <br />
           <span>
-            ({(currentProduct.getWeight() * currentProduct.getQty()) / 1000} kg)
+            {/* ({(currentProduct.getWeight() * currentProduct.getQty()) / 1000} kg)
+             */}
+            {currentProduct.getDescription()}
           </span>
         </h2>
       </div>
@@ -110,7 +108,7 @@ export default function Product({ data }: ProductPropsInterface) {
           <input
             type="number"
             name=""
-            value={currentProduct.getQty()}
+            value={quantity}
             id=""
             onChange={handleChange}
           />

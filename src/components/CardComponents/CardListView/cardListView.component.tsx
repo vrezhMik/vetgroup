@@ -30,20 +30,18 @@ export default function CardListView() {
             <div className={`${style.cardListDataRowElement}`}>
               <span>{item.getTitle()}</span>
             </div>
-
             <div className={`${style.cardListDataRowElement}`}>
-              <span>{(item.getWeight() / 1000) * item.getQty()} kg</span>
+              {/* <span>{(item.getWeight() / 1000) * } kg</span> */}
+              {item.getQty()}
             </div>
-            {item.hasSale() ? (
+            {/* {item.hasSale() ? (
               <div className={`${style.cardListDataRowElement}`}>
                 <span>{item.getSalePrice()} AMD</span>
               </div>
-            ) : (
-              <div className={`${style.cardListDataRowElement}`}>
-                <span>{item.getPrice()} AMD</span>
-              </div>
-            )}
-
+            ) : ( */}
+            <div className={`${style.cardListDataRowElement}`}>
+              <span>{item.getPrice()} AMD</span>
+            </div>
             <div className={`${style.cardListDataRowElement} flex`}>
               <span>{item.getTotalPrice()} AMD</span>
               {cardViewState != CardView.History && (
@@ -58,7 +56,7 @@ export default function CardListView() {
       {cardViewState != CardView.History && (
         <div className={`${style.cardListCheckout} flex`}>
           <h1>
-            Total: <span>{cartTotal}amd</span>
+            Total: <span>{cartTotal} AMD</span>
           </h1>
           <button>Request</button>
         </div>

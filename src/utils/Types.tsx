@@ -33,3 +33,12 @@ export type CurrentUserType = {
   last_name: string;
   company: string;
 };
+
+export type ProductType = {
+  name: string;
+  code: string;
+  price: number;
+  description: string;
+  qty: number;
+  totalPrice: number;
+};
