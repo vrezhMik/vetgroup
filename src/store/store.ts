@@ -99,8 +99,7 @@ export const logInState = create<LoginStateInterface>((set) => ({
 
 export const productsStore = create<ProductsStateInterface>((set) => ({
   products: [],
-  add_product: (product) =>
-    set((state) => ({
-      products: product,
-    })),
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query }),
+  add_product: (product) => set({ products: product }),
 }));
