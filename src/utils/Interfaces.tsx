@@ -32,6 +32,7 @@ export interface CartStateInterface {
   addItem: (item: Item) => void;
   removeItem: (id: string) => void;
   getItemCount: () => number;
+  cleanCart: () => void;
 }
 
 export interface CardStateInterface {

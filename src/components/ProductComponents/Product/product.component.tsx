@@ -123,7 +123,11 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           </button>
         </div>
         <div>
-          <button className={`${style.productActionOrder}`} onClick={orderItem}>
+          <button
+            className={`${style.productActionOrder}`}
+            onClick={orderItem}
+            disabled={placeholder}
+          >
             Order
           </button>
         </div>

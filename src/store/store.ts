@@ -34,23 +34,20 @@ export const useCart = create<CartStateInterface>((set, get) => ({
 
       let updatedCartItems;
       if (existingItemIndex !== -1) {
-        // Update the existing item's quantity instead of adding a new one
         updatedCartItems = [...state.cartItems];
         updatedCartItems[existingItemIndex].setQty(item.getQty());
       } else {
-        // Add a new item to the cart
         updatedCartItems = [...state.cartItems, item];
       }
 
-      // Recalculate the total price
-      const updatedCartTotal = updatedCartItems.reduce(
-        (total, cartItem) => total + cartItem.getPrice() * cartItem.getQty(),
-        0
-      );
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
       return {
         cartItems: updatedCartItems,
-        cartTotal: updatedCartTotal,
+        cartTotal: updatedCartItems.reduce(
+          (total, cartItem) => total + cartItem.getPrice() * cartItem.getQty(),
+          0
+        ),
       };
     }),
 
@@ -60,15 +57,30 @@ export const useCart = create<CartStateInterface>((set, get) => ({
       if (!itemToRemove) {
         return state;
       }
+
+      const updatedCartItems = state.cartItems.filter(
+        (item) => item.getId() !== id
+      );
       const itemPrice = itemToRemove.getPrice() * itemToRemove.getQty();
 
+      // ✅ Save the updated cart to localStorage
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
       return {
-        cartItems: state.cartItems.filter((item) => item.getId() !== id),
+        cartItems: updatedCartItems,
         cartTotal: state.cartTotal - itemPrice,
       };
     }),
 
   getItemCount: () => get().cartItems.length,
+
+  cleanCart: () =>
+    set((state) => {
+      localStorage.removeItem("cartItems");
+      return {
+        cartItems: [],
+      };
+    }),
 }));
 
 export const useCard = create<CardStateInterface>((set) => ({

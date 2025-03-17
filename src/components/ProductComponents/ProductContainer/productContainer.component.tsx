@@ -69,9 +69,11 @@ export default function ProductContainer() {
           ? filteredProducts.map((element, key) => (
               <Product key={key} data={element} placeholder={false} />
             ))
-          : Array.from({ length: 10 }).map((_, index) => (
+          : filteredProducts.length === 0
+          ? Array.from({ length: 10 }).map((_, index) => (
               <Product key={index} data={placeholderData} placeholder={true} />
-            ))}
+            ))
+          : null}
       </div>
     </div>
   );
