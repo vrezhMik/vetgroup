@@ -25,11 +25,35 @@ export const useFilters = create<FiltersStateInterface>((set) => ({
 export const useCart = create<CartStateInterface>((set, get) => ({
   cartItems: [],
   cartTotal: 0,
+
   addItem: (item) =>
-    set((state) => ({
-      cartItems: [...state.cartItems, item],
-      cartTotal: state.cartTotal + item.getPrice() * item.getQty(),
-    })),
+    set((state) => {
+      const existingItemIndex = state.cartItems.findIndex(
+        (cartItem) => cartItem.getId() === item.getId()
+      );
+
+      let updatedCartItems;
+      if (existingItemIndex !== -1) {
+        // Update the existing item's quantity instead of adding a new one
+        updatedCartItems = [...state.cartItems];
+        updatedCartItems[existingItemIndex].setQty(item.getQty());
+      } else {
+        // Add a new item to the cart
+        updatedCartItems = [...state.cartItems, item];
+      }
+
+      // Recalculate the total price
+      const updatedCartTotal = updatedCartItems.reduce(
+        (total, cartItem) => total + cartItem.getPrice() * cartItem.getQty(),
+        0
+      );
+
+      return {
+        cartItems: updatedCartItems,
+        cartTotal: updatedCartTotal,
+      };
+    }),
+
   removeItem: (id) =>
     set((state) => {
       const itemToRemove = state.cartItems.find((item) => item.getId() === id);
@@ -43,6 +67,7 @@ export const useCart = create<CartStateInterface>((set, get) => ({
         cartTotal: state.cartTotal - itemPrice,
       };
     }),
+
   getItemCount: () => get().cartItems.length,
 }));
 

@@ -17,6 +17,7 @@ export interface CardProductViewPropsInterface {
 
 export interface ProductPropsInterface {
   data: ProductType;
+  placeholder: boolean;
 }
 
 export interface FiltersStateInterface {

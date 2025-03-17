@@ -19,7 +19,7 @@ export default function Sidebar({ current_user }: SidebarProps) {
   return (
     <aside className={`flex ${style.sidebar}`}>
       <UserMenu />
-      <MainMenu />
+      {/* <MainMenu /> */}
     </aside>
   );
 }

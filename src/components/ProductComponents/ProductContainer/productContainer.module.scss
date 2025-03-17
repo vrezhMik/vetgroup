@@ -1,8 +1,8 @@
 @use "./../../../styles/variables" as variables;
 
 .mainContainer {
-  width: 80%;
-  margin-left: 20%;
+  width: 90%;
+  margin-left: 15%;
   &SearchBar {
     margin-bottom: 50px;
     justify-content: space-between;
@@ -23,12 +23,13 @@
         position: relative;
         &Items {
           position: absolute;
-          top: -7px;
-          right: -7px;
+          top: -20px;
+          right: -20px;
           font-size: 14px;
           background-color: variables.$theme-second-color;
-          color: variables.$theme-color-light;
-          padding: 8px;
+          // color: variables.$theme-color-light;
+          color: #fff;
+          padding: 5px;
           border-radius: 50%;
         }
         svg {

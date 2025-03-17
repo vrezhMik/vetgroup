@@ -11,7 +11,7 @@ import { CardView } from "@/utils/Types";
 import { productsStore } from "@/store/store";
 
 export default function ProductContainer() {
-  const { getItemCount } = useCart();
+  const { getItemCount, cartTotal } = useCart();
   const { cardState, setCardState } = useCard();
   const { cardViewState, setCardView } = useCardView();
   const { products, searchQuery } = productsStore();
@@ -36,6 +36,16 @@ export default function ProductContainer() {
       product.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const placeholderData = {
+    code: "0000",
+    name: "L. Ipsume",
+    description: "Lorem Ipsum",
+    price: 1000,
+    image: "/",
+    __typename: "Product",
+    qty: 1,
+    totalPrice: 1,
+  };
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>
@@ -46,22 +56,22 @@ export default function ProductContainer() {
             onClick={showCart}
           >
             {getItemCount() > 0 && (
-              <div
-                className={`${style.mainContainerSearchBarCartButtonItems}`}
-              ></div>
+              <div className={`${style.mainContainerSearchBarCartButtonItems}`}>
+                {cartTotal}
+              </div>
             )}
             <CartSVG />
           </button>
         </div>
       </div>
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((element, key) => (
-            <Product key={key} data={element} />
-          ))
-        ) : (
-          <p>No products found</p>
-        )}
+        {filteredProducts.length > 0
+          ? filteredProducts.map((element, key) => (
+              <Product key={key} data={element} placeholder={false} />
+            ))
+          : Array.from({ length: 10 }).map((_, index) => (
+              <Product key={index} data={placeholderData} placeholder={true} />
+            ))}
       </div>
     </div>
   );

@@ -3,10 +3,19 @@ import TrashSVG from "../../Elements/Icons/TrashSVG";
 import style from "./cardListView.module.scss";
 import { CardView } from "@/utils/Types";
 import { useCardView } from "@/store/store";
+import { getCookie } from "@/utils/cookies";
+import { add_order } from "@/utils/query";
+import { it } from "node:test";
 
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal } = useCart();
   const { cardViewState } = useCardView();
+
+  const save_request = async () => {
+    // console.log(document.cookie.user);
+    const user = getCookie("user");
+    add_order(cartItems, user ? parseInt(user) : -1, cartTotal);
+  };
 
   return (
     <div className={`${style.cardList}`}>
@@ -43,7 +52,7 @@ export default function CardListView() {
               <span>{item.getPrice()} AMD</span>
             </div>
             <div className={`${style.cardListDataRowElement} flex`}>
-              <span>{item.getTotalPrice()} AMD</span>
+              <span>{item.getPrice() * item.getQty()} AMD</span>
               {cardViewState != CardView.History && (
                 <button onClick={() => removeItem(item.getId())}>
                   <TrashSVG />
@@ -58,7 +67,7 @@ export default function CardListView() {
           <h1>
             Total: <span>{cartTotal} AMD</span>
           </h1>
-          <button>Request</button>
+          <button onClick={save_request}>Request</button>
         </div>
       )}
     </div>

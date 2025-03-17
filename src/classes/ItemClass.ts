@@ -95,6 +95,7 @@ import { ProductType } from "@/utils/Types";
 export class Item implements ProductType {
   name: string;
   code: string;
+  image: string;
   price: number;
   description: string;
   qty: number;
@@ -107,6 +108,7 @@ export class Item implements ProductType {
     this.description = item.description;
     this.qty = 1;
     this.totalPrice = 0;
+    this.image = item.image;
   }
 
   getId(): string {
@@ -138,7 +140,7 @@ export class Item implements ProductType {
   }
 
   getTotalPrice(): number {
-    return this.totalPrice;
+    return this.totalPrice * this.getQty();
   }
   formatPrice(value: number): string {
     if (isNaN(value)) return "0,00";

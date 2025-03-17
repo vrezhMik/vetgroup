@@ -5,12 +5,11 @@ import { useCart, useCard, useCardView } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
 import { CardView } from "@/utils/Types";
 import { Item } from "@/classes/ItemClass";
-// import { FileController } from "@/classes/FileController";
 
 import ImageComponent from "@/components/Elements/Image/image.component";
 import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
 
-export default function Product({ data }: ProductPropsInterface) {
+export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
   const { setCardState, setCurrentItem } = useCard();
   const { addItem } = useCart();
@@ -52,7 +51,11 @@ export default function Product({ data }: ProductPropsInterface) {
   };
 
   return (
-    <section className={`${style.product} flex`}>
+    <section
+      className={`${style.product} flex ${
+        placeholder ? style.placeholder : ""
+      }`}
+    >
       <div
         className={style.productImage}
         // onClick={() => {

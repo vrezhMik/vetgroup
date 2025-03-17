@@ -38,6 +38,7 @@ export type ProductType = {
   name: string;
   code: string;
   price: number;
+  image: string;
   description: string;
   qty: number;
   totalPrice: number;
