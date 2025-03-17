@@ -14,7 +14,6 @@ export default function CardListView() {
   const { setCardState } = useCard();
   const { cardViewState } = useCardView();
 
-  // Load cart items from localStorage on first render
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
     if (storedCart) {
@@ -57,8 +56,7 @@ export default function CardListView() {
         {cartItems?.map((item, key) => (
           <div className={`row flex ${style.cardListDataRow}`} key={key}>
             <div className={`${style.cardListDataRowElement}`}>
-              <span>{item.name}</span>{" "}
-              {/* Updated for plain object compatibility */}
+              <span>{item.name}</span>
             </div>
             <div className={`${style.cardListDataRowElement}`}>{item.qty}</div>
             <div className={`${style.cardListDataRowElement}`}>
