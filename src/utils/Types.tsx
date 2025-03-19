@@ -43,3 +43,10 @@ export type ProductType = {
   qty: number;
   totalPrice: number;
 };
+
+export type OrderType = {
+  order_id: string;
+  created: string;
+  total: string;
+  products_json: [];
+};

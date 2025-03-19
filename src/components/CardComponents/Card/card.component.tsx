@@ -6,8 +6,8 @@ import CardProductView from "../CardProductView/cardProductView.component";
 import CardListView from "../CardListView/cardListView.component";
 
 export default function Card() {
-  const { cardState, setCardState, currentItem, setCurrentItem } = useCard();
-  const { cardViewState, setCardView } = useCardView();
+  const { cardState, setCardState, setCurrentItem } = useCard();
+  const { cardViewState } = useCardView();
 
   return (
     <div

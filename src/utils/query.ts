@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { Item } from "@/classes/ItemClass";
 import { GET_ORDER_ID } from "./fragments";
 import { GET_USER_ORDERS } from "./fragments";
+import { ApolloError } from "@apollo/client";
 
 const getFormattedCurrentDate = () => {
   return new Date().toISOString().split(".")[0] + "Z";
@@ -79,10 +80,14 @@ export async function login(identifier: string, password: string) {
     document.cookie = `document=${documentId}; path=/; secure; SameSite=Strict`;
     document.cookie = `user=${id}; path=/; secure; SameSite=Strict`;
     return documentId;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -95,10 +100,14 @@ export async function get_current_user(id: string) {
       );
     }
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -119,10 +128,14 @@ export async function change_password_query(
       { Authorization: `Bearer ${jwt}` }
     );
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -130,10 +143,14 @@ export async function get_products() {
   try {
     const response = await graphQL_Query(GET_PRODUCTS_FRAGMENT, {});
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -141,10 +158,14 @@ async function get_order_id() {
   try {
     const response = await graphQL_Query(GET_ORDER_ID, {});
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -168,10 +189,14 @@ export async function add_order(items: Item[], user: number, total: number) {
       products_json: items,
     });
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred during login"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
 
@@ -186,9 +211,13 @@ export async function get_user_orders(documentId: string) {
     }
 
     return response;
-  } catch (error: any) {
-    throw new Error(
-      error.message || "An unexpected error occurred while fetching orders"
-    );
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }

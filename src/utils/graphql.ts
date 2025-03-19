@@ -1,4 +1,5 @@
 import client from "@/app/client";
+import { ApolloError } from "@apollo/client";
 import { DocumentNode, OperationVariables } from "@apollo/client";
 
 export async function graphQL_Query(
@@ -27,8 +28,13 @@ export async function graphQL_Query(
       throw new Error("No data found");
     }
     return data;
-  } catch (error: any) {
-    console.error("An error occurred:", error.message);
-    return null;
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }

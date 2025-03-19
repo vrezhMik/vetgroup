@@ -75,7 +75,7 @@ export const useCart = create<CartStateInterface>((set, get) => ({
   getItemCount: () => get().cartItems.length,
 
   cleanCart: () =>
-    set((state) => {
+    set(() => {
       localStorage.removeItem("cartItems");
       return {
         cartItems: [],
@@ -92,7 +92,7 @@ export const useCard = create<CardStateInterface>((set) => ({
       cardState: value,
     })),
   setCurrentItem: (item) =>
-    set((state) => ({
+    set(() => ({
       currentItem: item,
     })),
 }));
@@ -100,7 +100,7 @@ export const useCard = create<CardStateInterface>((set) => ({
 export const useCardView = create<CardViewInterface>((set) => ({
   cardViewState: CardView.List,
   setCardView: (value) =>
-    set((state) => ({
+    set(() => ({
       cardViewState: value,
     })),
 }));

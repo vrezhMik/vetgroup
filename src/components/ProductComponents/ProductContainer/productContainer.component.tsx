@@ -13,7 +13,7 @@ import { productsStore } from "@/store/store";
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
   const { cardState, setCardState } = useCard();
-  const { cardViewState, setCardView } = useCardView();
+  const { setCardView } = useCardView();
   const { products, searchQuery } = productsStore();
 
   useEffect(

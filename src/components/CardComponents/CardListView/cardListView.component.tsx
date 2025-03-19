@@ -8,6 +8,7 @@ import { useCardView } from "@/store/store";
 import { getCookie } from "@/utils/cookies";
 import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
+import { ProductType } from "@/utils/Types";
 
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
@@ -20,7 +21,9 @@ export default function CardListView() {
       try {
         const parsedCart = JSON.parse(storedCart);
 
-        const restoredCart = parsedCart.map((item: any) => new Item(item));
+        const restoredCart = parsedCart.map(
+          (item: ProductType) => new Item(item)
+        );
 
         restoredCart.forEach((item: Item) => addItem(item));
       } catch (error) {

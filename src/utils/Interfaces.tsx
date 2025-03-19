@@ -1,5 +1,4 @@
 import { FilterType } from "./Types";
-import { CartItemType } from "./Types";
 import { Item } from "@/classes/ItemClass";
 import { CardView } from "./Types";
 import { UserMenu } from "./Types";

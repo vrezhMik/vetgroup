@@ -6,13 +6,14 @@ import { CardView } from "@/utils/Types";
 import { Item } from "@/classes/ItemClass";
 import { get_user_orders } from "@/utils/query";
 import { getCookie } from "@/utils/cookies";
+import { OrderType } from "@/utils/Types";
 
 function HistoryList() {
   const { setCardState } = useCard();
   const { setCardView } = useCardView();
   const { addItem } = useCart();
 
-  const [orders, setOrders] = useState([]); // ✅ Store fetched orders
+  const [orders, setOrders] = useState([]);
 
   // Fetch order history on component mount
   useEffect(() => {
@@ -56,7 +57,7 @@ function HistoryList() {
       </div>
       <div className={`${style.historyElements}`}>
         {orders.length > 0 ? (
-          orders.map((element: any, key: number) => (
+          orders.map((element: OrderType, key: number) => (
             <div key={key} className={`flex ${style.historyElementsElement}`}>
               <p>#{element.order_id}</p>
               <p>{element.created}</p>

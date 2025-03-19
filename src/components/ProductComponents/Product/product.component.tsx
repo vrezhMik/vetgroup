@@ -1,9 +1,8 @@
 "use client";
 import style from "./product.module.scss";
 import { useState } from "react";
-import { useCart, useCard, useCardView } from "@/store/store";
+import { useCart } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
-import { CardView } from "@/utils/Types";
 import { Item } from "@/classes/ItemClass";
 
 import ImageComponent from "@/components/Elements/Image/image.component";
@@ -11,9 +10,7 @@ import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
 
 export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
-  const { setCardState, setCurrentItem } = useCard();
   const { addItem } = useCart();
-  const { setCardView } = useCardView();
   const [currentProduct, setCurrentProduct] = useState(new Item(data));
 
   const increment = () => {
@@ -31,7 +28,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
     setCurrentProduct(updatedProduct);
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     if (!isNaN(value)) {
       setQuantity(value);
@@ -39,11 +36,11 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
     }
   };
 
-  const handleClick = (state: boolean, data: Item): void => {
-    setCardState(true);
-    setCurrentItem(currentProduct);
-    setCardView(CardView.Product);
-  };
+  // const handleClick = (state: boolean, data: Item): void => {
+  //   setCardState(true);
+  //   setCurrentItem(currentProduct);
+  //   setCardView(CardView.Product);
+  // };
 
   const orderItem = (): void => {
     currentProduct.setTotal();

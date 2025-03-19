@@ -1,4 +1,3 @@
-import { CardProductViewPropsInterface } from "@/utils/Interfaces";
 import ImageComponent from "../../Elements/Image/image.component";
 import style from "./cardProductView.module.scss";
 import { useCard } from "@/store/store";
