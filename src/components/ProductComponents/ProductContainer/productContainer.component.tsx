@@ -20,7 +20,7 @@ export default function ProductContainer() {
     () => () => {
       const body = document.getElementsByTagName("body")[0];
       const overflowStatus = cardState ? "scroll" : "hidden";
-      body.style.overflow = overflowStatus;
+      body.style.overflowY = overflowStatus;
     },
     [cardState]
   );

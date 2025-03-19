@@ -5,6 +5,9 @@
     justify-content: space-evenly;
     &Title {
       width: 25%;
+      &:nth-child(2) {
+        text-align: center;
+      }
       span {
         color: variables.$theme-color;
         font-size: 25px;
@@ -13,13 +16,21 @@
     }
   }
   &Data {
-    overflow: scroll;
+    overflow-y: scroll;
     height: 500px;
     margin: 40px 0px;
+    padding-right: 30px;
     &Row {
       justify-content: space-evenly;
       margin-top: 20px;
+      align-items: center;
       &Element {
+        &:first-child {
+          width: 30%;
+        }
+        &:nth-child(2) {
+          text-align: center;
+        }
         &:last-child {
           justify-content: space-between;
         }

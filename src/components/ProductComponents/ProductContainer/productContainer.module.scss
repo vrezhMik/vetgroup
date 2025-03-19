@@ -2,7 +2,7 @@
 
 .mainContainer {
   width: 90%;
-  margin-left: 15%;
+  margin-left: 10%;
   &SearchBar {
     margin-bottom: 50px;
     justify-content: space-between;
@@ -10,8 +10,8 @@
     top: 0;
     z-index: 10;
     background-color: #fff;
-    padding-left: 70px;
-    padding-right: 70px;
+    padding-left: 16%;
+    padding-right: 16%;
     padding-top: 30px;
     padding-bottom: 30px;
     &Cart {
@@ -41,6 +41,7 @@
     }
   }
   &ProductContainer {
+    justify-content: center;
     padding-left: 70px;
     padding-right: 70px;
     padding-bottom: 50px;
