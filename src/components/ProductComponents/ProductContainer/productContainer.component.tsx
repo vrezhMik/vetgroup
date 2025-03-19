@@ -14,7 +14,7 @@ export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
   const { cardState, setCardState } = useCard();
   const { setCardView } = useCardView();
-  const { products, searchQuery } = productsStore();
+  const { products, searchQuery, loading } = productsStore();
 
   useEffect(
     () => () => {
@@ -65,15 +65,21 @@ export default function ProductContainer() {
         </div>
       </div>
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {filteredProducts.length > 0
-          ? filteredProducts.map((element, key) => (
-              <Product key={key} data={element} placeholder={false} />
-            ))
-          : filteredProducts.length === 0
+        {loading || products.length === 0
           ? Array.from({ length: 10 }).map((_, index) => (
-              <Product key={index} data={placeholderData} placeholder={true} />
+              <Product
+                key={`placeholder-${index}`}
+                data={placeholderData}
+                placeholder={true}
+              />
             ))
-          : null}
+          : filteredProducts.map((element, key) => (
+              <Product
+                key={element.code || key}
+                data={element}
+                placeholder={false}
+              />
+            ))}
       </div>
     </div>
   );

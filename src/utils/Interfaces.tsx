@@ -64,6 +64,7 @@ export interface LoginStateInterface {
 export interface ProductsStateInterface {
   products: ProductType[];
   searchQuery: string;
+  loading: boolean;
   setSearchQuery: (query: string) => void;
   add_product: (product: ProductType[]) => void;
 }
