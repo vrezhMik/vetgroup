@@ -1,14 +1,12 @@
 "use client";
 import style from "./productContainer.module.scss";
 
-import { useCart, useCard, useCardView } from "@/store/store";
-
+import { useCart, useCard, useCardView, productsStore } from "@/store/store";
 import Product from "../Product/product.component";
 import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
 import CartSVG from "@/components/Elements/Icons/CartSVG";
 import { CardView } from "@/utils/Types";
-import { productsStore } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
@@ -16,17 +14,23 @@ export default function ProductContainer() {
   const { setCardView } = useCardView();
   const { products, searchQuery, loading } = productsStore();
 
+  const [initialLoad, setInitialLoad] = useState(true); // Track initial load
+
+  useEffect(() => {
+    if (products.length > 0) {
+      setInitialLoad(false);
+    }
+  }, [products]);
+
   const showCart = () => {
     setCardState(true);
     setCardView(CardView.List);
   };
+
   useEffect(() => {
     const body = document.getElementsByTagName("body")[0];
-    let overflowStatus = "scroll";
-    if (loading) overflowStatus = "hidden";
-    else overflowStatus = "scroll";
-    body.style.overflowY = overflowStatus;
-  }, [loading]);
+    body.style.overflowY = initialLoad && loading ? "hidden" : "scroll";
+  }, [loading, initialLoad]);
 
   const filteredProducts = products.filter(
     (product) =>
@@ -44,6 +48,7 @@ export default function ProductContainer() {
     qty: 1,
     totalPrice: 1,
   };
+
   return (
     <div className={`${style.mainContainer}`}>
       <div className={`${style.mainContainerSearchBar} flex`}>
@@ -62,22 +67,27 @@ export default function ProductContainer() {
           </button>
         </div>
       </div>
+
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {loading || products.length === 0
-          ? Array.from({ length: 10 }).map((_, index) => (
-              <Product
-                key={`placeholder-${index}`}
-                data={placeholderData}
-                placeholder={true}
-              />
-            ))
-          : filteredProducts.map((element, key) => (
-              <Product
-                key={element.code || key}
-                data={element}
-                placeholder={false}
-              />
-            ))}
+        {/* Render products if initial load is complete */}
+        {filteredProducts.map((element, key) => (
+          <Product
+            key={element.code + key}
+            data={element}
+            placeholder={false}
+          />
+        ))}
+
+        {/* Show loading placeholders only during the very first fetch */}
+        {initialLoad &&
+          loading &&
+          Array.from({ length: 10 }).map((_, index) => (
+            <Product
+              key={`placeholder-${index}`}
+              data={placeholderData}
+              placeholder={true}
+            />
+          ))}
       </div>
     </div>
   );

@@ -48,6 +48,30 @@ function HistoryList() {
     setCardView(CardView.History);
   };
 
+  function formatDate(isoString: string): string {
+    const date = new Date(isoString);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  function formatPrice(value: number): string {
+    if (isNaN(value)) return "0,00";
+
+    const stringPrice = value;
+    return stringPrice
+      .toFixed(2)
+      .replace(".", ",")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
   return (
     <div className={`${style.history}`}>
       <div className={`${style.historyTitle}`}>
@@ -58,8 +82,8 @@ function HistoryList() {
           orders.map((element: OrderType, key: number) => (
             <div key={key} className={`flex ${style.historyElementsElement}`}>
               <p>#{element.order_id}</p>
-              <p>{element.created}</p>
-              <p>{element.total} AMD</p>
+              <p>{formatDate(element.created)}</p>
+              <p>{formatPrice(parseInt(element.total))} AMD</p>
               <button onClick={() => showCart(element.products_json)}>
                 <FileSVG />
               </button>

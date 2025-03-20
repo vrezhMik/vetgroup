@@ -143,18 +143,16 @@ export async function change_password_query(
   }
 }
 
-export async function get_products() {
+export async function get_products(start: number, limit: number) {
   try {
-    const response = await graphQL_Query(GET_PRODUCTS_FRAGMENT, {});
-    return response;
-  } catch (error: unknown) {
-    if (error instanceof ApolloError) {
-      console.error("GraphQL error:", error.message);
-    } else if (error instanceof Error) {
-      console.error("JS error:", error.message);
-    } else {
-      console.error("Unknown error:", error);
-    }
+    const response = await graphQL_Query(GET_PRODUCTS_FRAGMENT, {
+      start,
+      limit,
+    });
+    return response || { products: [] };
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return { products: [] };
   }
 }
 

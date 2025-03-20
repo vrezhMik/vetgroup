@@ -43,8 +43,8 @@ export const CHANGE_PASSWORD_FRAGMENT = gql`
 `;
 
 export const GET_PRODUCTS_FRAGMENT = gql`
-  query {
-    products(pagination: { limit: 10000 }) {
+  query GetProducts($start: Int!, $limit: Int!) {
+    products(pagination: { start: $start, limit: $limit }) {
       code
       name
       description

@@ -17,7 +17,7 @@ export default function Login() {
       return;
     }
     try {
-      const response = await login(username, password);
+      await login(username, password);
     } catch (error) {
       console.error(error);
       alert("Login failed. Please check your credentials.");

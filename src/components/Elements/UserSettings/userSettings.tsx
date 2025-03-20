@@ -15,6 +15,8 @@ export default function UserSettings() {
   const logout = () => {
     Cookies.remove("jwt");
     Cookies.remove("document");
+    Cookies.remove("user");
+    localStorage.removeItem("cartItems");
     window.location.href = "/login";
   };
 

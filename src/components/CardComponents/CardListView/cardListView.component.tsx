@@ -38,7 +38,15 @@ export default function CardListView() {
     cleanCart();
     setCardState(false);
   };
+  function formatPrice(value: number): string {
+    if (isNaN(value)) return "0,00";
 
+    const stringPrice = value;
+    return stringPrice
+      .toFixed(2)
+      .replace(".", ",")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
   return (
     <div className={`${style.cardList}`}>
       <div className={`${style.cardListRow} flex row`}>
@@ -63,10 +71,10 @@ export default function CardListView() {
             </div>
             <div className={`${style.cardListDataRowElement}`}>{item.qty}</div>
             <div className={`${style.cardListDataRowElement}`}>
-              <span>{item.price} AMD</span>
+              <span>{formatPrice(item.price)} AMD</span>
             </div>
             <div className={`${style.cardListDataRowElement} flex`}>
-              <span>{item.price * item.qty} AMD</span>
+              <span>{formatPrice(item.price * item.qty)} AMD</span>
               {cardViewState !== CardView.History && (
                 <button onClick={() => removeItem(item.getId())}>
                   <TrashSVG />
@@ -79,7 +87,7 @@ export default function CardListView() {
       {cardViewState !== CardView.History && (
         <div className={`${style.cardListCheckout} flex`}>
           <h1>
-            Total: <span>{cartTotal} AMD</span>
+            Total: <span>{formatPrice(cartTotal)} AMD</span>
           </h1>
           <button onClick={save_request}>Request</button>
         </div>
