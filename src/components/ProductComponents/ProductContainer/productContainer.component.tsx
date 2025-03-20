@@ -1,7 +1,6 @@
 "use client";
 import style from "./productContainer.module.scss";
 
-import { useEffect } from "react";
 import { useCart, useCard, useCardView } from "@/store/store";
 
 import Product from "../Product/product.component";
@@ -12,18 +11,9 @@ import { productsStore } from "@/store/store";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
-  const { cardState, setCardState } = useCard();
+  const { setCardState } = useCard();
   const { setCardView } = useCardView();
   const { products, searchQuery, loading } = productsStore();
-
-  useEffect(
-    () => () => {
-      const body = document.getElementsByTagName("body")[0];
-      const overflowStatus = cardState ? "scroll" : "hidden";
-      body.style.overflowY = overflowStatus;
-    },
-    [cardState]
-  );
 
   const showCart = () => {
     setCardState(true);

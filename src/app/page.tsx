@@ -20,7 +20,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [add_product]); // ✅ Dependency array to avoid unnecessary re-fetching
+  }, [add_product]);
 
   return (
     <main className="flex">

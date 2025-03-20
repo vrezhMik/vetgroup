@@ -4,10 +4,20 @@ import { useCard, useCardView } from "@/store/store";
 import { CardView } from "@/utils/Types";
 import CardProductView from "../CardProductView/cardProductView.component";
 import CardListView from "../CardListView/cardListView.component";
+import { useEffect } from "react";
 
 export default function Card() {
   const { cardState, setCardState, setCurrentItem } = useCard();
   const { cardViewState } = useCardView();
+  useEffect(
+    () => () => {
+      console.log(cardState);
+      const body = document.getElementsByTagName("body")[0];
+      const overflowStatus = cardState ? "scroll" : "hidden";
+      body.style.overflowY = overflowStatus;
+    },
+    [cardState]
+  );
 
   return (
     <div
