@@ -9,6 +9,11 @@ import { Item } from "@/classes/ItemClass";
 import { GET_ORDER_ID } from "./fragments";
 import { GET_USER_ORDERS } from "./fragments";
 import { ApolloError } from "@apollo/client";
+import { loginFormState } from "@/store/store";
+
+function setWrongLogin(value: boolean) {
+  loginFormState.setState({ isError: value });
+}
 
 const getFormattedCurrentDate = () => {
   return new Date().toISOString().split(".")[0] + "Z";
@@ -59,11 +64,9 @@ export async function login(identifier: string, password: string) {
       identifier,
       password,
     });
-
     if (!response || response.errors) {
-      throw new Error(
-        response?.errors?.[0]?.message || "Login failed due to an unknown error"
-      );
+      setWrongLogin(true);
+      return;
     }
     const { jwt } = response.login;
 
@@ -79,6 +82,7 @@ export async function login(identifier: string, password: string) {
     window.location.href = "/";
     document.cookie = `document=${documentId}; path=/; secure; SameSite=Strict`;
     document.cookie = `user=${id}; path=/; secure; SameSite=Strict`;
+    setWrongLogin(false);
     return documentId;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
@@ -170,7 +174,6 @@ async function get_order_id() {
 }
 
 export async function add_order(items: Item[], user: number, total: number) {
-  console.log(items);
   const order_id_response = await get_order_id();
   const order_id =
     order_id_response.orders.length === 0

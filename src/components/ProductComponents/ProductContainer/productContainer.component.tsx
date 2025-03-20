@@ -8,6 +8,7 @@ import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
 import CartSVG from "@/components/Elements/Icons/CartSVG";
 import { CardView } from "@/utils/Types";
 import { productsStore } from "@/store/store";
+import { useEffect } from "react";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
@@ -19,6 +20,13 @@ export default function ProductContainer() {
     setCardState(true);
     setCardView(CardView.List);
   };
+  useEffect(() => {
+    const body = document.getElementsByTagName("body")[0];
+    let overflowStatus = "scroll";
+    if (loading) overflowStatus = "hidden";
+    else overflowStatus = "scroll";
+    body.style.overflowY = overflowStatus;
+  }, [loading]);
 
   const filteredProducts = products.filter(
     (product) =>

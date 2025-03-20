@@ -68,3 +68,8 @@ export interface ProductsStateInterface {
   setSearchQuery: (query: string) => void;
   add_product: (product: ProductType[]) => void;
 }
+
+export interface LoginFormStateInterface {
+  isError: boolean;
+  setIsError: (value: boolean) => void;
+}

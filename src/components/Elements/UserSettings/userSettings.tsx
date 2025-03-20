@@ -51,9 +51,8 @@ export default function UserSettings() {
       </div>
       <div className={style.user}>
         <h3 className={style.userName}>
-          Name:
+          Name:{" "}
           <span>
-            {" "}
             {user_data.first_name} {user_data.last_name}
           </span>
         </h3>

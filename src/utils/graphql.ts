@@ -22,7 +22,7 @@ export async function graphQL_Query(
     }
     if (error) {
       console.error("Error fetching data:", error);
-      throw new Error("Failed to fetch data");
+      // throw new Error("Failed to fetch data");
     }
     if (!data) {
       throw new Error("No data found");
@@ -30,9 +30,9 @@ export async function graphQL_Query(
     return data;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
-      console.error("GraphQL error:", error.message);
+      return;
     } else if (error instanceof Error) {
-      console.error("JS error:", error.message);
+      return;
     } else {
       console.error("Unknown error:", error);
     }

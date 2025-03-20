@@ -14,8 +14,6 @@ function HistoryList() {
   const { addItem } = useCart();
 
   const [orders, setOrders] = useState([]);
-
-  // Fetch order history on component mount
   useEffect(() => {
     const fetchOrders = async () => {
       const documentId = getCookie("document");

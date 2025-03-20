@@ -1,14 +1,17 @@
 import { create } from "zustand";
-import { FiltersStateInterface } from "@/utils/Interfaces";
-import { CartStateInterface } from "@/utils/Interfaces";
-import { CardStateInterface } from "@/utils/Interfaces";
-import { CardViewInterface } from "@/utils/Interfaces";
-import { UserMenuStateInterface } from "@/utils/Interfaces";
-import { CurrentUserStateInterface } from "@/utils/Interfaces";
-import { CardView } from "@/utils/Types";
-import { UserMenu } from "@/utils/Types";
-import { LoginStateInterface } from "@/utils/Interfaces";
-import { ProductsStateInterface } from "@/utils/Interfaces";
+import { CardView, UserMenu } from "@/utils/Types";
+
+import {
+  ProductsStateInterface,
+  LoginFormStateInterface,
+  FiltersStateInterface,
+  LoginStateInterface,
+  CartStateInterface,
+  UserMenuStateInterface,
+  CardViewInterface,
+  CurrentUserStateInterface,
+  CardStateInterface,
+} from "@/utils/Interfaces";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
   filters: [],
@@ -140,4 +143,9 @@ export const productsStore = create<ProductsStateInterface>((set) => ({
   loading: true,
   setSearchQuery: (query) => set({ searchQuery: query }),
   add_product: (product) => set({ products: product, loading: false }),
+}));
+
+export const loginFormState = create<LoginFormStateInterface>((set) => ({
+  isError: false,
+  setIsError: (value) => set({ isError: value }),
 }));

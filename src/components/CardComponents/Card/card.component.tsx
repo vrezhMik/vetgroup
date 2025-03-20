@@ -11,7 +11,6 @@ export default function Card() {
   const { cardViewState } = useCardView();
   useEffect(
     () => () => {
-      console.log(cardState);
       const body = document.getElementsByTagName("body")[0];
       const overflowStatus = cardState ? "scroll" : "hidden";
       body.style.overflowY = overflowStatus;
