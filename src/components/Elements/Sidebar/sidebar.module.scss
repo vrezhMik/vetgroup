@@ -2,11 +2,12 @@
   position: fixed;
   width: 10%;
   height: 100svh;
+  z-index: 9999;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 780px) {
   .sidebar {
-    width: 40%;
-    display: none;
+    width: 100%;
+    height: 100px;
   }
 }

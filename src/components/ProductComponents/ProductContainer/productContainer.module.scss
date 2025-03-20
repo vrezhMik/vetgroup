@@ -63,12 +63,14 @@
   }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 780px) {
   .mainContainer {
     width: 100%;
     margin-left: 0;
+    margin-top: 100px;
     &SearchBar {
-      padding: 20px 10px;
+      padding: 20px 30px;
+      top: 100px;
     }
     &ProductContainer {
       justify-content: center;
