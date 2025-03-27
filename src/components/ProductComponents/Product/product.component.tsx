@@ -11,21 +11,21 @@ import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
 export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
-  const [currentProduct, setCurrentProduct] = useState(new Item(data));
+  const [currentProduct, setCurrentProduct] = useState(new Item(data, 1));
 
-  const increment = () => {
-    const updatedProduct = new Item(currentProduct);
-    updatedProduct.setQty(quantity + 1);
-    setQuantity(updatedProduct.getQty());
-    setCurrentProduct(updatedProduct);
+  const increment = (product: Item) => {
+    // const updatedProduct = new Item(currentProduct);
+    product.setQty(quantity + 1);
+    setQuantity(product.getQty());
+    setCurrentProduct(product);
   };
 
-  const decrement = () => {
+  const decrement = (product: Item) => {
     if (quantity <= 1) return;
-    const updatedProduct = new Item(currentProduct);
-    updatedProduct.setQty(quantity - 1);
-    setQuantity(updatedProduct.getQty());
-    setCurrentProduct(updatedProduct);
+    // const updatedProduct = new Item(currentProduct);
+    product.setQty(quantity - 1);
+    setQuantity(product.getQty());
+    setCurrentProduct(product);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,12 +35,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
       currentProduct.setQty(value);
     }
   };
-
-  // const handleClick = (state: boolean, data: Item): void => {
-  //   setCardState(true);
-  //   setCurrentItem(currentProduct);
-  //   setCardView(CardView.Product);
-  // };
 
   const orderItem = (): void => {
     currentProduct.setTotal();
@@ -100,7 +94,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
       <div className={`flex ${style.productAction}`}>
         <div className={`${style.productActionInput} flex`}>
           <button
-            onClick={decrement}
+            onClick={() => decrement(currentProduct)}
             className={`${style.productActionInputSubstract}`}
           >
             <ArrowSVG />
@@ -113,7 +107,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
             onChange={handleChange}
           />
           <button
-            onClick={increment}
+            onClick={() => increment(currentProduct)}
             className={`${style.productActionInputAdd}`}
           >
             <ArrowSVG />

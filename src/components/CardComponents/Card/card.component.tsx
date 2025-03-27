@@ -1,6 +1,6 @@
 "use client";
 import style from "./card.module.scss";
-import { useCard, useCardView } from "@/store/store";
+import { useCard, useCardView, useCart } from "@/store/store";
 import { CardView } from "@/utils/Types";
 import CardProductView from "../CardProductView/cardProductView.component";
 import CardListView from "../CardListView/cardListView.component";

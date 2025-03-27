@@ -9,12 +9,12 @@ export class Item implements ProductType {
   qty: number;
   totalPrice: number;
 
-  constructor(item: ProductType) {
+  constructor(item: ProductType, qty: number | null) {
     this.name = item.name;
     this.code = item.code;
     this.price = item.price;
     this.description = item.description;
-    this.qty = 1;
+    this.qty = qty ? qty : 1;
     this.totalPrice = 0;
     this.image = item.image;
   }

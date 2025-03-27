@@ -1,9 +1,11 @@
-import { FilterType } from "./Types";
+import {
+  FilterType,
+  ProductType,
+  CardView,
+  UserMenu,
+  CurrentUserType,
+} from "./Types";
 import { Item } from "@/classes/ItemClass";
-import { CardView } from "./Types";
-import { UserMenu } from "./Types";
-import { CurrentUserType } from "./Types";
-import { ProductType } from "./Types";
 
 export interface ImagePropsInterface {
   url: string;
@@ -72,4 +74,9 @@ export interface ProductsStateInterface {
 export interface LoginFormStateInterface {
   isError: boolean;
   setIsError: (value: boolean) => void;
+}
+
+export interface HistoryCardInterface {
+  currentHistoryItem: ProductType[];
+  setCurrentHistoryItem: (item: ProductType[]) => void;
 }

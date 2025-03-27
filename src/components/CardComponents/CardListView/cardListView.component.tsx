@@ -9,21 +9,26 @@ import { getCookie } from "@/utils/cookies";
 import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
 import { ProductType } from "@/utils/Types";
-
+import { HistoryCardState } from "@/store/store";
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
   const { setCardState } = useCard();
   const { cardViewState } = useCardView();
+  const { currentHistoryItem } = HistoryCardState();
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
+    console.log("storedCart", storedCart);
+
     if (storedCart) {
       try {
         const parsedCart = JSON.parse(storedCart);
+        console.log("parsedCart", parsedCart);
 
         const restoredCart = parsedCart.map(
-          (item: ProductType) => new Item(item)
+          (item: ProductType) => new Item(item, item.qty)
         );
+        console.log("restoredCart", restoredCart);
 
         restoredCart.forEach((item: Item) => addItem(item));
       } catch (error) {
@@ -64,7 +69,10 @@ export default function CardListView() {
         </div>
       </div>
       <div className={`${style.cardListData}`}>
-        {cartItems?.map((item, key) => (
+        {(cardViewState === CardView.History
+          ? currentHistoryItem
+          : cartItems
+        )?.map((item, key) => (
           <div className={`row flex ${style.cardListDataRow}`} key={key}>
             <div className={`${style.cardListDataRowElement}`}>
               <span>{item.name}</span>
@@ -76,7 +84,7 @@ export default function CardListView() {
             <div className={`${style.cardListDataRowElement} flex`}>
               <span>{formatPrice(item.price * item.qty)} AMD</span>
               {cardViewState !== CardView.History && (
-                <button onClick={() => removeItem(item.getId())}>
+                <button onClick={() => removeItem((item as any).getId())}>
                   <TrashSVG />
                 </button>
               )}

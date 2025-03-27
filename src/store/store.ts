@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { CardView, UserMenu } from "@/utils/Types";
-
 import {
   ProductsStateInterface,
   LoginFormStateInterface,
@@ -11,6 +10,7 @@ import {
   CardViewInterface,
   CurrentUserStateInterface,
   CardStateInterface,
+  HistoryCardInterface,
 } from "@/utils/Interfaces";
 
 export const useFilters = create<FiltersStateInterface>((set) => ({
@@ -66,7 +66,6 @@ export const useCart = create<CartStateInterface>((set, get) => ({
       );
       const itemPrice = itemToRemove.getPrice() * itemToRemove.getQty();
 
-      // ✅ Save the updated cart to localStorage
       localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
 
       return {
@@ -152,4 +151,9 @@ export const productsStore = create<ProductsStateInterface>((set) => ({
 export const loginFormState = create<LoginFormStateInterface>((set) => ({
   isError: false,
   setIsError: (value) => set({ isError: value }),
+}));
+
+export const HistoryCardState = create<HistoryCardInterface>((set) => ({
+  currentHistoryItem: [],
+  setCurrentHistoryItem: (item) => set({ currentHistoryItem: item }),
 }));

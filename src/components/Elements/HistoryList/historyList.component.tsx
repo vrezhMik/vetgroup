@@ -7,11 +7,13 @@ import { Item } from "@/classes/ItemClass";
 import { get_user_orders } from "@/utils/query";
 import { getCookie } from "@/utils/cookies";
 import { OrderType } from "@/utils/Types";
+import { HistoryCardState } from "@/store/store";
 
 function HistoryList() {
   const { setCardState } = useCard();
   const { setCardView } = useCardView();
   const { addItem } = useCart();
+  const { setCurrentHistoryItem } = HistoryCardState();
 
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -23,7 +25,7 @@ function HistoryList() {
       }
 
       try {
-        const response = await get_user_orders("wvyj6eo74v91jg603ymdxbpu");
+        const response = await get_user_orders(documentId);
 
         if (!response) {
           console.warn("No orders found.");
@@ -39,11 +41,7 @@ function HistoryList() {
   }, []);
 
   const showCart = (data: []) => {
-    data.forEach((el) => {
-      const current = new Item(el);
-      addItem(current);
-    });
-
+    setCurrentHistoryItem(data);
     setCardState(true);
     setCardView(CardView.History);
   };
