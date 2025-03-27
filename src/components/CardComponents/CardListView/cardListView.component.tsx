@@ -18,17 +18,12 @@ export default function CardListView() {
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
-    console.log("storedCart", storedCart);
-
     if (storedCart) {
       try {
         const parsedCart = JSON.parse(storedCart);
-        console.log("parsedCart", parsedCart);
-
         const restoredCart = parsedCart.map(
           (item: ProductType) => new Item(item, item.qty)
         );
-        console.log("restoredCart", restoredCart);
 
         restoredCart.forEach((item: Item) => addItem(item));
       } catch (error) {

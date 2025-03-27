@@ -14,7 +14,7 @@ export default function ProductContainer() {
   const { setCardView } = useCardView();
   const { products, searchQuery, loading } = productsStore();
 
-  const [initialLoad, setInitialLoad] = useState(true); // Track initial load
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
     if (products.length > 0) {
@@ -67,9 +67,7 @@ export default function ProductContainer() {
           </button>
         </div>
       </div>
-
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {/* Render products if initial load is complete */}
         {filteredProducts.map((element, key) => (
           <Product
             key={element.code + key}
@@ -77,8 +75,6 @@ export default function ProductContainer() {
             placeholder={false}
           />
         ))}
-
-        {/* Show loading placeholders only during the very first fetch */}
         {initialLoad &&
           loading &&
           Array.from({ length: 10 }).map((_, index) => (

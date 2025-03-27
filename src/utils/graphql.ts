@@ -13,16 +13,14 @@ export async function graphQL_Query(
       fetchPolicy: "no-cache",
       variables: variables || null,
       context: {
-        headers: headers || {}, // Pass headers here
+        headers: headers || {},
       },
     });
     if (loading) {
-      console.log("Loading data...");
       return null;
     }
     if (error) {
       console.error("Error fetching data:", error);
-      // throw new Error("Failed to fetch data");
     }
     if (!data) {
       throw new Error("No data found");

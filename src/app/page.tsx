@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { add_product, loading } = productsStore();
   const [start, setStart] = useState(0);
-  const limit = 20;
+  const limit = 28;
 
   const fetchData = async () => {
     try {
@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main className="flex">
       <Sidebar current_user={null} />
-      <div>
+      <div style={{ minWidth: "90%", marginLeft: "10%" }}>
         <ProductContainer />
         {loading && (
           <div style={{ textAlign: "center", padding: "20px" }}>

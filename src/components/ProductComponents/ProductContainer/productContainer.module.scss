@@ -1,8 +1,6 @@
 @use "./../../../styles/variables" as variables;
 
 .mainContainer {
-  width: 90%;
-  margin-left: 10%;
   &SearchBar {
     margin-bottom: 50px;
     justify-content: space-between;

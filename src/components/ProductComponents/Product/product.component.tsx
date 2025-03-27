@@ -14,7 +14,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [currentProduct, setCurrentProduct] = useState(new Item(data, 1));
 
   const increment = (product: Item) => {
-    // const updatedProduct = new Item(currentProduct);
     product.setQty(quantity + 1);
     setQuantity(product.getQty());
     setCurrentProduct(product);
@@ -22,7 +21,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
 
   const decrement = (product: Item) => {
     if (quantity <= 1) return;
-    // const updatedProduct = new Item(currentProduct);
     product.setQty(quantity - 1);
     setQuantity(product.getQty());
     setCurrentProduct(product);
@@ -47,17 +45,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
         placeholder ? style.placeholder : ""
       }`}
     >
-      <div
-        className={style.productImage}
-        // onClick={() => {
-        //   handleClick(true, currentProduct);
-        // }}
-      >
-        {/* {currentProduct.hasSale() && (
-          <div className={style.productImageSale}>
-            <span>-{currentProduct.getSalePercentage()}%</span>
-          </div>
-        )} */}
+      <div className={style.productImage}>
         <ImageComponent
           alt={currentProduct.getTitle() || ""}
           url={"/placeholder.webp"}
@@ -70,24 +58,14 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
             {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
             AMD
           </p>
-          {/* <span className={style.productOldPrice}>
-            {currentProduct.getPrice()}AMD
-          </span> */}
         </div>
-        {/* <div className={`${style.productInfoAvailability}`}>
-          <span>On Demand</span>
-        </div> */}
       </div>
 
       <div className={style.productTitle}>
         <h2>
           {currentProduct.getTitle()}
           <br />
-          <span>
-            {/* ({(currentProduct.getWeight() * currentProduct.getQty()) / 1000} kg)
-             */}
-            {currentProduct.getDescription()}
-          </span>
+          <span>{currentProduct.getDescription()}</span>
         </h2>
       </div>
 
