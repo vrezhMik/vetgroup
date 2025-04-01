@@ -3,14 +3,14 @@ import Sidebar from "@/components/Elements/Sidebar/sidebar.component";
 import ProductContainer from "@/components/ProductComponents/ProductContainer/productContainer.component";
 import { get_products } from "@/utils/query";
 import { productsStore } from "@/store/store";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 export default function Home() {
   const { add_product, loading } = productsStore();
   const [start, setStart] = useState(0);
   const limit = 28;
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const data = await get_products(start, limit);
       if (data && data.products && data.products.length > 0) {
@@ -20,11 +20,11 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-  };
+  }, [start, add_product]); // ✅ Dependencies included
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]); // ✅ No more warning
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +39,7 @@ export default function Home() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading]);
+  }, [fetchData, loading]); // ✅ Dependencies included
 
   return (
     <main className="flex">

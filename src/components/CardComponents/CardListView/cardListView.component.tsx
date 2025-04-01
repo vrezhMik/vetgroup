@@ -79,7 +79,7 @@ export default function CardListView() {
             <div className={`${style.cardListDataRowElement} flex`}>
               <span>{formatPrice(item.price * item.qty)} AMD</span>
               {cardViewState !== CardView.History && (
-                <button onClick={() => removeItem((item as any).getId())}>
+                <button onClick={() => removeItem((item as Item).getId())}>
                   <TrashSVG />
                 </button>
               )}

@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import style from "./historyList.module.scss";
 import FileSVG from "../Icons/FileSVG";
-import { useCart, useCard, useCardView } from "@/store/store";
+import { useCard, useCardView } from "@/store/store";
 import { CardView } from "@/utils/Types";
-import { Item } from "@/classes/ItemClass";
 import { get_user_orders } from "@/utils/query";
 import { getCookie } from "@/utils/cookies";
 import { OrderType } from "@/utils/Types";
@@ -12,7 +11,6 @@ import { HistoryCardState } from "@/store/store";
 function HistoryList() {
   const { setCardState } = useCard();
   const { setCardView } = useCardView();
-  const { addItem } = useCart();
   const { setCurrentHistoryItem } = HistoryCardState();
 
   const [orders, setOrders] = useState([]);
