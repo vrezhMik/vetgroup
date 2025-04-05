@@ -1,0 +1,78 @@
+@use "./../../../styles/variables" as variables;
+
+.mainContainer {
+  &SearchBar {
+    margin-bottom: 50px;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    padding-left: 16%;
+    padding-right: 16%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    &Cart {
+      width: 20%;
+      &Button {
+        float: right;
+        width: 40px;
+        height: 40px;
+        position: relative;
+        &Items {
+          position: absolute;
+          top: -20px;
+          right: -20px;
+          font-size: 14px;
+          background-color: variables.$theme-second-color;
+          // color: variables.$theme-color-light;
+          color: #fff;
+          padding: 5px;
+          border-radius: 50%;
+        }
+        svg {
+          path {
+            fill: variables.$theme-color;
+          }
+        }
+      }
+    }
+  }
+  &ProductContainer {
+    justify-content: center;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 50px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 50px;
+    flex: 1 1;
+    column-gap: 4.4%;
+  }
+}
+
+@media (max-width: 1080px) {
+  .mainContainer {
+    &ProductContainer {
+      justify-content: center;
+      padding: 0px 10px 50px 10px;
+    }
+  }
+}
+
+@media (max-width: 780px) {
+  .mainContainer {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 100px;
+    &SearchBar {
+      padding: 20px 30px;
+      top: 100px;
+    }
+    &ProductContainer {
+      justify-content: center;
+      padding: 0px 30px 50px 30px;
+    }
+  }
+}
