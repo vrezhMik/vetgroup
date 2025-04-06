@@ -4,6 +4,7 @@ import ProductContainer from "@/components/ProductComponents/ProductContainer/pr
 import { get_products } from "@/utils/query";
 import { productsStore } from "@/store/store";
 import { useEffect, useState, useCallback } from "react";
+import style from "./../styles/main.scss";
 
 export default function Home() {
   const { add_product, loading } = productsStore();
@@ -44,7 +45,7 @@ export default function Home() {
   return (
     <main className="flex">
       <Sidebar current_user={null} />
-      <div style={{ minWidth: "90%", marginLeft: "10%" }}>
+      <div className={style.main_container}>
         <ProductContainer />
         {loading && (
           <div style={{ textAlign: "center", padding: "20px" }}>

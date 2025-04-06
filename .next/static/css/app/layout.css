@@ -1,0 +1,267 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/components/CardComponents/Card/card.module.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.card_cardContainer__CLzCF {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.card_card___zOGa {
+  overflow: hidden;
+  max-width: 70%;
+  max-height: 80%;
+  width: 100%;
+  box-shadow: 0px 6px 75px 4px rgb(210, 210, 212);
+  background-color: #fdfdfd;
+  padding: 20px;
+  border-radius: 10px;
+}
+.card_cardButton__0VUeE {
+  height: 30px;
+}
+.card_cardButton__0VUeE button {
+  float: right;
+  background-color: #fbab20;
+  padding: 5px;
+  border-radius: 7px 5px;
+  color: #fff;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/components/CardComponents/CardProductView/cardProductView.module.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.cardProductView_cardProduct__UeH5h {
+  height: 100%;
+  column-gap: 20px;
+}
+.cardProductView_cardProductImage__FBVR3 {
+  width: 40%;
+  height: 500px;
+  position: relative;
+}
+.cardProductView_cardProductImage__FBVR3 img {
+  object-fit: contain;
+}
+.cardProductView_cardProductInfo__jvNBk {
+  width: 60%;
+  color: #4f4141;
+}
+.cardProductView_cardProductInfoTitle__NFT_T {
+  font-size: 45px;
+  margin-bottom: 20px;
+}
+.cardProductView_cardProductInfoTitle__NFT_T span {
+  color: #e6e6ea;
+  font-size: 20px;
+}
+.cardProductView_cardProductInfoPrice__BK5YQ {
+  font-size: 30px;
+  color: #cc2936;
+  margin-bottom: 20px;
+}
+.cardProductView_cardProductInfoDescription__sSYc2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1080px) {
+  .cardProductView_cardProduct__UeH5h {
+    display: block !important;
+  }
+  .cardProductView_cardProductImage__FBVR3 {
+    width: 100%;
+    height: 200px;
+  }
+  .cardProductView_cardProductInfo__jvNBk {
+    width: 100%;
+  }
+  .cardProductView_cardProductInfoDescription__sSYc2 {
+    font-size: 12px;
+  }
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/components/CardComponents/CardListView/cardListView.module.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.cardListView_cardListRow__DUjn_ {
+  justify-content: space-evenly;
+}
+.cardListView_cardListRowTitle__gT7v1 {
+  width: 25%;
+}
+.cardListView_cardListRowTitle__gT7v1:nth-child(2) {
+  text-align: center;
+}
+.cardListView_cardListRowTitle__gT7v1 span {
+  color: #fbab20;
+  font-size: 25px;
+  text-align: left;
+}
+.cardListView_cardListData__CP5j5 {
+  overflow-y: scroll;
+  height: 500px;
+  margin: 40px 0px;
+  padding-right: 30px;
+}
+.cardListView_cardListDataRow__o4Iir {
+  justify-content: space-evenly;
+  margin-top: 20px;
+  align-items: center;
+}
+.cardListView_cardListDataRowElement__me2yC {
+  width: 25%;
+}
+.cardListView_cardListDataRowElement__me2yC:first-child {
+  width: 30%;
+}
+.cardListView_cardListDataRowElement__me2yC:nth-child(2) {
+  text-align: center;
+}
+.cardListView_cardListDataRowElement__me2yC:last-child {
+  justify-content: space-between;
+}
+.cardListView_cardListDataRowElement__me2yC span {
+  color: #4f4141;
+  font-size: 20px;
+}
+.cardListView_cardListDataRowElement__me2yC button svg {
+  height: 18px;
+  width: 18px;
+}
+.cardListView_cardListDataRowElement__me2yC button svg path {
+  fill: #fbab20;
+}
+.cardListView_cardListCheckout__a988D {
+  align-items: center;
+  justify-content: space-between;
+}
+.cardListView_cardListCheckout__a988D h1 {
+  color: #4f4141;
+}
+.cardListView_cardListCheckout__a988D button {
+  background-color: #fbab20;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 24px;
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[11].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[11].use[5]!./src/styles/main.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.main_container {
+  min-width: 90%;
+  margin-left: 10%;
+}
+
+@media (max-width: 780px) {
+  .main_container {
+    margin-left: 0%;
+  }
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[11].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[11].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[11].use[5]!./src/styles/globals.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.flex {
+  display: flex;
+}
+
+.relative {
+  position: relative;
+}
+
+.row {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[13].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src/app/layout.tsx","import":"Montserrat","arguments":[{"subsets":["latin"]}],"variableName":"montserrat"} ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/_next/static/media/3f69592b2fe603c7-s.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/_next/static/media/6325a8417175c41d-s.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/_next/static/media/021bc4481ed92ece-s.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/_next/static/media/99b7f73d5af7c3e2-s.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url(/_next/static/media/4f05ba3a6752a328-s.p.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}@font-face {font-family: 'Montserrat Fallback';src: local("Arial");ascent-override: 85.79%;descent-override: 22.25%;line-gap-override: 0.00%;size-adjust: 112.83%
+}.__className_4bc053 {font-family: 'Montserrat', 'Montserrat Fallback';font-style: normal
+}
+

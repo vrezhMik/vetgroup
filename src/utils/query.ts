@@ -73,15 +73,15 @@ export async function login(identifier: string, password: string) {
     if (!jwt) {
       throw new Error("JWT not found in the response");
     }
-    document.cookie = `jwt=${jwt}; path=/; secure; SameSite=Strict`;
+    document.cookie = `jwt=${jwt}; path=/; SameSite=Strict`;
 
     const { documentId, id } = response.login.user;
     if (!documentId) {
       throw new Error("documentId not found in the response");
     }
     window.location.href = "/";
-    document.cookie = `document=${documentId}; path=/; secure; SameSite=Strict`;
-    document.cookie = `user=${id}; path=/; secure; SameSite=Strict`;
+    document.cookie = `document=${documentId}; path=/; SameSite=Strict`;
+    document.cookie = `user=${id}; path=/; SameSite=Strict`;
     setWrongLogin(false);
     return documentId;
   } catch (error: unknown) {
