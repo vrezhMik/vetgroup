@@ -38,6 +38,10 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
     currentProduct.setTotal();
     addItem(currentProduct);
   };
+  const imageUrl = currentProduct?.getImage();
+  const fullImageUrl = imageUrl
+    ? `http://localhost:1337${imageUrl}`
+    : "/placeholder.webp";
 
   return (
     <section
@@ -47,8 +51,8 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
     >
       <div className={style.productImage}>
         <ImageComponent
-          alt={currentProduct.getTitle() || ""}
-          url={"/placeholder.webp"}
+          alt={currentProduct?.getTitle() || ""}
+          url={fullImageUrl}
         />
       </div>
 

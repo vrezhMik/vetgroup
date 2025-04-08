@@ -11,6 +11,8 @@ import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
 export default function UserMenu() {
   const [categories, setCategories] = useState({ categories: [] });
   const [hamburger, setHamburger] = useState<boolean>(false);
+
+  const selectedCategories = productsStore((state) => state.selectedCategories);
   useEffect(() => {
     async function loadCategories() {
       const data = await get_categories();
@@ -21,8 +23,9 @@ export default function UserMenu() {
 
   async function categoryPosts(cat: string) {
     setHamburger(false);
-    const { categorizedProducts } = productsStore.getState();
 
+    const { categorizedProducts, selectedCategories } =
+      productsStore.getState(); // use getState() here
     productsStore.getState().setSelectedCategory(cat);
 
     const stillSelected = productsStore
@@ -47,11 +50,19 @@ export default function UserMenu() {
       </div>
       <div className={style.userMenuCategories}>
         {categories &&
-          categories.categories.map((cat: { title: string }, key: number) => (
-            <button key={key} onClick={() => categoryPosts(cat.title)}>
-              {cat.title}
-            </button>
-          ))}
+          categories.categories.map((cat: { title: string }, key: number) => {
+            const isActive = selectedCategories.includes(cat.title);
+
+            return (
+              <button
+                key={key}
+                onClick={() => categoryPosts(cat.title)}
+                className={isActive ? style.active : ""}
+              >
+                {cat.title}
+              </button>
+            );
+          })}
       </div>
 
       <div className={style.userMenuAvatar}>
@@ -67,17 +78,25 @@ export default function UserMenu() {
           <div className="row"></div>
         </div>
       </div>
+
       <div
         className={style.cat_hamburger_container}
         style={{ display: hamburger ? "block" : "none" }}
       >
         <div className={style.cat_hamburger_container_buttons}>
           {categories &&
-            categories.categories.map((cat: { title: string }, key: number) => (
-              <button key={key} onClick={() => categoryPosts(cat.title)}>
-                {cat.title}
-              </button>
-            ))}
+            categories.categories.map((cat: { title: string }, key: number) => {
+              const isActive = selectedCategories.includes(cat.title);
+              return (
+                <button
+                  key={key}
+                  onClick={() => categoryPosts(cat.title)}
+                  className={isActive ? style.active : ""}
+                >
+                  {cat.title}
+                </button>
+              );
+            })}
         </div>
       </div>
     </div>

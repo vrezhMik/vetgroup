@@ -46,7 +46,7 @@ export type ProductType = {
   name: string;
   description: string;
   price: number;
-  image: string;
+  image: { url: string } | null;
   qty: number;
   totalPrice: number;
   __typename: string;

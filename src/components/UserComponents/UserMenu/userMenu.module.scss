@@ -27,7 +27,7 @@
     align-items: self-start;
     button {
       transition: 0.4s ease;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #fff;
       cursor: pointer;
       &:hover {
@@ -36,10 +36,7 @@
     }
   }
   &Hamburger {
-    svg {
-      width: 32px;
-      height: 32px;
-    }
+    display: none;
   }
   &Logo {
     width: 100%;
@@ -55,36 +52,52 @@
       }
     }
   }
+  .active {
+    color: #fbab20;
+  }
 }
 
 .cat_hamburger_container {
-  position: absolute;
-  background-color: #4f4141;
-  width: 100%;
-  height: fit-content;
-  padding-bottom: 10px;
-  top: 100px;
-  left: 0;
-  &_buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    row-gap: 10px;
-    button {
-      padding-left: 20px;
-      color: #fff;
-      width: 100%;
-      text-align: left;
-      font-size: 1rem;
-      transition: 0.4s ease;
-      &:hover {
-        color: #fbab20;
+  display: none;
+}
+
+@media (max-width: 1400px) {
+  .userMenu {
+    &Categories {
+      button {
+        font-size: 1rem;
       }
     }
   }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 1024px) {
+  .cat_hamburger_container {
+    position: absolute;
+    background-color: #4f4141;
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 10px;
+    top: 100px;
+    left: 0;
+    &_buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 10px;
+      button {
+        padding-left: 20px;
+        color: #fff;
+        width: 100%;
+        text-align: left;
+        font-size: 1rem;
+        transition: 0.4s ease;
+        &:hover {
+          color: #fbab20;
+        }
+      }
+    }
+  }
   .userMenu {
     flex-direction: row;
     justify-content: space-between;
@@ -99,6 +112,13 @@
     }
     &Categories {
       display: none;
+    }
+    &Hamburger {
+      display: block;
+      svg {
+        width: 32px;
+        height: 32px;
+      }
     }
     &Avatar {
       width: fit-content;

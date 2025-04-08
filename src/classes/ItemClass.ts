@@ -3,7 +3,7 @@ import { ProductType } from "@/utils/Types";
 export class Item implements ProductType {
   name: string;
   code: string;
-  image: string;
+  image: { url: string } | null;
   price: number;
   description: string;
   qty: number;
@@ -18,7 +18,7 @@ export class Item implements ProductType {
     this.description = item.description;
     this.qty = qty ? qty : 1;
     this.totalPrice = 0;
-    this.image = item.image;
+    this.image = item.image ? item.image : null;
     this.__typename = item.__typename;
     this.category = item.category;
   }
@@ -29,6 +29,9 @@ export class Item implements ProductType {
 
   getDescription(): string {
     return this.description;
+  }
+  getImage(): string | null {
+    return this.image ? this.image.url : null;
   }
 
   getTitle(): string {
