@@ -2,7 +2,9 @@
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./node_modules/next/dist/build/webpack/loaders/resolve-url-loader/index.js??ruleSet[1].rules[13].oneOf[7].use[4]!./node_modules/next/dist/compiled/sass-loader/cjs.js??ruleSet[1].rules[13].oneOf[7].use[5]!./src/components/Elements/Sidebar/sidebar.module.scss ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .sidebar_sidebar__YmI7H {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   width: 10%;
   height: 100svh;
   z-index: 9999;
@@ -35,6 +37,21 @@
 }
 .userMenu_userMenuAvatar__5hilt svg path {
   fill: #fbab20;
+}
+.userMenu_userMenuCategories___s489 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  align-items: self-start;
+}
+.userMenu_userMenuCategories___s489 button {
+  transition: 0.4s ease;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+}
+.userMenu_userMenuCategories___s489 button:hover {
+  color: #fbab20;
 }
 .userMenu_userMenuLogo__MgsjV {
   width: 100%;

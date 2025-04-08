@@ -63,12 +63,21 @@ export interface LoginStateInterface {
   set_logged_in_status: (status: boolean) => void;
 }
 
+export interface CategorizedProduct {
+  cat: string;
+  cat_prods: ProductType[];
+}
+
 export interface ProductsStateInterface {
   products: ProductType[];
+  categorizedProducts: CategorizedProduct[];
   searchQuery: string;
   loading: boolean;
+  selectedCategories: string[];
+  addCategorizedProducts: (cat: string, products: ProductType[]) => void;
   setSearchQuery: (query: string) => void;
   add_product: (product: ProductType[]) => void;
+  setSelectedCategory: (category: string) => void;
 }
 
 export interface LoginFormStateInterface {

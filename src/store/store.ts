@@ -136,11 +136,54 @@ export const logInState = create<LoginStateInterface>((set) => ({
     })),
 }));
 
-export const productsStore = create<ProductsStateInterface>((set) => ({
+export const productsStore = create<ProductsStateInterface>((set, get) => ({
   products: [],
+  categorizedProducts: [],
   searchQuery: "",
   loading: true,
-  setSearchQuery: (query) => set({ searchQuery: query }),
+  selectedCategories: [],
+
+  setSelectedCategory: (category) => {
+    const { selectedCategories, categorizedProducts } = get();
+    const exists = selectedCategories.includes(category);
+
+    if (exists) {
+      // Remove the category and its products
+      set({
+        selectedCategories: selectedCategories.filter(
+          (cat) => cat !== category
+        ),
+        categorizedProducts: categorizedProducts.filter(
+          (item) => item.cat !== category
+        ),
+        searchQuery: "", // 🧹 Clear search when toggling category
+      });
+    } else {
+      // Add category (products should be added after fetch)
+      set({
+        selectedCategories: [...selectedCategories, category],
+        searchQuery: "", // 🧹 Clear search when selecting a category
+      });
+    }
+  },
+
+  addCategorizedProducts: (cat, products) => {
+    set((state) => ({
+      categorizedProducts: [
+        ...state.categorizedProducts,
+        { cat, cat_prods: products },
+      ],
+    }));
+  },
+
+  setSearchQuery: (query) => {
+    const trimmed = query.trim();
+    set((state) => ({
+      searchQuery: trimmed,
+      selectedCategories: trimmed.length > 0 ? [] : state.selectedCategories, // 🧹 Clear categories if searching
+    }));
+  },
+
   add_product: (newProducts) =>
     set((state) => ({
       products: [...state.products, ...newProducts],

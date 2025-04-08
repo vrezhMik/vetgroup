@@ -49,6 +49,9 @@ export const GET_PRODUCTS_FRAGMENT = gql`
       name
       description
       price
+      category {
+        title
+      }
       image {
         url
       }
@@ -104,6 +107,48 @@ export const GET_USER_ORDERS = gql`
       total
       created
       products_json
+    }
+  }
+`;
+
+export const GET_CATEGORIES = gql`
+  query GetCategories {
+    categories {
+      title
+    }
+  }
+`;
+
+export const GET_PRODCUTS_BY_CAT = gql`
+  query GetProductsByCat($cat: String!) {
+    products(
+      filters: { category: { title: { eq: $cat } } }
+      pagination: { limit: -1 }
+    ) {
+      code
+      name
+      description
+      price
+      image {
+        url
+      }
+    }
+  }
+`;
+
+export const GET_SEARCH_FRAGMENTS = gql`
+  query SearchProducts($filters: ProductFiltersInput) {
+    products(filters: $filters, pagination: { limit: -1 }) {
+      code
+      name
+      description
+      price
+      category {
+        title
+      }
+      image {
+        url
+      }
     }
   }
 `;

@@ -8,6 +8,8 @@ export class Item implements ProductType {
   description: string;
   qty: number;
   totalPrice: number;
+  __typename: string;
+  category: { title: string };
 
   constructor(item: ProductType, qty: number | null) {
     this.name = item.name;
@@ -17,6 +19,8 @@ export class Item implements ProductType {
     this.qty = qty ? qty : 1;
     this.totalPrice = 0;
     this.image = item.image;
+    this.__typename = item.__typename;
+    this.category = item.category;
   }
 
   getId(): string {

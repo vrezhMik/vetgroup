@@ -34,19 +34,23 @@ export type CurrentUserType = {
   company: string;
 };
 
-export type ProductType = {
-  name: string;
-  code: string;
-  price: number;
-  image: string;
-  description: string;
-  qty: number;
-  totalPrice: number;
-};
-
 export type OrderType = {
   order_id: string;
   created: string;
   total: string;
   products_json: [];
+};
+
+export type ProductType = {
+  code: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  qty: number;
+  totalPrice: number;
+  __typename: string;
+  category: {
+    title: string;
+  };
 };

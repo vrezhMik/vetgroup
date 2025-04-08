@@ -10,6 +10,9 @@ import { GET_ORDER_ID } from "./fragments";
 import { GET_USER_ORDERS } from "./fragments";
 import { ApolloError } from "@apollo/client";
 import { loginFormState } from "@/store/store";
+import { GET_CATEGORIES } from "./fragments";
+import { GET_PRODCUTS_BY_CAT } from "./fragments";
+import { GET_SEARCH_FRAGMENTS } from "./fragments";
 
 function setWrongLogin(value: boolean) {
   loginFormState.setState({ isError: value });
@@ -211,6 +214,66 @@ export async function get_user_orders(documentId: string) {
       throw new Error("Invalid response from API");
     }
 
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
+  }
+}
+
+export async function get_categories() {
+  try {
+    const response = await graphQL_Query(GET_CATEGORIES, {});
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
+  }
+}
+
+export async function get_products_by_cat(cat: string) {
+  try {
+    const response = await graphQL_Query(GET_PRODCUTS_BY_CAT, { cat: cat });
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
+  }
+}
+
+function buildSearchFilter(query: string) {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+
+  const nameFilters = words.map((word) => ({ name: { containsi: word } }));
+  const descFilters = words.map((word) => ({
+    description: { containsi: word },
+  }));
+
+  return {
+    or: [{ and: nameFilters }, { and: descFilters }],
+  };
+}
+
+export async function get_search_fragments(query: string) {
+  try {
+    const response = await graphQL_Query(GET_SEARCH_FRAGMENTS, {
+      filters: buildSearchFilter(query),
+    });
     return response;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
