@@ -65,3 +65,39 @@
     }
   }
 }
+
+@media (max-width: 780px) {
+  .cardList {
+    height: 80%;
+    &Row {
+      justify-content: space-between;
+      &Title {
+        width: 50%;
+        &:nth-child(2),
+        &:nth-child(3) {
+          display: none;
+        }
+      }
+    }
+    &Data {
+      height: 90%;
+      &Row {
+        justify-content: space-between;
+
+        &Element {
+          width: 50% !important;
+
+          &:nth-child(2),
+          &:nth-child(3) {
+            display: none;
+          }
+        }
+      }
+    }
+    &Checkout {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
