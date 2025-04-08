@@ -7,9 +7,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { productsStore } from "@/store/store";
 import { get_products_by_cat } from "@/utils/query";
+import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
 export default function UserMenu() {
   const [categories, setCategories] = useState({ categories: [] });
-
+  const [hamburger, setHamburger] = useState<boolean>(false);
   useEffect(() => {
     async function loadCategories() {
       const data = await get_categories();
@@ -19,6 +20,7 @@ export default function UserMenu() {
   }, []);
 
   async function categoryPosts(cat: string) {
+    setHamburger(false);
     const { categorizedProducts } = productsStore.getState();
 
     productsStore.getState().setSelectedCategory(cat);
@@ -51,10 +53,32 @@ export default function UserMenu() {
             </button>
           ))}
       </div>
+
       <div className={style.userMenuAvatar}>
         <Link href={"/user"}>
           <Avatar />
         </Link>
+        <div className={style.userMenuHamburger}>
+          <div className="row">
+            <button onClick={() => setHamburger(!hamburger)}>
+              <HamburgerSVG />
+            </button>
+          </div>
+          <div className="row"></div>
+        </div>
+      </div>
+      <div
+        className={style.cat_hamburger_container}
+        style={{ display: hamburger ? "block" : "none" }}
+      >
+        <div className={style.cat_hamburger_container_buttons}>
+          {categories &&
+            categories.categories.map((cat: { title: string }, key: number) => (
+              <button key={key} onClick={() => categoryPosts(cat.title)}>
+                {cat.title}
+              </button>
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -35,6 +35,12 @@
       }
     }
   }
+  &Hamburger {
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
   &Logo {
     width: 100%;
     height: 100px;
@@ -51,21 +57,58 @@
   }
 }
 
+.cat_hamburger_container {
+  position: absolute;
+  background-color: #4f4141;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 10px;
+  top: 100px;
+  left: 0;
+  &_buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 10px;
+    button {
+      padding-left: 20px;
+      color: #fff;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      transition: 0.4s ease;
+      &:hover {
+        color: #fbab20;
+      }
+    }
+  }
+}
+
 @media (max-width: 780px) {
   .userMenu {
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
+    position: relative;
     padding: 0 20px;
+
     &Logo {
       height: 50px;
       width: 100px;
       margin: 0;
     }
-
+    &Categories {
+      display: none;
+    }
     &Avatar {
-      width: 40px;
-      height: 40px;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+      a {
+        width: 40px;
+        height: 40px;
+      }
     }
   }
 }
