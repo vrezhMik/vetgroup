@@ -20,9 +20,3 @@
   color: variables.$theme-default-color !important;
   background-color: variables.$theme-color-dark;
 }
-
-@media (max-width: 780px) {
-  .menu {
-    padding-top: 150px;
-  }
-}

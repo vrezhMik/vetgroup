@@ -5,12 +5,12 @@
   height: 100svh;
   z-index: 9999;
 }
-// @media (max-width: 1400px) {
-//   .sidebar {
-//     width: 25%;
-//   }
-// }
 
+@media (min-width: 1600px) {
+  .sidebar {
+    width: 10%;
+  }
+}
 @media (max-width: 1024px) {
   .sidebar {
     width: 100%;

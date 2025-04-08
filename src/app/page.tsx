@@ -9,7 +9,7 @@ import "./../styles/main.scss";
 export default function Home() {
   const { add_product, loading } = productsStore();
   const startRef = useRef(0);
-  const limit = 22;
+  const limit = 18;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const fetchData = useCallback(async () => {
