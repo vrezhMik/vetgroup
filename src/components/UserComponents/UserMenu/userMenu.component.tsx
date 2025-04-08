@@ -24,8 +24,7 @@ export default function UserMenu() {
   async function categoryPosts(cat: string) {
     setHamburger(false);
 
-    const { categorizedProducts, selectedCategories } =
-      productsStore.getState(); // use getState() here
+    const { categorizedProducts } = productsStore.getState();
     productsStore.getState().setSelectedCategory(cat);
 
     const stillSelected = productsStore

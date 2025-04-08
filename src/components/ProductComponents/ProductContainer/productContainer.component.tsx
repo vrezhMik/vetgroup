@@ -8,20 +8,7 @@ import CartSVG from "@/components/Elements/Icons/CartSVG";
 import { CardView } from "@/utils/Types";
 import { useEffect, useState } from "react";
 import { get_search_fragments } from "@/utils/query";
-
-type ProductType = {
-  code: string;
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-  qty: number;
-  totalPrice: number;
-  __typename: string;
-  category: {
-    title: string;
-  };
-};
+import { ProductType } from "@/utils/Types";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
@@ -124,7 +111,7 @@ export default function ProductContainer() {
     name: "L. Ipsume",
     description: "Lorem Ipsum",
     price: 1000,
-    image: "/",
+    image: { url: "" },
     __typename: "Product",
     qty: 1,
     totalPrice: 1,

@@ -1,12 +1,10 @@
 "use client";
 import style from "./password.module.scss";
-import { useCurrentUser } from "@/store/store";
 import { change_password_query } from "@/utils/query";
 import Cookies from "js-cookie";
 import { useState } from "react";
 
 export default function UserSettings() {
-  const { user_data } = useCurrentUser();
   const [form_data, set_form_data] = useState({
     old_password: "",
     new_password: "",
