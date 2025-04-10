@@ -40,7 +40,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
   };
   const imageUrl = currentProduct?.getImage();
   const fullImageUrl = imageUrl
-    ? `http://localhost:1337${imageUrl}`
+    ? `https://vetgroup.am${imageUrl}`
     : "/placeholder.webp";
 
   return (
