@@ -113,7 +113,7 @@ export const GET_USER_ORDERS = gql`
 
 export const GET_CATEGORIES = gql`
   query GetCategories {
-    categories {
+    categories(pagination: { limit: -1 }) {
       title
     }
   }
