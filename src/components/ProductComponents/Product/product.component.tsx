@@ -42,6 +42,9 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
   const fullImageUrl = imageUrl
     ? `https://vetgroup.am${imageUrl}`
     : "/placeholder.webp";
+  // const fullImageUrl = imageUrl
+  //   ? `http://localhost:1337${imageUrl}`
+  //   : "/placeholder.webp";
 
   return (
     <section

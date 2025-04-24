@@ -4,11 +4,13 @@ import { useCard } from "@/store/store";
 
 export default function CardProductView() {
   const { currentItem } = useCard();
-
   return (
     <div className={`row flex ${style.cardProduct}`}>
       <div className={`${style.cardProductImage}`}>
-        <ImageComponent alt={"image"} url={"/placeholder.webp"} />
+        <ImageComponent
+          alt={"image"}
+          url={currentItem?.getImage() || "/placeholder.webp"}
+        />
       </div>
       <div className={`${style.cardProductInfo}`}>
         <div className={`${style.cardProductInfoTitle}`}>

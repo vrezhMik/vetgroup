@@ -49,11 +49,11 @@ export const GET_PRODUCTS_FRAGMENT = gql`
       name
       description
       price
-      category {
-        title
-      }
       image {
         url
+      }
+      category {
+        title
       }
     }
   }
