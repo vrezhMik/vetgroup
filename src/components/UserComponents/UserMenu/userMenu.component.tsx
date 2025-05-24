@@ -2,89 +2,105 @@
 import style from "./userMenu.module.scss";
 import Avatar from "../../Elements/Icons/AvatarSVG";
 import LogoSVG from "@/components/Elements/Icons/LogoSVG";
-import { get_categories } from "@/utils/query";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { productsStore } from "@/store/store";
-import { get_products_by_cat } from "@/utils/query";
 import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Cookies from "js-cookie";
+
+import { get_categories, get_products_by_cat } from "@/utils/query";
+import { productsStore } from "@/store/store";
+
+type Category = { title: string };
+
 export default function UserMenu() {
-  const [categories, setCategories] = useState({ categories: [] });
-  const [hamburger, setHamburger] = useState<boolean>(false);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [hamburger, setHamburger] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [jwt, setJwt] = useState<string | undefined>();
 
   const selectedCategories = productsStore((state) => state.selectedCategories);
+
   useEffect(() => {
+    // Mark as client-rendered
+    setIsClient(true);
+    setJwt(Cookies.get("jwt"));
+
     async function loadCategories() {
       const data = await get_categories();
-      setCategories(data);
+      if (data?.categories) {
+        setCategories(data.categories);
+      }
     }
+
     loadCategories();
   }, []);
 
-  async function categoryPosts(cat: string) {
+  const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
     const { categorizedProducts } = productsStore.getState();
     productsStore.getState().setSelectedCategory(cat);
 
-    const stillSelected = productsStore
-      .getState()
-      .selectedCategories.includes(cat);
-    const alreadyFetched = categorizedProducts.find((item) => item.cat === cat);
+    const isAlreadySelected = selectedCategories.includes(cat);
+    const isAlreadyFetched = categorizedProducts.some(
+      (item) => item.cat === cat
+    );
 
-    if (!stillSelected || alreadyFetched) return;
+    if (isAlreadySelected || isAlreadyFetched) return;
 
     const data = await get_products_by_cat(cat);
-    if (data && data.products) {
+    if (data?.products) {
       productsStore.getState().addCategorizedProducts(cat, data.products);
     }
-  }
+  };
 
   return (
     <div className={`${style.userMenu} flex`}>
+      {/* Logo */}
       <div className={style.userMenuLogo}>
-        <Link href={"/"}>
+        <Link href="/">
           <LogoSVG />
         </Link>
       </div>
-      <div className={style.userMenuCategories}>
-        {categories &&
-          categories.categories.map((cat: { title: string }, key: number) => {
-            const isActive = selectedCategories.includes(cat.title);
 
-            return (
-              <button
-                key={key}
-                onClick={() => categoryPosts(cat.title)}
-                className={isActive ? style.active : ""}
-              >
-                {cat.title}
-              </button>
-            );
-          })}
+      {/* Category Buttons */}
+      <div className={style.userMenuCategories}>
+        {categories.map((cat, key) => {
+          const isActive = selectedCategories.includes(cat.title);
+          return (
+            <button
+              key={key}
+              onClick={() => categoryPosts(cat.title)}
+              className={isActive ? style.active : ""}
+            >
+              {cat.title}
+            </button>
+          );
+        })}
       </div>
 
+      {/* Avatar and Hamburger */}
       <div className={style.userMenuAvatar}>
-        <Link href={"/user"}>
-          <Avatar />
-        </Link>
+        {isClient && (
+          <Link href={jwt ? "/user" : "/login"}>
+            <Avatar />
+          </Link>
+        )}
         <div className={style.userMenuHamburger}>
           <div className="row">
             <button onClick={() => setHamburger(!hamburger)}>
               <HamburgerSVG />
             </button>
           </div>
-          <div className="row"></div>
+          <div className="row" />
         </div>
       </div>
 
-      <div
-        className={style.cat_hamburger_container}
-        style={{ display: hamburger ? "block" : "none" }}
-      >
-        <div className={style.cat_hamburger_container_buttons}>
-          {categories &&
-            categories.categories.map((cat: { title: string }, key: number) => {
+      {/* Hamburger Menu Categories */}
+      {hamburger && (
+        <div className={style.cat_hamburger_container}>
+          <div className={style.cat_hamburger_container_buttons}>
+            {categories.map((cat, key) => {
               const isActive = selectedCategories.includes(cat.title);
               return (
                 <button
@@ -96,8 +112,9 @@ export default function UserMenu() {
                 </button>
               );
             })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

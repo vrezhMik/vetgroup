@@ -47,6 +47,7 @@ export type ProductType = {
   description: string;
   price: number;
   image: { url: string } | null;
+  backendId: null | string;
   qty: number;
   totalPrice: number;
   __typename: string;

@@ -19,6 +19,7 @@ export const USER_FRAGMENT = gql`
         first_name
         last_name
         company
+        code
       }
     }
   }
@@ -49,6 +50,7 @@ export const GET_PRODUCTS_FRAGMENT = gql`
       name
       description
       price
+      backendId
       image {
         url
       }
@@ -130,6 +132,7 @@ export const GET_PRODCUTS_BY_CAT = gql`
       name
       description
       price
+      backendId
       image {
         url
       }
@@ -144,6 +147,7 @@ export const GET_SEARCH_FRAGMENTS = gql`
       name
       description
       price
+      backendId
       category {
         title
       }

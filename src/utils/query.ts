@@ -82,7 +82,10 @@ export async function login(identifier: string, password: string) {
     if (!documentId) {
       throw new Error("documentId not found in the response");
     }
+    const user = await get_current_user(documentId);
     window.location.href = "/";
+    document.cookie = `code=${user.vetgroupUsers[0].user.code}; path=/; SameSite=Strict`;
+
     document.cookie = `document=${documentId}; path=/; SameSite=Strict`;
     document.cookie = `user=${id}; path=/; SameSite=Strict`;
     setWrongLogin(false);
@@ -173,26 +176,46 @@ async function get_order_id() {
     }
   }
 }
+function getFormattedDateTime(): string {
+  const now = new Date();
 
-export async function add_order(items: Item[], user: number, total: number) {
-  const order_id_response = await get_order_id();
-  const order_id =
-    order_id_response.orders.length === 0
-      ? "1"
-      : (parseInt(order_id_response.orders[0].order_id) + 1).toString();
-  const created = getFormattedCurrentDate();
-  const data = generateTableHTML(items);
+  const pad = (n: number) => n.toString().padStart(2, "0");
+
+  const month = pad(now.getMonth() + 1);
+  const day = pad(now.getDate());
+  const year = now.getFullYear();
+
+  const hours = pad(now.getHours());
+  const minutes = pad(now.getMinutes());
+  const seconds = pad(now.getSeconds());
+
+  return `${month}:${day}:${year} ${hours}:${minutes}:${seconds}`;
+}
+export async function add_order(items: Item[], user: string, total: number) {
+  const data = {
+    TransactionDate: getFormattedDateTime(),
+    ClientID: user,
+    Note: "",
+    ItemsList: items.map((item) => ({
+      ItemID: item.backendId ?? "",
+      Quantity: item.qty ?? 0,
+    })),
+  };
 
   try {
-    const response = await graphQL_Query(ADD_ORDER_FRAGMENT, {
-      order_id,
-      created,
-      total,
-      products: data,
-      users_permissions_user: user,
-      products_json: items,
+    const response = await fetch("/api/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
-    return response;
+    if (!response.ok) {
+      const error = await response.text();
+      console.error("Failed:", error);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
       console.error("GraphQL error:", error.message);

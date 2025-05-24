@@ -16,7 +16,6 @@ export default function Home() {
     try {
       const currentStart = startRef.current;
       const data = await get_products(currentStart, limit);
-      console.log(data);
       if (data && data.products && data.products.length > 0) {
         add_product(data.products);
         startRef.current += limit;

@@ -112,6 +112,7 @@ export default function ProductContainer() {
     description: "Lorem Ipsum",
     price: 1000,
     image: { url: "" },
+    backendId: null,
     __typename: "Product",
     qty: 1,
     totalPrice: 1,

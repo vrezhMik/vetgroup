@@ -8,6 +8,7 @@ export class Item implements ProductType {
   description: string;
   qty: number;
   totalPrice: number;
+  backendId: string | null;
   __typename: string;
   category: { title: string };
 
@@ -21,6 +22,7 @@ export class Item implements ProductType {
     this.image = item.image ? item.image : null;
     this.__typename = item.__typename;
     this.category = item.category;
+    this.backendId = item.backendId;
   }
 
   getId(): string {
