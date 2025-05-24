@@ -28,7 +28,9 @@ export default function Login() {
     <div className={`flex ${style.login}`}>
       <div className={`flex ${style["login-form"]}`}>
         <div className={`row ${style["login-form-logo"]}`}>
-          <LogoSVG />
+          <a href="/">
+            <LogoSVG />
+          </a>
         </div>
 
         <div className={style.error_container}>

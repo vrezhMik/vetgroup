@@ -215,6 +215,7 @@ export async function add_order(items: Item[], user: string, total: number) {
     }
 
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {

@@ -7,9 +7,9 @@
   align-items: center;
   &-form {
     width: 50%;
-    min-height: 50%;
+    // min-height: 50%;
     background-color: #fdfdfd;
-    padding: 20px;
+    padding: 60px 20px;
     border-radius: 10px;
     border: 1px solid variables.$theme-color-light;
     -webkit-box-shadow: 0px 6px 75px 4px rgba(210, 210, 212, 1);
