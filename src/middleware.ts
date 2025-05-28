@@ -1,7 +1,7 @@
 // import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+// import type { NextRequest } from "next/server";
 
-export function middleware(req: NextRequest) {
+export function middleware() {
   //   const jwt = req.cookies.get("jwt");
   //   // Allow requests to static files, API routes, and Next.js internal routes
   //   if (

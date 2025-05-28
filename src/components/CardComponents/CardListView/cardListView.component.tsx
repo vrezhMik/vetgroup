@@ -46,7 +46,7 @@ export default function CardListView() {
 
   const save_request = async () => {
     const user = getCookie("code");
-    await add_order(cartItems, user || "", cartTotal);
+    await add_order(cartItems, user || "");
     cleanCart();
     setCardState(false);
   };

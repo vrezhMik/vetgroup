@@ -5,6 +5,7 @@ import LogoSVG from "../Icons/LogoSVG";
 import style from "./login.module.scss";
 import { login } from "@/utils/query";
 import { loginFormState } from "@/store/store";
+import Link from "next/link";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -28,9 +29,9 @@ export default function Login() {
     <div className={`flex ${style.login}`}>
       <div className={`flex ${style["login-form"]}`}>
         <div className={`row ${style["login-form-logo"]}`}>
-          <a href="/">
+          <Link href={"/"}>
             <LogoSVG />
-          </a>
+          </Link>
         </div>
 
         <div className={style.error_container}>

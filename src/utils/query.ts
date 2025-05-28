@@ -18,48 +18,48 @@ function setWrongLogin(value: boolean) {
   loginFormState.setState({ isError: value });
 }
 
-const getFormattedCurrentDate = () => {
-  return new Date().toISOString().split(".")[0] + "Z";
-};
+// const getFormattedCurrentDate = () => {
+//   return new Date().toISOString().split(".")[0] + "Z";
+// };
 
-const generateTableHTML = (items: Item[]) => {
-  if (!Array.isArray(items) || items.length === 0)
-    return "<p>No items available</p>";
+// const generateTableHTML = (items: Item[]) => {
+//   if (!Array.isArray(items) || items.length === 0)
+//     return "<p>No items available</p>";
 
-  let tableHTML = `
-    <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Code</th>
-          <th>Description</th>
-          <th>Image</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-      </thead>
-      <tbody>`;
+//   let tableHTML = `
+//     <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>
+//       <thead>
+//         <tr>
+//           <th>Name</th>
+//           <th>Code</th>
+//           <th>Description</th>
+//           <th>Image</th>
+//           <th>Price</th>
+//           <th>Quantity</th>
+//         </tr>
+//       </thead>
+//       <tbody>`;
 
-  items.forEach((item) => {
-    tableHTML += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.code}</td>
-        <td>${item.description}</td>
-        <td>${
-          item.image ? `<img src='${item.image}' width='50'>` : "No Image"
-        }</td>
-        <td>${item.price} AMD</td>
-        <td>${item.qty}</td>
-      </tr>`;
-  });
+//   items.forEach((item) => {
+//     tableHTML += `
+//       <tr>
+//         <td>${item.name}</td>
+//         <td>${item.code}</td>
+//         <td>${item.description}</td>
+//         <td>${
+//           item.image ? `<img src='${item.image}' width='50'>` : "No Image"
+//         }</td>
+//         <td>${item.price} AMD</td>
+//         <td>${item.qty}</td>
+//       </tr>`;
+//   });
 
-  tableHTML += `
-      </tbody>
-    </table>`;
+//   tableHTML += `
+//       </tbody>
+//     </table>`;
 
-  return tableHTML.trim();
-};
+//   return tableHTML.trim();
+// };
 
 export async function login(identifier: string, password: string) {
   try {
@@ -191,7 +191,7 @@ function getFormattedDateTime(): string {
 
   return `${month}:${day}:${year} ${hours}:${minutes}:${seconds}`;
 }
-export async function add_order(items: Item[], user: string, total: number) {
+export async function add_order(items: Item[], user: string) {
   const data = {
     TransactionDate: getFormattedDateTime(),
     ClientID: user,
