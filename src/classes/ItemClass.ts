@@ -2,6 +2,8 @@ import { ProductType } from "@/utils/Types";
 
 export class Item implements ProductType {
   name: string;
+  stock: number;
+  pack_price: number;
   code: string;
   image: { url: string } | null;
   price: number;
@@ -14,8 +16,10 @@ export class Item implements ProductType {
 
   constructor(item: ProductType, qty: number | null) {
     this.name = item.name;
+    this.stock = item.stock;
     this.code = item.code;
     this.price = item.price;
+    this.pack_price = item.pack_price;
     this.description = item.description;
     this.qty = qty ? qty : 1;
     this.totalPrice = 0;
@@ -67,5 +71,11 @@ export class Item implements ProductType {
       .toFixed(2)
       .replace(".", ",")
       .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+  getPackPrice() {
+    return this.pack_price;
+  }
+  getStock() {
+    return this.stock;
   }
 }

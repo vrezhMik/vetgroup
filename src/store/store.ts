@@ -177,10 +177,10 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   },
 
   setSearchQuery: (query) => {
-    const trimmed = query.trim();
+    const trimmed = query;
     set((state) => ({
       searchQuery: trimmed,
-      selectedCategories: trimmed.length > 0 ? [] : state.selectedCategories, // 🧹 Clear categories if searching
+      selectedCategories: trimmed.length > 0 ? [] : state.selectedCategories,
     }));
   },
 

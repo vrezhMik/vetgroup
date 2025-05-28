@@ -1,18 +1,23 @@
 "use client";
 import style from "./product.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/store/store";
 import { ProductPropsInterface } from "@/utils/Interfaces";
 import { Item } from "@/classes/ItemClass";
 
 import ImageComponent from "@/components/Elements/Image/image.component";
 import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
+import Cookies from "js-cookie";
 
 export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
+  const [jwt, setJwt] = useState<string | undefined>();
+
   const { addItem } = useCart();
   const [currentProduct, setCurrentProduct] = useState(new Item(data, 1));
-
+  useEffect(() => {
+    setJwt(Cookies.get("jwt"));
+  }, []);
   const increment = (product: Item) => {
     product.setQty(quantity + 1);
     setQuantity(product.getQty());
@@ -35,17 +40,21 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
   };
 
   const orderItem = (): void => {
-    currentProduct.setTotal();
-    addItem(currentProduct);
+    if (!jwt) {
+      window.location.href = "/login";
+    } else {
+      currentProduct.setTotal();
+      addItem(currentProduct);
+    }
   };
   const imageUrl = currentProduct?.getImage();
-  // const fullImageUrl = imageUrl
-  //   ? `https://vetgroup.am${imageUrl}`
-  //   : "/placeholder.webp";
   const fullImageUrl = imageUrl
-    ? `http://localhost:1337${imageUrl}`
+    ? `https://vetgroup.am${imageUrl}`
     : "/placeholder.webp";
-
+  // const fullImageUrl = imageUrl
+  //   ? `http://localhost:1337${imageUrl}`
+  //   : "/placeholder.webp";
+  if (currentProduct.getPrice() <= 0) return;
   return (
     <section
       className={`${style.product} flex ${
@@ -57,14 +66,26 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           alt={currentProduct?.getTitle() || ""}
           url={fullImageUrl}
         />
+        {/* <div className={style.productImageSale}>30%</div> */}
       </div>
 
       <div className={`${style.productInfo} flex`}>
         <div className={`${style.productInfoPrice} flex`}>
-          <p className={style.productInfoPriceSale}>
-            {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
-            AMD
-          </p>
+          {jwt ? (
+            <p className={style.productInfoPriceSale}>
+              {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
+              AMD
+            </p>
+          ) : currentProduct.getPackPrice() == 0 ? (
+            <p className={style.productInfoPriceSale}>
+              {currentProduct.formatPrice(
+                currentProduct.getPackPrice() * quantity
+              )}{" "}
+              AMD
+            </p>
+          ) : (
+            <p></p>
+          )}
         </div>
       </div>
 
@@ -75,7 +96,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           <span>{currentProduct.getDescription()}</span>
         </h2>
       </div>
-
       <div className={`flex ${style.productAction}`}>
         <div className={`${style.productActionInput} flex`}>
           <button
@@ -108,6 +128,11 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           </button>
         </div>
       </div>
+      {currentProduct.getStock() <= 10 && (
+        <div className={style.limited}>
+          <p>Limited</p>
+        </div>
+      )}
     </section>
   );
 }

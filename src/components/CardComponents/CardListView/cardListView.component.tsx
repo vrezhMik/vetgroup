@@ -63,44 +63,45 @@ export default function CardListView() {
     cardViewState === CardView.History ? currentHistoryItem : cartItems;
 
   return (
-    <div className={style.cardList}>
-      <div className={`${style.cardListRow} flex row`}>
-        <div className={style.cardListRowTitle}>
-          <span>Name</span>
-        </div>
-        <div className={style.cardListRowTitle}>
-          <span>Qty</span>
-        </div>
-        <div className={style.cardListRowTitle}>
-          <span>Price</span>
-        </div>
-        <div className={style.cardListRowTitle}>
-          <span>Total</span>
-        </div>
-      </div>
-
-      <div className={style.cardListData}>
-        {visibleItems?.map((item, key) => (
-          <div className={`row flex ${style.cardListDataRow}`} key={key}>
-            <div className={style.cardListDataRowElement}>
-              <span>{item.name}</span>
-            </div>
-            <div className={style.cardListDataRowElement}>{item.qty}</div>
-            <div className={style.cardListDataRowElement}>
-              <span>{formatPrice(item.price)} AMD</span>
-            </div>
-            <div className={`${style.cardListDataRowElement} flex`}>
-              <span>{formatPrice(item.price * item.qty)} AMD</span>
-              {cardViewState !== CardView.History && (
-                <button onClick={() => removeItem((item as Item).getId())}>
-                  <TrashSVG />
-                </button>
-              )}
-            </div>
+    <>
+      <div className={style.cardList}>
+        <div className={`${style.cardListRow} flex row`}>
+          <div className={style.cardListRowTitle}>
+            <span>Name</span>
           </div>
-        ))}
-      </div>
+          <div className={style.cardListRowTitle}>
+            <span>Qty</span>
+          </div>
+          <div className={style.cardListRowTitle}>
+            <span>Price</span>
+          </div>
+          <div className={style.cardListRowTitle}>
+            <span>Total</span>
+          </div>
+        </div>
 
+        <div className={style.cardListData}>
+          {visibleItems?.map((item, key) => (
+            <div className={`row flex ${style.cardListDataRow}`} key={key}>
+              <div className={style.cardListDataRowElement}>
+                <span>{item.name}</span>
+              </div>
+              <div className={style.cardListDataRowElement}>{item.qty}</div>
+              <div className={style.cardListDataRowElement}>
+                <span>{formatPrice(item.price)} AMD</span>
+              </div>
+              <div className={`${style.cardListDataRowElement} flex`}>
+                <span>{formatPrice(item.price * item.qty)} AMD</span>
+                {cardViewState !== CardView.History && (
+                  <button onClick={() => removeItem((item as Item).getId())}>
+                    <TrashSVG />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       {cardViewState !== CardView.History && (
         <div className={`${style.cardListCheckout} flex`}>
           <h1>
@@ -113,6 +114,6 @@ export default function CardListView() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }

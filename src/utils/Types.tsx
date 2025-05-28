@@ -43,9 +43,11 @@ export type OrderType = {
 
 export type ProductType = {
   code: string;
+  stock: number;
   name: string;
   description: string;
   price: number;
+  pack_price: number;
   image: { url: string } | null;
   backendId: null | string;
   qty: number;

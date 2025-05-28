@@ -3,10 +3,10 @@ import { LOGIN_FRAGMENT } from "./fragments";
 import { USER_FRAGMENT } from "./fragments";
 import { CHANGE_PASSWORD_FRAGMENT } from "./fragments";
 import { GET_PRODUCTS_FRAGMENT } from "./fragments";
-import { ADD_ORDER_FRAGMENT } from "./fragments";
+// import { ADD_ORDER_FRAGMENT } from "./fragments";
 import Cookies from "js-cookie";
 import { Item } from "@/classes/ItemClass";
-import { GET_ORDER_ID } from "./fragments";
+// import { GET_ORDER_ID } from "./fragments";
 import { GET_USER_ORDERS } from "./fragments";
 import { ApolloError } from "@apollo/client";
 import { loginFormState } from "@/store/store";
@@ -162,20 +162,20 @@ export async function get_products(start: number, limit: number) {
   }
 }
 
-async function get_order_id() {
-  try {
-    const response = await graphQL_Query(GET_ORDER_ID, {});
-    return response;
-  } catch (error: unknown) {
-    if (error instanceof ApolloError) {
-      console.error("GraphQL error:", error.message);
-    } else if (error instanceof Error) {
-      console.error("JS error:", error.message);
-    } else {
-      console.error("Unknown error:", error);
-    }
-  }
-}
+// async function get_order_id() {
+//   try {
+//     const response = await graphQL_Query(GET_ORDER_ID, {});
+//     return response;
+//   } catch (error: unknown) {
+//     if (error instanceof ApolloError) {
+//       console.error("GraphQL error:", error.message);
+//     } else if (error instanceof Error) {
+//       console.error("JS error:", error.message);
+//     } else {
+//       console.error("Unknown error:", error);
+//     }
+//   }
+// }
 function getFormattedDateTime(): string {
   const now = new Date();
 
@@ -215,7 +215,6 @@ export async function add_order(items: Item[], user: string, total: number) {
     }
 
     const result = await response.json();
-    console.log(result);
     return result;
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
@@ -279,17 +278,14 @@ export async function get_products_by_cat(cat: string) {
     }
   }
 }
-
 function buildSearchFilter(query: string) {
-  const words = query.toLowerCase().split(/\s+/).filter(Boolean);
-
-  const nameFilters = words.map((word) => ({ name: { containsi: word } }));
-  const descFilters = words.map((word) => ({
-    description: { containsi: word },
-  }));
+  const words = query.split(/\s+/).filter(Boolean);
 
   return {
-    or: [{ and: nameFilters }, { and: descFilters }],
+    or: words.flatMap((word) => [
+      { name: { contains: word } },
+      { description: { contains: word } },
+    ]),
   };
 }
 

@@ -5,10 +5,9 @@ import { useCart, useCard, useCardView, productsStore } from "@/store/store";
 import Product from "../Product/product.component";
 import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
 import CartSVG from "@/components/Elements/Icons/CartSVG";
-import { CardView } from "@/utils/Types";
+import { CardView, ProductType } from "@/utils/Types";
 import { useEffect, useState } from "react";
 import { get_search_fragments } from "@/utils/query";
-import { ProductType } from "@/utils/Types";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
@@ -40,52 +39,43 @@ export default function ProductContainer() {
   };
 
   useEffect(() => {
-    const body = document.getElementsByTagName("body")[0];
+    const body = document.body;
     body.style.overflowY = initialLoad && loading ? "hidden" : "scroll";
   }, [loading, initialLoad]);
-
   useEffect(() => {
     if (!hasInitialized || loading) return;
 
-    const query = searchQuery.trim().toLowerCase();
-    const lowerQueryWords = query.split(/\s+/).filter(Boolean);
+    const query = searchQuery.trim();
+    const words = query.split(/\s+/).filter(Boolean);
 
-    if (query.length > 1) return;
+    // Unicode-aware normalization for Armenian (and other scripts)
+    const normalize = (s: string) => s.toLocaleLowerCase("hy-AM");
 
-    let sourceProducts: ProductType[] = [];
+    const sourceProducts =
+      selectedCategories.length > 0
+        ? categorizedProducts
+            .filter((catObj) => selectedCategories.includes(catObj.cat))
+            .flatMap((catObj) => catObj.cat_prods)
+        : products;
 
-    if (selectedCategories.length > 0) {
-      sourceProducts = categorizedProducts
-        .filter((catObj) => selectedCategories.includes(catObj.cat))
-        .flatMap((catObj) => catObj.cat_prods);
-    } else {
-      sourceProducts = products;
+    // 1. Real-time local match with Armenian-safe normalization
+    if (query.length > 0) {
+      const localMatches = sourceProducts.filter((product) => {
+        const name = normalize(product.name);
+        const description = normalize(product.description);
+
+        return words.every((word) => {
+          const w = normalize(word);
+          return name.includes(w) || description.includes(w);
+        });
+      });
+
+      setVisibleProducts(localMatches);
     }
 
-    const matches = sourceProducts.filter((product) => {
-      const name = product.name.toLowerCase();
-      const description = product.description.toLowerCase();
-
-      return lowerQueryWords.every(
-        (word) => name.includes(word) || description.includes(word)
-      );
-    });
-
-    setVisibleProducts(matches);
-  }, [
-    products,
-    categorizedProducts,
-    searchQuery,
-    selectedCategories,
-    hasInitialized,
-    loading,
-  ]);
-
-  useEffect(() => {
+    // 2. Debounced server-side search fallback
     const delayDebounce = setTimeout(async () => {
-      const query = searchQuery.trim();
-
-      if (query.length > 1) {
+      if (query.length >= 1) {
         const data = await get_search_fragments(query);
         if (data?.products) {
           setVisibleProducts(data.products);
@@ -93,45 +83,46 @@ export default function ProductContainer() {
       }
 
       if (query.length === 0 && hasInitialized) {
-        setVisibleProducts(
-          selectedCategories.length === 0
-            ? products
-            : categorizedProducts
-                .filter((catObj) => selectedCategories.includes(catObj.cat))
-                .flatMap((catObj) => catObj.cat_prods)
-        );
+        setVisibleProducts(sourceProducts);
       }
     }, 300);
 
     return () => clearTimeout(delayDebounce);
-  }, [searchQuery, hasInitialized]);
+  }, [
+    searchQuery,
+    products,
+    categorizedProducts,
+    selectedCategories,
+    hasInitialized,
+    loading,
+  ]);
 
   const placeholderData: ProductType = {
     code: "0000",
+    stock: 1000,
     name: "L. Ipsume",
     description: "Lorem Ipsum",
+    pack_price: 1500,
     price: 1000,
     image: { url: "" },
     backendId: null,
     __typename: "Product",
     qty: 1,
     totalPrice: 1,
-    category: {
-      title: "",
-    },
+    category: { title: "" },
   };
 
   return (
-    <div className={`${style.mainContainer}`}>
+    <div className={style.mainContainer}>
       <div className={`${style.mainContainerSearchBar} flex`}>
         <SearchBar />
-        <div className={`${style.mainContainerSearchBarCart}`}>
+        <div className={style.mainContainerSearchBarCart}>
           <button
-            className={`${style.mainContainerSearchBarCartButton}`}
+            className={style.mainContainerSearchBarCartButton}
             onClick={showCart}
           >
             {getItemCount() > 0 && (
-              <div className={`${style.mainContainerSearchBarCartButtonItems}`}>
+              <div className={style.mainContainerSearchBarCartButtonItems}>
                 {cartTotal}
               </div>
             )}
