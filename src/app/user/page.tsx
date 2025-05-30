@@ -7,15 +7,22 @@ import Sidebar from "@/components/Elements/Sidebar/sidebar.component";
 import UserPageContent from "@/components/UserComponents/UserPageContent/userPageContent.component";
 import { get_current_user } from "@/utils/query";
 
+type CurrentUserType = {
+  documentId: string;
+  first_name: string;
+  last_name: string;
+  company: string;
+};
+
 export default function UserPage() {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<CurrentUserType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const jwt = Cookies.get("jwt");
     const documentId = Cookies.get("document");
-    console.log(jwt, documentId);
+
     if (!jwt || !documentId) {
       router.push("/login");
       return;
@@ -30,6 +37,7 @@ export default function UserPage() {
         }
 
         const vetUser = user.vetgroupUsers[0].user;
+
         setCurrentUser({
           documentId,
           first_name: vetUser.first_name,
@@ -38,6 +46,7 @@ export default function UserPage() {
         });
       } catch (err) {
         router.push("/login");
+        console.log(err);
       } finally {
         setLoading(false);
       }
