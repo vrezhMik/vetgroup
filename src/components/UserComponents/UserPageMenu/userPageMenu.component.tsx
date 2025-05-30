@@ -12,13 +12,13 @@ export default function UserPageMenu() {
         className={activeState === UserMenu.History ? style.active : ""}
         onClick={() => setActiveState(UserMenu.History)}
       >
-        History
+        Պատվերներ
       </button>
       <button
         className={activeState === UserMenu.Settings ? style.active : ""}
         onClick={() => setActiveState(UserMenu.Settings)}
       >
-        Settings
+        Կարգաորումներ
       </button>
     </div>
   );

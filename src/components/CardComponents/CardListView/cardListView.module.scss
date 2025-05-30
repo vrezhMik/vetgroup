@@ -1,6 +1,7 @@
 @use "./../../../styles/variables" as variables;
 
 .cardList {
+  position: relative;
   // height: 100%;
   &Row {
     justify-content: space-evenly;
@@ -74,6 +75,17 @@
   }
 }
 
+.message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border: 4px solid #ededed;
+  border-radius: 15px;
+  padding: 50px 70px;
+  font-size: 32px;
+  box-shadow: 8px 8px 0px #fbab20;
+}
 @media (max-width: 1200px) {
   .cardList {
     height: 80%;

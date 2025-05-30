@@ -74,14 +74,14 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           {jwt ? (
             <p className={style.productInfoPriceSale}>
               {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
-              AMD
+              Դրամ
             </p>
           ) : currentProduct.getPackPrice() == 0 ? (
             <p className={style.productInfoPriceSale}>
               {currentProduct.formatPrice(
                 currentProduct.getPackPrice() * quantity
               )}{" "}
-              AMD
+              Դրամ
             </p>
           ) : (
             <p></p>
@@ -124,14 +124,20 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
             onClick={orderItem}
             disabled={placeholder}
           >
-            Order
+            Ավելացնել
           </button>
         </div>
       </div>
-      {currentProduct.getStock() <= 10 && (
+      {currentProduct.getStock() == 0 ? (
         <div className={style.limited}>
-          <p>Limited</p>
+          <p>Շուտով</p>
         </div>
+      ) : currentProduct.getStock() <= 10 ? (
+        <div className={style.limited}>
+          <p>Սպառվում է</p>
+        </div>
+      ) : (
+        <></>
       )}
     </section>
   );

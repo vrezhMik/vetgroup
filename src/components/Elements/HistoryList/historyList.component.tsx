@@ -71,7 +71,7 @@ function HistoryList() {
   return (
     <div className={`${style.history}`}>
       <div className={`${style.historyTitle}`}>
-        <h1>Order History:</h1>
+        <h1>Պատվերների ցանկ:</h1>
       </div>
       <div className={`${style.historyElements}`}>
         {orders.length > 0 ? (
@@ -79,14 +79,14 @@ function HistoryList() {
             <div key={key} className={`flex ${style.historyElementsElement}`}>
               <p>#{element.order_id}</p>
               <p>{formatDate(element.created)}</p>
-              <p>{formatPrice(parseInt(element.total))} AMD</p>
+              <p>{formatPrice(parseInt(element.total))} Դրամ</p>
               <button onClick={() => showCart(element.products_json)}>
                 <FileSVG />
               </button>
             </div>
           ))
         ) : (
-          <p>No order history available.</p>
+          <p>Ոչ մի պատվեր չի գտնվել</p>
         )}
       </div>
     </div>

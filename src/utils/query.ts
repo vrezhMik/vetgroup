@@ -49,7 +49,7 @@ function setWrongLogin(value: boolean) {
 //         <td>${
 //           item.image ? `<img src='${item.image}' width='50'>` : "No Image"
 //         }</td>
-//         <td>${item.price} AMD</td>
+//         <td>${item.price} Դրամ</td>
 //         <td>${item.qty}</td>
 //       </tr>`;
 //   });
@@ -67,29 +67,29 @@ export async function login(identifier: string, password: string) {
       identifier,
       password,
     });
+
     if (!response || response.errors) {
       setWrongLogin(true);
       return;
     }
-    const { jwt } = response.login;
 
-    if (!jwt) {
-      throw new Error("JWT not found in the response");
+    const { jwt, user } = response.login;
+    const { documentId, id } = user;
+
+    if (!jwt || !documentId) {
+      throw new Error("Missing jwt or documentId in login response");
     }
-    document.cookie = `jwt=${jwt}; path=/; SameSite=Strict`;
 
-    const { documentId, id } = response.login.user;
-    if (!documentId) {
-      throw new Error("documentId not found in the response");
-    }
-    const user = await get_current_user(documentId);
-    window.location.href = "/";
-    document.cookie = `code=${user.vetgroupUsers[0].user.code}; path=/; SameSite=Strict`;
+    document.cookie = `jwt=${jwt}; path=/; SameSite=Lax`;
+    document.cookie = `document=${documentId}; path=/; SameSite=Lax`;
+    document.cookie = `user=${id}; path=/; SameSite=Lax`;
 
-    document.cookie = `document=${documentId}; path=/; SameSite=Strict`;
-    document.cookie = `user=${id}; path=/; SameSite=Strict`;
+    // const userData = await get_current_user(documentId);
+
     setWrongLogin(false);
-    return documentId;
+
+    // ✅ Redirect AFTER setting cookies
+    window.location.href = "/";
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
       console.error("GraphQL error:", error.message);

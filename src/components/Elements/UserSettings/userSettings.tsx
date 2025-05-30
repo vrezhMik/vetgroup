@@ -47,13 +47,13 @@ export default function UserSettings() {
   return (
     <div className={style.content}>
       <div className={style.contentLogout}>
-        <button onClick={logout}>Log Out</button>
+        <button onClick={logout}>Դուրս գալ</button>
       </div>
 
       <div className={style.password}>
         <div className={`flex ${style.passwordInputRow}`}>
           <div className={`${style.passwordInputRowElement}`}>
-            <label htmlFor="">Old Password</label>
+            <label htmlFor="">Հին գաղտնաբառ</label>
             <input
               type="password"
               value={form_data.old_password}
@@ -62,7 +62,7 @@ export default function UserSettings() {
             />
           </div>
           <div className={`${style.passwordInputRowElement}`}>
-            <label htmlFor="">New Password</label>
+            <label htmlFor="">Նոր գաղտնաբառ</label>
             <input
               type="password"
               value={form_data.new_password}
@@ -71,7 +71,7 @@ export default function UserSettings() {
             />
           </div>
           <div className={`${style.passwordInputRowElement}`}>
-            <label htmlFor="">Repeat Password</label>
+            <label htmlFor="">Կրկնել գաղտնաբառը</label>
             <input
               type="password"
               value={form_data.confirm_new_password}
@@ -81,7 +81,7 @@ export default function UserSettings() {
           </div>
         </div>
         <div className={`${style.passwordButtonRow} flex`}>
-          <button onClick={change_password}>Save</button>
+          <button onClick={change_password}>Պահպանել</button>
         </div>
       </div>
     </div>

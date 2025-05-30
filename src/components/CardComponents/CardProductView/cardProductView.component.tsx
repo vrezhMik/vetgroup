@@ -20,7 +20,7 @@ export default function CardProductView() {
           </span>
         </div>
         <div className={`${style.cardProductInfoPrice}`}>
-          <p>{currentItem?.getPrice()} AMD</p>
+          <p>{currentItem?.getPrice()} Դրամ</p>
         </div>
         <div className={`${style.cardProductInfoDescription}`}>
           {currentItem?.getDescription()}
