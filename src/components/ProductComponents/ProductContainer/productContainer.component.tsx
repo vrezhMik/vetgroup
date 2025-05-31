@@ -132,13 +132,17 @@ export default function ProductContainer() {
       </div>
 
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {visibleProducts.map((element, key) => (
-          <Product
-            key={element.code + key}
-            data={element}
-            placeholder={false}
-          />
-        ))}
+        {visibleProducts.length == 0 ? (
+          <p>Որ մի ապրանք չի գտնվել</p>
+        ) : (
+          visibleProducts.map((element, key) => (
+            <Product
+              key={element.code + key}
+              data={element}
+              placeholder={false}
+            />
+          ))
+        )}
 
         {initialLoad &&
           loading &&
