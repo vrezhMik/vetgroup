@@ -132,6 +132,15 @@ export default function ProductContainer() {
       </div>
 
       <div className={`${style.mainContainerProductContainer} flex`}>
+        {initialLoad &&
+          loading &&
+          Array.from({ length: 10 }).map((_, index) => (
+            <Product
+              key={`placeholder-${index}`}
+              data={placeholderData}
+              placeholder={true}
+            />
+          ))}
         {visibleProducts.length == 0 ? (
           <p>Որ մի ապրանք չի գտնվել</p>
         ) : (
@@ -143,16 +152,6 @@ export default function ProductContainer() {
             />
           ))
         )}
-
-        {initialLoad &&
-          loading &&
-          Array.from({ length: 10 }).map((_, index) => (
-            <Product
-              key={`placeholder-${index}`}
-              data={placeholderData}
-              placeholder={true}
-            />
-          ))}
       </div>
     </div>
   );
