@@ -9,11 +9,11 @@ import "./../styles/main.scss";
 
 const contacts = [
   {
-    phone: "37477230533",
+    phone: "37444001071",
     label: "Message us",
   },
   {
-    phone: "37477111222",
+    phone: "37444001017",
     label: "Ask a question",
   },
 ];
