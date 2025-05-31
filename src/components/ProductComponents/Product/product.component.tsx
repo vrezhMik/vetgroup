@@ -70,7 +70,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
       </div>
 
       <div className={`${style.productInfo} flex`}>
-        <div className={`${style.productInfoPrice} flex`}>
+        <div className={`${style.productInfoPrice}`}>
           {jwt ? (
             <>
               <p className={style.productInfoPriceSale}>
