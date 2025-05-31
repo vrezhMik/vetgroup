@@ -72,10 +72,22 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
       <div className={`${style.productInfo} flex`}>
         <div className={`${style.productInfoPrice} flex`}>
           {jwt ? (
-            <p className={style.productInfoPriceSale}>
-              {currentProduct.formatPrice(currentProduct.getPrice() * quantity)}{" "}
-              Դրամ
-            </p>
+            <>
+              <p className={style.productInfoPriceSale}>
+                Մեծա.{" "}
+                {currentProduct.formatPrice(
+                  currentProduct.getPrice() * quantity
+                )}{" "}
+                Դրամ
+              </p>
+              <p className={style.productInfoPriceSale}>
+                Մանր.{" "}
+                {currentProduct.formatPrice(
+                  currentProduct.getPackPrice() * quantity
+                )}{" "}
+                Դրամ
+              </p>
+            </>
           ) : currentProduct.getPackPrice() == 0 ? (
             <p className={style.productInfoPriceSale}>
               {currentProduct.formatPrice(
