@@ -36,6 +36,9 @@ export default function UserMenu() {
     loadCategories();
   }, []);
 
+  useEffect(() => {
+    console.log(hamburger);
+  }, [hamburger]);
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
