@@ -18,10 +18,11 @@ export default function UserMenu() {
   const [isClient, setIsClient] = useState(false);
   const [jwt, setJwt] = useState<string | undefined>();
 
-  const selectedCategories = productsStore((state) => state.selectedCategories);
+  const selectedCategory = productsStore(
+    (state) => state.selectedCategories[0]
+  );
 
   useEffect(() => {
-    // Mark as client-rendered
     setIsClient(true);
     setJwt(Cookies.get("jwt"));
 
@@ -38,45 +39,50 @@ export default function UserMenu() {
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
-    const { categorizedProducts } = productsStore.getState();
+    const { categorizedProducts, selectedCategories } =
+      productsStore.getState();
+    const selectedCategory = selectedCategories[0];
+
     productsStore.getState().setSelectedCategory(cat);
 
-    const isAlreadySelected = selectedCategories.includes(cat);
+    if (selectedCategory === cat) return;
+
     const isAlreadyFetched = categorizedProducts.some(
       (item) => item.cat === cat
     );
 
-    if (isAlreadySelected || isAlreadyFetched) return;
-
-    const data = await get_products_by_cat(cat);
-    if (data?.products) {
-      productsStore.getState().addCategorizedProducts(cat, data.products);
+    if (!isAlreadyFetched) {
+      const data = await get_products_by_cat(cat);
+      if (data?.products) {
+        productsStore.getState().addCategorizedProducts(cat, data.products);
+      }
     }
+  };
+
+  const cleanFilters = () => {
+    productsStore.getState().selectedCategories = [];
   };
 
   return (
     <div className={`${style.userMenu} flex`}>
       {/* Logo */}
       <div className={style.userMenuLogo}>
-        <Link href="/">
+        <Link href="/" onClick={cleanFilters}>
           <LogoSVG />
         </Link>
       </div>
 
       {/* Category Buttons */}
       <div className={style.userMenuCategories}>
-        {categories.map((cat, key) => {
-          const isActive = selectedCategories.includes(cat.title);
-          return (
-            <button
-              key={key}
-              onClick={() => categoryPosts(cat.title)}
-              className={isActive ? style.active : ""}
-            >
-              {cat.title}
-            </button>
-          );
-        })}
+        {categories.map((cat, key) => (
+          <button
+            key={key}
+            onClick={() => categoryPosts(cat.title)}
+            className={selectedCategory === cat.title ? style.active : ""}
+          >
+            {cat.title}
+          </button>
+        ))}
       </div>
 
       {/* Avatar and Hamburger */}
@@ -100,18 +106,15 @@ export default function UserMenu() {
       {hamburger && (
         <div className={style.cat_hamburger_container}>
           <div className={style.cat_hamburger_container_buttons}>
-            {categories.map((cat, key) => {
-              const isActive = selectedCategories.includes(cat.title);
-              return (
-                <button
-                  key={key}
-                  onClick={() => categoryPosts(cat.title)}
-                  className={isActive ? style.active : ""}
-                >
-                  {cat.title}
-                </button>
-              );
-            })}
+            {categories.map((cat, key) => (
+              <button
+                key={key}
+                onClick={() => categoryPosts(cat.title)}
+                className={selectedCategory === cat.title ? style.active : ""}
+              >
+                {cat.title}
+              </button>
+            ))}
           </div>
         </div>
       )}

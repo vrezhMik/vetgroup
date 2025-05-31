@@ -143,28 +143,36 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   loading: true,
   selectedCategories: [],
 
-  setSelectedCategory: (category) => {
-    const { selectedCategories, categorizedProducts } = get();
-    const exists = selectedCategories.includes(category);
+  // setSelectedCategory: (category) => {
+  //   const { selectedCategories, categorizedProducts } = get();
+  //   const exists = selectedCategories.includes(category);
 
-    if (exists) {
-      // Remove the category and its products
-      set({
-        selectedCategories: selectedCategories.filter(
-          (cat) => cat !== category
-        ),
-        categorizedProducts: categorizedProducts.filter(
-          (item) => item.cat !== category
-        ),
-        searchQuery: "", // 🧹 Clear search when toggling category
-      });
-    } else {
-      // Add category (products should be added after fetch)
-      set({
-        selectedCategories: [...selectedCategories, category],
-        searchQuery: "", // 🧹 Clear search when selecting a category
-      });
-    }
+  //   if (exists) {
+  //     // Remove the category and its products
+  //     set({
+  //       selectedCategories: selectedCategories.filter(
+  //         (cat) => cat !== category
+  //       ),
+  //       categorizedProducts: categorizedProducts.filter(
+  //         (item) => item.cat !== category
+  //       ),
+  //       searchQuery: "", // 🧹 Clear search when toggling category
+  //     });
+  //   } else {
+  //     // Add category (products should be added after fetch)
+  //     set({
+  //       selectedCategories: [...selectedCategories, category],
+  //       searchQuery: "", // 🧹 Clear search when selecting a category
+  //     });
+  //   }
+  // },
+
+  setSelectedCategory: (category) => {
+    const current = get().selectedCategories[0];
+    set({
+      selectedCategories: current === category ? [] : [category],
+      searchQuery: "",
+    });
   },
 
   addCategorizedProducts: (cat, products) => {
