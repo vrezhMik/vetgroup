@@ -80,6 +80,7 @@ export interface ProductsStateInterface {
   setSelectedCategory: (category: string) => void;
   setLoading: (value: boolean) => void;
   resetCategorizedProducts: () => void;
+  resetSelectedCategories: () => void;
 }
 
 export interface LoginFormStateInterface {

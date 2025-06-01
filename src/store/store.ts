@@ -168,6 +168,7 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   //   }
   // },
   resetCategorizedProducts: () => set({ categorizedProducts: [] }),
+  resetSelectedCategories: () => set({ selectedCategories: [] }),
   setSelectedCategory: (category) => {
     const current = get().selectedCategories[0];
     set({

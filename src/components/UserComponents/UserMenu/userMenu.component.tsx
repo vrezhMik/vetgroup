@@ -8,10 +8,12 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { get_categories, get_products_by_cat } from "@/utils/query";
 import { productsStore } from "@/store/store";
-
+import { useRouter } from "next/navigation";
 type Category = { title: string };
 
 export default function UserMenu() {
+  const router = useRouter();
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [hamburger, setHamburger] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -63,13 +65,17 @@ export default function UserMenu() {
   };
 
   const cleanFilters = () => {
-    productsStore.getState().selectedCategories = [];
+    const store = productsStore.getState();
+    productsStore.getState().resetSelectedCategories();
+    // store.setLoading(true);
+    router.push("/");
+    // productsStore.getState().selectedCategories = [];
   };
 
   return (
     <div className={`${style.userMenu} flex`}>
       <div className={style.userMenuLogo} onClick={cleanFilters}>
-        <Link href="/">
+        <Link href="/" onClick={cleanFilters}>
           <LogoSVG />
         </Link>
       </div>
