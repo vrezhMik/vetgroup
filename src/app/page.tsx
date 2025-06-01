@@ -32,10 +32,22 @@ export default function Home() {
   const fetchData = useCallback(async () => {
     try {
       const currentStart = startRef.current;
+
+      // Store current height and scroll position
+      const previousHeight = document.body.scrollHeight;
+      const previousScroll = window.scrollY;
+
       const data = await get_products(currentStart, limit);
       if (data && data.products && data.products.length > 0) {
         add_product(data.products);
         startRef.current += limit;
+
+        // Allow DOM to render, then adjust scroll
+        setTimeout(() => {
+          const newHeight = document.body.scrollHeight;
+          const heightDiff = newHeight - previousHeight;
+          window.scrollTo(0, previousScroll + heightDiff);
+        }, 0); // Wait for DOM paint
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -91,11 +103,11 @@ export default function Home() {
       <Sidebar current_user={null} />
       <div className="main_container">
         <ProductContainer />
-        {loading && (
+        {/* {loading && (
           <div style={{ textAlign: "center", padding: "20px" }}>
-            <span>Loading more products...</span>
+            <span>Ավելացվում է...</span>
           </div>
-        )}
+        )} */}
       </div>
 
       {/* WhatsApp contact buttons */}

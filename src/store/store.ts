@@ -142,6 +142,7 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   searchQuery: "",
   loading: true,
   selectedCategories: [],
+  setLoading: (value) => set({ loading: value }),
 
   // setSelectedCategory: (category) => {
   //   const { selectedCategories, categorizedProducts } = get();
@@ -166,7 +167,7 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   //     });
   //   }
   // },
-
+  resetCategorizedProducts: () => set({ categorizedProducts: [] }),
   setSelectedCategory: (category) => {
     const current = get().selectedCategories[0];
     set({

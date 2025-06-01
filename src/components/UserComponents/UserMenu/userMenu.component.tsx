@@ -6,7 +6,6 @@ import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
-
 import { get_categories, get_products_by_cat } from "@/utils/query";
 import { productsStore } from "@/store/store";
 
@@ -25,26 +24,23 @@ export default function UserMenu() {
   useEffect(() => {
     setIsClient(true);
     setJwt(Cookies.get("jwt"));
-
-    async function loadCategories() {
-      const data = await get_categories();
+    get_categories().then((data) => {
       if (data?.categories) {
         setCategories(data.categories);
       }
-    }
-
-    loadCategories();
+    });
   }, []);
 
-  useEffect(() => {}, [hamburger]);
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
-    const { categorizedProducts, selectedCategories } =
-      productsStore.getState();
+    const store = productsStore.getState();
+    const { categorizedProducts, selectedCategories } = store;
     const selectedCategory = selectedCategories[0];
 
-    productsStore.getState().setSelectedCategory(cat);
+    store.setSelectedCategory(cat);
+    store.resetCategorizedProducts();
+    store.setLoading(true);
 
     if (selectedCategory === cat) return;
 
@@ -53,10 +49,16 @@ export default function UserMenu() {
     );
 
     if (!isAlreadyFetched) {
-      const data = await get_products_by_cat(cat);
-      if (data?.products) {
-        productsStore.getState().addCategorizedProducts(cat, data.products);
+      try {
+        const data = await get_products_by_cat(cat);
+        if (data?.products) {
+          store.addCategorizedProducts(cat, data.products);
+        }
+      } finally {
+        store.setLoading(false);
       }
+    } else {
+      store.setLoading(false);
     }
   };
 
@@ -66,14 +68,12 @@ export default function UserMenu() {
 
   return (
     <div className={`${style.userMenu} flex`}>
-      {/* Logo */}
       <div className={style.userMenuLogo}>
         <Link href="/" onClick={cleanFilters}>
           <LogoSVG />
         </Link>
       </div>
 
-      {/* Category Buttons */}
       <div className={style.userMenuCategories}>
         {categories.map((cat, key) => (
           <button
@@ -86,7 +86,6 @@ export default function UserMenu() {
         ))}
       </div>
 
-      {/* Avatar and Hamburger */}
       <div className={style.userMenuAvatar}>
         {isClient && (
           <Link href={jwt ? "/user" : "/login"}>
@@ -103,7 +102,6 @@ export default function UserMenu() {
         </div>
       </div>
 
-      {/* Hamburger Menu Categories */}
       {hamburger && (
         <div className={style.cat_hamburger_container}>
           <div className={style.cat_hamburger_container_buttons}>

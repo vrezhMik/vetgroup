@@ -1,6 +1,5 @@
 "use client";
 import style from "./productContainer.module.scss";
-
 import { useCart, useCard, useCardView, productsStore } from "@/store/store";
 import Product from "../Product/product.component";
 import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
@@ -42,13 +41,18 @@ export default function ProductContainer() {
     const body = document.body;
     body.style.overflowY = initialLoad && loading ? "hidden" : "scroll";
   }, [loading, initialLoad]);
+
   useEffect(() => {
-    if (!hasInitialized || loading) return;
+    if (loading) {
+      setVisibleProducts([]);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (!hasInitialized || loading) return; // ⛔ Skip logic during loading
 
     const query = searchQuery.trim();
     const words = query.split(/\s+/).filter(Boolean);
-
-    // Unicode-aware normalization for Armenian (and other scripts)
     const normalize = (s: string) => s.toLocaleLowerCase("hy-AM");
 
     const sourceProducts =
@@ -58,31 +62,26 @@ export default function ProductContainer() {
             .flatMap((catObj) => catObj.cat_prods)
         : products;
 
-    // 1. Real-time local match with Armenian-safe normalization
+    // 1. Local match
     if (query.length > 0) {
       const localMatches = sourceProducts.filter((product) => {
         const name = normalize(product.name);
         const description = normalize(product.description);
-
         return words.every((word) => {
           const w = normalize(word);
           return name.includes(w) || description.includes(w);
         });
       });
-
       setVisibleProducts(localMatches);
     }
 
-    // 2. Debounced server-side search fallback
     const delayDebounce = setTimeout(async () => {
       if (query.length >= 1) {
         const data = await get_search_fragments(query);
         if (data?.products) {
           setVisibleProducts(data.products);
         }
-      }
-
-      if (query.length === 0 && hasInitialized) {
+      } else {
         setVisibleProducts(sourceProducts);
       }
     }, 300);
@@ -112,6 +111,11 @@ export default function ProductContainer() {
     category: { title: "" },
   };
 
+  const showPlaceholder = initialLoad && loading;
+  const showLoadingMessage = loading && visibleProducts;
+  const showEmptyMessage =
+    !loading && visibleProducts.length === 0 && !showLoadingMessage;
+
   return (
     <div className={style.mainContainer}>
       <div className={`${style.mainContainerSearchBar} flex`}>
@@ -132,17 +136,16 @@ export default function ProductContainer() {
       </div>
 
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {initialLoad &&
-          loading &&
+        {showPlaceholder ? (
           Array.from({ length: 10 }).map((_, index) => (
             <Product
               key={`placeholder-${index}`}
               data={placeholderData}
-              placeholder={true}
+              placeholder
             />
-          ))}
-        {visibleProducts.length == 0 ? (
-          <p>Որ մի ապրանք չի գտնվել</p>
+          ))
+        ) : showLoadingMessage ? (
+          <p>Ավելացվում է ...</p>
         ) : (
           visibleProducts.map((element, key) => (
             <Product

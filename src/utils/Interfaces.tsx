@@ -78,6 +78,8 @@ export interface ProductsStateInterface {
   setSearchQuery: (query: string) => void;
   add_product: (product: ProductType[]) => void;
   setSelectedCategory: (category: string) => void;
+  setLoading: (value: boolean) => void;
+  resetCategorizedProducts: () => void;
 }
 
 export interface LoginFormStateInterface {
