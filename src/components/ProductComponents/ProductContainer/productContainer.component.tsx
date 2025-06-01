@@ -113,8 +113,6 @@ export default function ProductContainer() {
 
   const showPlaceholder = initialLoad && loading;
   const showLoadingMessage = loading && visibleProducts;
-  const showEmptyMessage =
-    !loading && visibleProducts.length === 0 && !showLoadingMessage;
 
   return (
     <div className={style.mainContainer}>
