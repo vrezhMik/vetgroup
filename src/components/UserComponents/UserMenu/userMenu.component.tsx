@@ -68,8 +68,8 @@ export default function UserMenu() {
 
   return (
     <div className={`${style.userMenu} flex`}>
-      <div className={style.userMenuLogo}>
-        <Link href="/" onClick={cleanFilters}>
+      <div className={style.userMenuLogo} onClick={cleanFilters}>
+        <Link href="/">
           <LogoSVG />
         </Link>
       </div>
