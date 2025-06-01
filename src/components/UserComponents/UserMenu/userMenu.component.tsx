@@ -65,7 +65,7 @@ export default function UserMenu() {
   };
 
   const cleanFilters = () => {
-    const store = productsStore.getState();
+    // const store = productsStore.getState();
     productsStore.getState().resetSelectedCategories();
     // store.setLoading(true);
     router.push("/");
