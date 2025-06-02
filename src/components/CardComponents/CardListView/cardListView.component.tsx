@@ -44,19 +44,18 @@ export default function CardListView() {
 
   const save_request = async () => {
     const user = getCookie("code");
-    // const res = await add_order(cartItems, user || "");
-    // setMessageCard(true);
-    // if (res.Status === "Success") {
-    //   cleanCart();
-    //   setMessage("Պատվերը ուղարկված է");
-    // } else {
-    //   setMessage("Տեխնիկական խնդիր");
-    // }
-    //   setTimeout(() => {
-    //     setMessageCard(false);
-    //     setCardState(false);
-    //   }, 1500);
-    // };
+    const res = await add_order(cartItems, user || "");
+    setMessageCard(true);
+    if (res.Status === "Success") {
+      cleanCart();
+      setMessage("Պատվերը ուղարկված է");
+    } else {
+      setMessage("Տեխնիկական խնդիր");
+    }
+    setTimeout(() => {
+      setMessageCard(false);
+      setCardState(false);
+    }, 1500);
   };
 
   const formatPrice = (value: number): string => {
