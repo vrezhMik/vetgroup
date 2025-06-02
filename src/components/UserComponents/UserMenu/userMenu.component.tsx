@@ -78,6 +78,19 @@ export default function UserMenu() {
     store.setCategorizedStart(cat, 0);
     store.setLoading(true);
 
+    setTimeout(() => {
+      const scrollElement =
+        document.scrollingElement || document.documentElement;
+
+      // Step 1: Instantly jump to top (guarantees position)
+      scrollElement.scrollTo({ top: 0, behavior: "auto" });
+
+      // Step 2: After short delay, scroll smoothly again (in case layout shifted)
+      setTimeout(() => {
+        scrollElement.scrollTo({ top: 0, behavior: "smooth" });
+      }, 50); // Small delay helps layout settle
+    }, 0);
+
     const isAlreadyFetched = categorizedProducts.some(
       (item) => item.cat === cat
     );

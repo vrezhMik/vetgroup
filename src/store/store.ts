@@ -196,6 +196,12 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
       products: [...state.products, ...newProducts],
       loading: false,
     })),
+  clearCategorizedProducts: (cat) =>
+    set((state) => ({
+      categorizedProducts: state.categorizedProducts.filter(
+        (c) => c.cat !== cat
+      ),
+    })),
 }));
 
 export const loginFormState = create<LoginFormStateInterface>((set) => ({

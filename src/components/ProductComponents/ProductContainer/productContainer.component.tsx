@@ -26,22 +26,29 @@ export default function ProductContainer() {
   const [initialLoad, setInitialLoad] = useState(true);
   const [hasInitialized, setHasInitialized] = useState(false);
   const observerRef = useRef<HTMLDivElement | null>(null);
-
+  const hasLoadedRef = useRef<{ [cat: string]: boolean }>({});
   const fetchData = useCallback(async () => {
     const store = productsStore.getState();
+    const limit = 18;
     const start = selectedCategory
       ? store.categorizedStart[selectedCategory] || 0
       : store.currentStart;
 
-    const data = await get_products(start, 18, selectedCategory);
+    const data = await get_products(start, limit, selectedCategory);
 
     if (data?.products?.length > 0) {
       if (selectedCategory) {
+        // 👇 Clear old products only if first time loading this category
+        if (!hasLoadedRef.current[selectedCategory]) {
+          store.clearCategorizedProducts(selectedCategory);
+          hasLoadedRef.current[selectedCategory] = true;
+        }
+
         store.addCategorizedProducts(selectedCategory, data.products);
-        store.setCategorizedStart(selectedCategory, start + 18);
+        store.setCategorizedStart(selectedCategory, start + limit);
       } else {
         store.add_product(data.products);
-        store.setCurrentStart(start + 18);
+        store.setCurrentStart(start + limit);
       }
     }
   }, [selectedCategory]);

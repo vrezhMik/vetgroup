@@ -86,6 +86,7 @@ export interface ProductsStateInterface {
   categorizedStart: { [cat: string]: number };
   setCategorizedStart: (cat: string, start: number) => void;
   resetCategorizedStart: () => void;
+  clearCategorizedProducts: (cat: string) => void;
 }
 
 export interface LoginFormStateInterface {
