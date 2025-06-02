@@ -49,7 +49,7 @@ export default function ProductContainer() {
   }, [loading]);
 
   useEffect(() => {
-    if (!hasInitialized || loading) return; // ⛔ Skip logic during loading
+    if (!hasInitialized || loading) return;
 
     const query = searchQuery.trim();
     const words = query.split(/\s+/).filter(Boolean);
@@ -62,7 +62,6 @@ export default function ProductContainer() {
             .flatMap((catObj) => catObj.cat_prods)
         : products;
 
-    // 1. Local match
     if (query.length > 0) {
       const localMatches = sourceProducts.filter((product) => {
         const name = normalize(product.name);

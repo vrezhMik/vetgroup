@@ -33,7 +33,6 @@ export default function Home() {
     try {
       const currentStart = startRef.current;
 
-      // Store current height and scroll position
       const previousHeight = document.body.scrollHeight;
       const previousScroll = window.scrollY;
 
@@ -42,12 +41,11 @@ export default function Home() {
         add_product(data.products);
         startRef.current += limit;
 
-        // Allow DOM to render, then adjust scroll
         setTimeout(() => {
           const newHeight = document.body.scrollHeight;
           const heightDiff = newHeight - previousHeight;
           window.scrollTo(0, previousScroll + heightDiff);
-        }, 0); // Wait for DOM paint
+        }, 0);
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -103,14 +101,8 @@ export default function Home() {
       <Sidebar current_user={null} />
       <div className="main_container">
         <ProductContainer />
-        {/* {loading && (
-          <div style={{ textAlign: "center", padding: "20px" }}>
-            <span>Ավելացվում է...</span>
-          </div>
-        )} */}
       </div>
 
-      {/* WhatsApp contact buttons */}
       <div className="contacts" ref={contactContainerRef}>
         {contacts.map((contact, index) => (
           <div
@@ -121,9 +113,8 @@ export default function Home() {
             onClick={(e) => {
               if (window.innerWidth <= 768) {
                 if (activeContactIndex === index) {
-                  // second tap, allow navigation
                 } else {
-                  e.preventDefault(); // first tap, prevent navigation
+                  e.preventDefault();
                   setActiveContactIndex(index);
                 }
               }
