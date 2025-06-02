@@ -9,7 +9,7 @@ import { getCookie } from "@/utils/cookies";
 import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
 import Cookies from "js-cookie";
-
+import { useCurrentUser } from "@/store/store";
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
   const { setCardState } = useCard();
@@ -20,7 +20,6 @@ export default function CardListView() {
 
   const [jwt, setJwt] = useState<string | undefined>();
   const [isClient, setIsClient] = useState(false);
-
   useEffect(() => {
     setIsClient(true);
     setJwt(Cookies.get("jwt"));
@@ -45,18 +44,19 @@ export default function CardListView() {
 
   const save_request = async () => {
     const user = getCookie("code");
-    const res = await add_order(cartItems, user || "");
-    setMessageCard(true);
-    if (res.Status === "Success") {
-      cleanCart();
-      setMessage("Պատվերը ուղարկված է");
-    } else {
-      setMessage("Տեխնիկական խնդիր");
-    }
-    setTimeout(() => {
-      setMessageCard(false);
-      setCardState(false);
-    }, 1500);
+    // const res = await add_order(cartItems, user || "");
+    // setMessageCard(true);
+    // if (res.Status === "Success") {
+    //   cleanCart();
+    //   setMessage("Պատվերը ուղարկված է");
+    // } else {
+    //   setMessage("Տեխնիկական խնդիր");
+    // }
+    //   setTimeout(() => {
+    //     setMessageCard(false);
+    //     setCardState(false);
+    //   }, 1500);
+    // };
   };
 
   const formatPrice = (value: number): string => {

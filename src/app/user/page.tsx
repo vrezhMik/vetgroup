@@ -31,6 +31,7 @@ export default function UserPage() {
     (async () => {
       try {
         const user = await get_current_user(documentId);
+        console.log(user);
         if (!user || !user.vetgroupUsers?.length) {
           router.push("/login");
           return;
