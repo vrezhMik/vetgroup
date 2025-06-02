@@ -6,11 +6,7 @@ import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import {
-  get_categories,
-  get_products_by_cat,
-  get_products,
-} from "@/utils/query";
+import { get_categories, get_products } from "@/utils/query";
 import { productsStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 type Category = { title: string };
