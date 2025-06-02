@@ -81,6 +81,11 @@ export interface ProductsStateInterface {
   setLoading: (value: boolean) => void;
   resetCategorizedProducts: () => void;
   resetSelectedCategories: () => void;
+  currentStart: number;
+  setCurrentStart: (start: number) => void;
+  categorizedStart: { [cat: string]: number };
+  setCategorizedStart: (cat: string, start: number) => void;
+  resetCategorizedStart: () => void;
 }
 
 export interface LoginFormStateInterface {

@@ -6,7 +6,11 @@ import HamburgerSVG from "@/components/Elements/Icons/HamburgerSVG";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { get_categories, get_products_by_cat } from "@/utils/query";
+import {
+  get_categories,
+  get_products_by_cat,
+  get_products,
+} from "@/utils/query";
 import { productsStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 type Category = { title: string };
@@ -33,6 +37,37 @@ export default function UserMenu() {
     });
   }, []);
 
+  // const categoryPosts = async (cat: string) => {
+  //   setHamburger(false);
+
+  //   const store = productsStore.getState();
+  //   const { categorizedProducts, selectedCategories } = store;
+  //   const selectedCategory = selectedCategories[0];
+
+  //   store.setSelectedCategory(cat);
+  //   store.resetCategorizedProducts();
+  //   store.setLoading(true);
+
+  //   if (selectedCategory === cat) return;
+
+  //   const isAlreadyFetched = categorizedProducts.some(
+  //     (item) => item.cat === cat
+  //   );
+
+  //   if (!isAlreadyFetched) {
+  //     try {
+  //       const data = await get_products(0, 18, cat);
+  //       if (data?.products) {
+  //         store.addCategorizedProducts(cat, data.products);
+  //       }
+  //     } finally {
+  //       store.setLoading(false);
+  //     }
+  //   } else {
+  //     store.setLoading(false);
+  //   }
+  // };
+
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
@@ -40,11 +75,12 @@ export default function UserMenu() {
     const { categorizedProducts, selectedCategories } = store;
     const selectedCategory = selectedCategories[0];
 
+    if (selectedCategory === cat) return;
+
     store.setSelectedCategory(cat);
     store.resetCategorizedProducts();
+    store.setCategorizedStart(cat, 0);
     store.setLoading(true);
-
-    if (selectedCategory === cat) return;
 
     const isAlreadyFetched = categorizedProducts.some(
       (item) => item.cat === cat
@@ -52,9 +88,10 @@ export default function UserMenu() {
 
     if (!isAlreadyFetched) {
       try {
-        const data = await get_products_by_cat(cat);
+        const data = await get_products(0, 18, cat);
         if (data?.products) {
           store.addCategorizedProducts(cat, data.products);
+          store.setCategorizedStart(cat, 18);
         }
       } finally {
         store.setLoading(false);
@@ -64,8 +101,15 @@ export default function UserMenu() {
     }
   };
 
+  // const cleanFilters = () => {
+  //   productsStore.getState().resetSelectedCategories();
+  //   router.push("/");
+  // };
   const cleanFilters = () => {
-    productsStore.getState().resetSelectedCategories();
+    const store = productsStore.getState();
+    store.resetSelectedCategories();
+    store.resetCategorizedProducts();
+    store.setCurrentStart(0);
     router.push("/");
   };
 

@@ -1,12 +1,13 @@
 "use client";
+
 import style from "./productContainer.module.scss";
 import { useCart, useCard, useCardView, productsStore } from "@/store/store";
 import Product from "../Product/product.component";
 import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
 import CartSVG from "@/components/Elements/Icons/CartSVG";
 import { CardView, ProductType } from "@/utils/Types";
-import { useEffect, useState } from "react";
-import { get_search_fragments } from "@/utils/query";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { get_search_fragments, get_products } from "@/utils/query";
 
 export default function ProductContainer() {
   const { getItemCount, cartTotal } = useCart();
@@ -20,33 +21,49 @@ export default function ProductContainer() {
     selectedCategories,
   } = productsStore();
 
-  const [initialLoad, setInitialLoad] = useState(true);
+  const selectedCategory = selectedCategories[0];
   const [visibleProducts, setVisibleProducts] = useState<ProductType[]>([]);
+  const [initialLoad, setInitialLoad] = useState(true);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const fetchData = useCallback(async () => {
+    const store = productsStore.getState();
+    const start = selectedCategory
+      ? store.categorizedStart[selectedCategory] || 0
+      : store.currentStart;
+
+    const data = await get_products(start, 18, selectedCategory);
+
+    if (data?.products?.length > 0) {
+      if (selectedCategory) {
+        store.addCategorizedProducts(selectedCategory, data.products);
+        store.setCategorizedStart(selectedCategory, start + 18);
+      } else {
+        store.add_product(data.products);
+        store.setCurrentStart(start + 18);
+      }
+    }
+  }, [selectedCategory]);
 
   useEffect(() => {
+    fetchData(); // Initial fetch
+  }, [fetchData]);
+
+  useEffect(() => {
+    const sourceProducts =
+      selectedCategories.length > 0
+        ? categorizedProducts
+            .filter((catObj) => selectedCategories.includes(catObj.cat))
+            .flatMap((catObj) => catObj.cat_prods)
+        : products;
+
     if (products.length > 0) {
       setInitialLoad(false);
-      setVisibleProducts(products);
+      setVisibleProducts(sourceProducts);
       setHasInitialized(true);
     }
-  }, [products]);
-
-  const showCart = () => {
-    setCardState(true);
-    setCardView(CardView.List);
-  };
-
-  useEffect(() => {
-    const body = document.body;
-    body.style.overflowY = initialLoad && loading ? "hidden" : "scroll";
-  }, [loading, initialLoad]);
-
-  useEffect(() => {
-    if (loading) {
-      setVisibleProducts([]);
-    }
-  }, [loading]);
+  }, [products, categorizedProducts, selectedCategories]);
 
   useEffect(() => {
     if (!hasInitialized || loading) return;
@@ -95,6 +112,31 @@ export default function ProductContainer() {
     loading,
   ]);
 
+  useEffect(() => {
+    if (!observerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !loading) {
+          fetchData();
+        }
+      },
+      {
+        root: null,
+        threshold: 0.4,
+      }
+    );
+
+    observer.observe(observerRef.current);
+
+    return () => observer.disconnect();
+  }, [fetchData, loading]);
+
+  const showCart = () => {
+    setCardState(true);
+    setCardView(CardView.List);
+  };
+
   const placeholderData: ProductType = {
     code: "0000",
     stock: 1000,
@@ -109,9 +151,6 @@ export default function ProductContainer() {
     totalPrice: 1,
     category: { title: "" },
   };
-
-  const showPlaceholder = initialLoad && loading;
-  const showLoadingMessage = loading && visibleProducts;
 
   return (
     <div className={style.mainContainer}>
@@ -133,25 +172,22 @@ export default function ProductContainer() {
       </div>
 
       <div className={`${style.mainContainerProductContainer} flex`}>
-        {showPlaceholder ? (
-          Array.from({ length: 10 }).map((_, index) => (
-            <Product
-              key={`placeholder-${index}`}
-              data={placeholderData}
-              placeholder
-            />
-          ))
-        ) : showLoadingMessage ? (
-          <p>Ավելացվում է ...</p>
-        ) : (
-          visibleProducts.map((element, key) => (
-            <Product
-              key={element.code + key}
-              data={element}
-              placeholder={false}
-            />
-          ))
-        )}
+        {(initialLoad || loading) && visibleProducts.length === 0
+          ? Array.from({ length: 10 }).map((_, index) => (
+              <Product
+                key={`placeholder-${index}`}
+                data={placeholderData}
+                placeholder
+              />
+            ))
+          : visibleProducts.map((product, i) => (
+              <Product
+                key={product.code + i}
+                data={product}
+                placeholder={false}
+              />
+            ))}
+        <div ref={observerRef} style={{ height: 1 }} />
       </div>
     </div>
   );

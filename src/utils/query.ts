@@ -3,10 +3,8 @@ import { LOGIN_FRAGMENT } from "./fragments";
 import { USER_FRAGMENT } from "./fragments";
 import { CHANGE_PASSWORD_FRAGMENT } from "./fragments";
 import { GET_PRODUCTS_FRAGMENT } from "./fragments";
-// import { ADD_ORDER_FRAGMENT } from "./fragments";
 import Cookies from "js-cookie";
 import { Item } from "@/classes/ItemClass";
-// import { GET_ORDER_ID } from "./fragments";
 import { GET_USER_ORDERS } from "./fragments";
 import { ApolloError } from "@apollo/client";
 import { loginFormState } from "@/store/store";
@@ -17,49 +15,6 @@ import { GET_SEARCH_FRAGMENTS } from "./fragments";
 function setWrongLogin(value: boolean) {
   loginFormState.setState({ isError: value });
 }
-
-// const getFormattedCurrentDate = () => {
-//   return new Date().toISOString().split(".")[0] + "Z";
-// };
-
-// const generateTableHTML = (items: Item[]) => {
-//   if (!Array.isArray(items) || items.length === 0)
-//     return "<p>No items available</p>";
-
-//   let tableHTML = `
-//     <table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse; width: 100%;'>
-//       <thead>
-//         <tr>
-//           <th>Name</th>
-//           <th>Code</th>
-//           <th>Description</th>
-//           <th>Image</th>
-//           <th>Price</th>
-//           <th>Quantity</th>
-//         </tr>
-//       </thead>
-//       <tbody>`;
-
-//   items.forEach((item) => {
-//     tableHTML += `
-//       <tr>
-//         <td>${item.name}</td>
-//         <td>${item.code}</td>
-//         <td>${item.description}</td>
-//         <td>${
-//           item.image ? `<img src='${item.image}' width='50'>` : "No Image"
-//         }</td>
-//         <td>${item.price} Դրամ</td>
-//         <td>${item.qty}</td>
-//       </tr>`;
-//   });
-
-//   tableHTML += `
-//       </tbody>
-//     </table>`;
-
-//   return tableHTML.trim();
-// };
 
 export async function login(identifier: string, password: string) {
   try {
@@ -84,11 +39,8 @@ export async function login(identifier: string, password: string) {
     document.cookie = `document=${documentId}; path=/; SameSite=Lax`;
     document.cookie = `user=${id}; path=/; SameSite=Lax`;
 
-    // const userData = await get_current_user(documentId);
-
     setWrongLogin(false);
 
-    // ✅ Redirect AFTER setting cookies
     window.location.href = "/";
   } catch (error: unknown) {
     if (error instanceof ApolloError) {
@@ -149,12 +101,12 @@ export async function change_password_query(
   }
 }
 
-export async function get_products(start: number, limit: number) {
+export async function get_products(start: number, limit: number, cat?: string) {
   try {
-    const response = await graphQL_Query(GET_PRODUCTS_FRAGMENT, {
-      start,
-      limit,
-    });
+    const response = cat
+      ? await graphQL_Query(GET_PRODCUTS_BY_CAT, { cat, start, limit })
+      : await graphQL_Query(GET_PRODUCTS_FRAGMENT, { start, limit });
+
     return response || { products: [] };
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -162,20 +114,6 @@ export async function get_products(start: number, limit: number) {
   }
 }
 
-// async function get_order_id() {
-//   try {
-//     const response = await graphQL_Query(GET_ORDER_ID, {});
-//     return response;
-//   } catch (error: unknown) {
-//     if (error instanceof ApolloError) {
-//       console.error("GraphQL error:", error.message);
-//     } else if (error instanceof Error) {
-//       console.error("JS error:", error.message);
-//     } else {
-//       console.error("Unknown error:", error);
-//     }
-//   }
-// }
 function getFormattedDateTime(): string {
   const now = new Date();
 
@@ -278,6 +216,7 @@ export async function get_products_by_cat(cat: string) {
     }
   }
 }
+
 function buildSearchFilter(query: string) {
   const words = query.split(/\s+/).filter(Boolean);
 

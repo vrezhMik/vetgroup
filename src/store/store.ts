@@ -142,33 +142,25 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
   searchQuery: "",
   loading: true,
   selectedCategories: [],
+
+  currentStart: 0,
+  categorizedStart: {},
+
+  setCurrentStart: (start) => set({ currentStart: start }),
+
+  setCategorizedStart: (cat, start) =>
+    set((state) => ({
+      categorizedStart: { ...state.categorizedStart, [cat]: start },
+    })),
+
+  resetCategorizedStart: () => set({ categorizedStart: {} }),
+
   setLoading: (value) => set({ loading: value }),
 
-  // setSelectedCategory: (category) => {
-  //   const { selectedCategories, categorizedProducts } = get();
-  //   const exists = selectedCategories.includes(category);
-
-  //   if (exists) {
-  //     // Remove the category and its products
-  //     set({
-  //       selectedCategories: selectedCategories.filter(
-  //         (cat) => cat !== category
-  //       ),
-  //       categorizedProducts: categorizedProducts.filter(
-  //         (item) => item.cat !== category
-  //       ),
-  //       searchQuery: "", // 🧹 Clear search when toggling category
-  //     });
-  //   } else {
-  //     // Add category (products should be added after fetch)
-  //     set({
-  //       selectedCategories: [...selectedCategories, category],
-  //       searchQuery: "", // 🧹 Clear search when selecting a category
-  //     });
-  //   }
-  // },
   resetCategorizedProducts: () => set({ categorizedProducts: [] }),
+
   resetSelectedCategories: () => set({ selectedCategories: [] }),
+
   setSelectedCategory: (category) => {
     const current = get().selectedCategories[0];
     set({
@@ -177,14 +169,19 @@ export const productsStore = create<ProductsStateInterface>((set, get) => ({
     });
   },
 
-  addCategorizedProducts: (cat, products) => {
-    set((state) => ({
-      categorizedProducts: [
-        ...state.categorizedProducts,
-        { cat, cat_prods: products },
-      ],
-    }));
-  },
+  addCategorizedProducts: (cat, newProducts) =>
+    set((state) => {
+      const existing = state.categorizedProducts.find((p) => p.cat === cat);
+      const updated = existing
+        ? state.categorizedProducts.map((item) =>
+            item.cat === cat
+              ? { ...item, cat_prods: [...item.cat_prods, ...newProducts] }
+              : item
+          )
+        : [...state.categorizedProducts, { cat, cat_prods: newProducts }];
+
+      return { categorizedProducts: updated };
+    }),
 
   setSearchQuery: (query) => {
     const trimmed = query;
