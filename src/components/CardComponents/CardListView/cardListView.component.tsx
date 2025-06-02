@@ -9,7 +9,6 @@ import { getCookie } from "@/utils/cookies";
 import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
 import Cookies from "js-cookie";
-import { useCurrentUser } from "@/store/store";
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
   const { setCardState } = useCard();
