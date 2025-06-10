@@ -88,7 +88,7 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
                 Դրամ
               </p>
             </>
-          ) : currentProduct.getPackPrice() == 0 ? (
+          ) : currentProduct.getPackPrice()  ? (
             <p className={style.productInfoPriceSale}>
               {currentProduct.formatPrice(
                 currentProduct.getPackPrice() * quantity

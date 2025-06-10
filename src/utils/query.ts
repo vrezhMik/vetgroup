@@ -36,8 +36,7 @@ export async function login(identifier: string, password: string) {
     }
     const current_user = await get_current_user(documentId);
     const code = current_user.vetgroupUsers[0].user.code;
-    document.cookie = `code=${code}; path=/; SameSite=Lax`;
-
+    document.cookie = `code=${code}; path=/; SameSite=Lax`
     document.cookie = `jwt=${jwt}; path=/; SameSite=Lax`;
     document.cookie = `document=${documentId}; path=/; SameSite=Lax`;
     document.cookie = `user=${id}; path=/; SameSite=Lax`;

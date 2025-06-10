@@ -19,9 +19,7 @@
   }
   &Data {
     overflow-y: scroll;
-    // max-height: 500px;
-    min-height: 300px;
-    // height: 60%;
+    height: 800px;
     margin: 40px 0px;
     padding-right: 30px;
     &Row {
@@ -63,6 +61,7 @@
     width: 100%;
     padding: 20px;
     left: 0;
+    background:#fff;
     h1 {
       color: variables.$theme-color-dark;
     }

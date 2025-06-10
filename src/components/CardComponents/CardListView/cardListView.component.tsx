@@ -90,7 +90,7 @@ export default function CardListView() {
           {visibleItems?.map((item, key) => (
             <div className={`row flex ${style.cardListDataRow}`} key={key}>
               <div className={style.cardListDataRowElement}>
-                <span>{item.name}</span>
+                <span>{item.description}({item.code})</span>
               </div>
               <div className={style.cardListDataRowElement}>{item.qty}</div>
               <div className={style.cardListDataRowElement}>
