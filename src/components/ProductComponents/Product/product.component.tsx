@@ -74,21 +74,21 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           {jwt ? (
             <>
               <p className={style.productInfoPriceSale}>
-                Մեծա.{" "}
+                Մեծածախ{" "}
                 {currentProduct.formatPrice(
                   currentProduct.getPrice() * quantity
                 )}{" "}
-                Դրամ
+                Դր.
               </p>
               <p className={style.productInfoPriceSale}>
-                Մանր.{" "}
+                Մանրածախ{" "}
                 {currentProduct.formatPrice(
                   currentProduct.getPackPrice() * quantity
                 )}{" "}
-                Դրամ
+                Դր.
               </p>
             </>
-          ) : currentProduct.getPackPrice()  ? (
+          ) : currentProduct.getPackPrice() ? (
             <p className={style.productInfoPriceSale}>
               {currentProduct.formatPrice(
                 currentProduct.getPackPrice() * quantity
@@ -126,15 +126,18 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           <button
             onClick={() => increment(currentProduct)}
             className={`${style.productActionInputAdd}`}
+            disabled={quantity >= currentProduct.getStock()}
           >
             <ArrowSVG />
           </button>
         </div>
         <div>
           <button
-            className={`${style.productActionOrder}`}
+            className={`${style.productActionOrder} ${
+              currentProduct.getStock() == 0 ? style.disabled : ""
+            }`}
             onClick={orderItem}
-            disabled={placeholder}
+            disabled={placeholder || currentProduct.getStock() == 0}
           >
             Ավելացնել
           </button>
