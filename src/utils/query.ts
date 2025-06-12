@@ -257,7 +257,14 @@ function generateOrderId(length = 6) {
   return result;
 }
 
-function generateProductsTable(items: any[]): string {
+function generateProductsTable(
+  items: {
+    name: string;
+    description: string;
+    qty: number;
+    price: number;
+  }[]
+): string {
   const rows = items
     .map(
       (item) =>
@@ -269,7 +276,7 @@ function generateProductsTable(items: any[]): string {
 }
 
 export async function add_strapi_order(
-  cartItems: any[],
+  cartItems: Item[],
   total: number,
   userId: string
 ) {
