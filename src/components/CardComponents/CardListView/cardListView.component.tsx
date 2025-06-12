@@ -83,11 +83,19 @@ export default function CardListView() {
   };
 
   const formatPrice = (value: number): string => {
-    if (isNaN(value)) return "0,00";
-    return value
-      .toFixed(2)
-      .replace(".", ",")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    if (isNaN(value)) return "0";
+
+    const fixed = value.toFixed(2); // ensures "xxxx.xx"
+    const [intPart, decimal] = fixed.split(".");
+
+    let formatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+    // Only add decimal part if it's not "00"
+    if (decimal !== "00") {
+      formatted += "," + decimal;
+    }
+
+    return formatted;
   };
 
   const visibleItems =
