@@ -124,3 +124,34 @@ export const GET_SEARCH_FRAGMENTS = gql`
     }
   }
 `;
+
+export const ADD_ORDER_FRAGMENT = gql`
+  mutation CreateOrder(
+    $order_id: String!
+    $created: DateTime!
+    $total: Float!
+    $products: String!
+    $users_permissions_user: ID!
+    $products_json: JSON!
+  ) {
+    createOrder(
+      data: {
+        order_id: $order_id
+        created: $created
+        total: $total
+        products: $products
+        users_permissions_user: $users_permissions_user
+        products_json: $products_json
+      }
+    ) {
+      order_id
+      created
+      total
+      products
+      products_json
+      users_permissions_user {
+        email
+      }
+    }
+  }
+`;

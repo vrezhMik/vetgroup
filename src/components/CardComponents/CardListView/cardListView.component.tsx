@@ -9,6 +9,7 @@ import { getCookie } from "@/utils/cookies";
 import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
 import Cookies from "js-cookie";
+import { add_strapi_order } from "@/utils/query";
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
   const { setCardState } = useCard();
@@ -16,7 +17,7 @@ export default function CardListView() {
   const { currentHistoryItem } = HistoryCardState();
   const [messageCard, setMessageCard] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [jwt, setJwt] = useState<string | undefined>();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -42,19 +43,43 @@ export default function CardListView() {
   };
 
   const save_request = async () => {
-    const user = getCookie("code");
-    const res = await add_order(cartItems, user || "");
-    setMessageCard(true);
-    if (res.Status === "Success") {
-      cleanCart();
-      setMessage("Պատվերը ուղարկված է");
-    } else {
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const id = getCookie("user");
+      const user = getCookie("code");
+
+      let strapiRes = { status: false };
+      let secondRes: { Status?: string } = {};
+
+      if (id) {
+        strapiRes = await add_strapi_order(cartItems, cartTotal, id);
+      }
+
+      if (user) {
+        secondRes = await add_order(cartItems, user);
+      }
+
+      setMessageCard(true);
+      console.log(secondRes);
+      if (strapiRes.status && secondRes.Status == "Success") {
+        cleanCart();
+        setMessage("Պատվերը ուղարկված է");
+      } else {
+        setMessage("Տեխնիկական խնդիր");
+      }
+    } catch (error) {
+      console.error("❌ Order submission failed:", error);
       setMessage("Տեխնիկական խնդիր");
+      setMessageCard(true);
+    } finally {
+      setTimeout(() => {
+        setMessageCard(false);
+        setCardState(false);
+        setIsLoading(false);
+      }, 1500);
     }
-    setTimeout(() => {
-      setMessageCard(false);
-      setCardState(false);
-    }, 1500);
   };
 
   const formatPrice = (value: number): string => {
@@ -90,7 +115,9 @@ export default function CardListView() {
           {visibleItems?.map((item, key) => (
             <div className={`row flex ${style.cardListDataRow}`} key={key}>
               <div className={style.cardListDataRowElement}>
-                <span>{item.description}({item.code})</span>
+                <span>
+                  {item.description}({item.code})
+                </span>
               </div>
               <div className={style.cardListDataRowElement}>{item.qty}</div>
               <div className={style.cardListDataRowElement}>
@@ -114,7 +141,9 @@ export default function CardListView() {
             Ընդհանուր: <span>{formatPrice(cartTotal)} Դրամ</span>
           </h1>
           {isClient && jwt ? (
-            <button onClick={save_request}>Ուղարկել Պատվերը</button>
+            <button onClick={save_request} disabled={isLoading}>
+              {isLoading ? "Ուղարկում է..." : "Ուղարկել Պատվերը"}
+            </button>
           ) : (
             isClient && <button onClick={toLoginPage}>Login</button>
           )}

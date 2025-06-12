@@ -11,6 +11,7 @@ import { loginFormState } from "@/store/store";
 import { GET_CATEGORIES } from "./fragments";
 import { GET_PRODCUTS_BY_CAT } from "./fragments";
 import { GET_SEARCH_FRAGMENTS } from "./fragments";
+import { ADD_ORDER_FRAGMENT } from "./fragments";
 
 function setWrongLogin(value: boolean) {
   loginFormState.setState({ isError: value });
@@ -36,7 +37,7 @@ export async function login(identifier: string, password: string) {
     }
     const current_user = await get_current_user(documentId);
     const code = current_user.vetgroupUsers[0].user.code;
-    document.cookie = `code=${code}; path=/; SameSite=Lax`
+    document.cookie = `code=${code}; path=/; SameSite=Lax`;
     document.cookie = `jwt=${jwt}; path=/; SameSite=Lax`;
     document.cookie = `document=${documentId}; path=/; SameSite=Lax`;
     document.cookie = `user=${id}; path=/; SameSite=Lax`;
@@ -244,5 +245,71 @@ export async function get_search_fragments(query: string) {
     } else {
       console.error("Unknown error:", error);
     }
+  }
+}
+
+function generateOrderId(length = 6) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "ORD-";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+function generateProductsTable(items: any[]): string {
+  const rows = items
+    .map(
+      (item) =>
+        `<tr><td>${item.name}</td><td>${item.description}</td><td>${item.qty}</td><td>${item.price} AMD</td></tr>`
+    )
+    .join("");
+
+  return `<table><thead><tr><th>Անվանում</th><th>Նկարագրություն</th><th>Քանակ</th><th>Գին</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+export async function add_strapi_order(
+  cartItems: any[],
+  total: number,
+  userId: string
+) {
+  const order_id = generateOrderId();
+  const created = new Date().toISOString();
+
+  const minimalProducts = cartItems.map((item) => ({
+    name: item.name,
+    description: item.description,
+    qty: item.qty,
+    price: item.price,
+  }));
+
+  const productsHtml = generateProductsTable(minimalProducts);
+
+  try {
+    const response = await graphQL_Query(ADD_ORDER_FRAGMENT, {
+      order_id,
+      created,
+      total,
+      products: productsHtml,
+      products_json: minimalProducts,
+      users_permissions_user: userId,
+    });
+
+    if (!response || response.errors) {
+      throw new Error(
+        response?.errors?.[0]?.message || "Order creation failed"
+      );
+    }
+
+    return { status: true };
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
+    return { status: false };
   }
 }
