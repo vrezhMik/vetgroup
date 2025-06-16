@@ -25,6 +25,8 @@
     flex-direction: column;
     row-gap: 20px;
     align-items: self-start;
+    max-height: 500px;
+    overflow-y: scroll;
     button {
       transition: 0.4s ease;
       font-size: 1rem;
