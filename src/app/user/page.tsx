@@ -44,7 +44,7 @@ export default function UserPage() {
           last_name: vetUser.last_name,
           company: vetUser.company,
         });
-      } catch (err) {
+      } catch (_) {
         router.push("/login");
       } finally {
         setLoading(false);
