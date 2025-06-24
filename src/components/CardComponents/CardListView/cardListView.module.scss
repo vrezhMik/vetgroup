@@ -73,7 +73,12 @@
     }
   }
 }
-
+.disabled{
+  opacity: 0.5;
+  &:hover{
+    cursor: auto;
+  }
+}
 .message {
   position: absolute;
   top: 50%;

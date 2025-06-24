@@ -62,7 +62,6 @@ export default function CardListView() {
       }
 
       setMessageCard(true);
-      console.log(secondRes);
       if (strapiRes.status && secondRes.Status == "Success") {
         cleanCart();
         setMessage("Պատվերը ուղարկված է");
@@ -149,7 +148,7 @@ export default function CardListView() {
             Ընդհանուր: <span>{formatPrice(cartTotal)} Դրամ</span>
           </h1>
           {isClient && jwt ? (
-            <button onClick={save_request} disabled={isLoading}>
+            <button onClick={save_request} className={(isLoading || visibleItems.length <= 0)?style.disabled:""} disabled={isLoading || visibleItems.length <= 0}>
               {isLoading ? "Ուղարկում է..." : "Ուղարկել Պատվերը"}
             </button>
           ) : (

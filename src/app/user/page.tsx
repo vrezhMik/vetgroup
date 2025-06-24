@@ -31,7 +31,6 @@ export default function UserPage() {
     (async () => {
       try {
         const user = await get_current_user(documentId);
-        console.log(user);
         if (!user || !user.vetgroupUsers?.length) {
           router.push("/login");
           return;
@@ -47,7 +46,6 @@ export default function UserPage() {
         });
       } catch (err) {
         router.push("/login");
-        console.log(err);
       } finally {
         setLoading(false);
       }

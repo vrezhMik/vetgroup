@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    console.log(body);
     const backendResponse = await fetch(
       "http://87.241.165.71:8081/web/hs/Eportal/Order",
       {
