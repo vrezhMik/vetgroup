@@ -33,36 +33,6 @@ export default function UserMenu() {
     });
   }, []);
 
-  // const categoryPosts = async (cat: string) => {
-  //   setHamburger(false);
-
-  //   const store = productsStore.getState();
-  //   const { categorizedProducts, selectedCategories } = store;
-  //   const selectedCategory = selectedCategories[0];
-
-  //   store.setSelectedCategory(cat);
-  //   store.resetCategorizedProducts();
-  //   store.setLoading(true);
-
-  //   if (selectedCategory === cat) return;
-
-  //   const isAlreadyFetched = categorizedProducts.some(
-  //     (item) => item.cat === cat
-  //   );
-
-  //   if (!isAlreadyFetched) {
-  //     try {
-  //       const data = await get_products(0, 18, cat);
-  //       if (data?.products) {
-  //         store.addCategorizedProducts(cat, data.products);
-  //       }
-  //     } finally {
-  //       store.setLoading(false);
-  //     }
-  //   } else {
-  //     store.setLoading(false);
-  //   }
-  // };
 
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
@@ -81,14 +51,11 @@ export default function UserMenu() {
     setTimeout(() => {
       const scrollElement =
         document.scrollingElement || document.documentElement;
-
-      // Step 1: Instantly jump to top (guarantees position)
       scrollElement.scrollTo({ top: 0, behavior: "auto" });
 
-      // Step 2: After short delay, scroll smoothly again (in case layout shifted)
       setTimeout(() => {
         scrollElement.scrollTo({ top: 0, behavior: "smooth" });
-      }, 50); // Small delay helps layout settle
+      }, 50); 
     }, 0);
 
     const isAlreadyFetched = categorizedProducts.some(
@@ -110,10 +77,6 @@ export default function UserMenu() {
     }
   };
 
-  // const cleanFilters = () => {
-  //   productsStore.getState().resetSelectedCategories();
-  //   router.push("/");
-  // };
   const cleanFilters = () => {
     const store = productsStore.getState();
     store.resetSelectedCategories();

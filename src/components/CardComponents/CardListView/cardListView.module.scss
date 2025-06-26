@@ -2,7 +2,6 @@
 
 .cardList {
   position: relative;
-  // height: 100%;
   &Row {
     justify-content: space-evenly;
     &Title {
@@ -18,10 +17,21 @@
     }
   }
   &Data {
-    overflow-y: scroll;
-    height: 800px;
+    overflow-y: auto;
+    height: auto;
+    max-height: 500px;
     margin: 40px 0px;
     padding-right: 30px;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #fbab20;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #4f4141;
+    }
     &Row {
       justify-content: space-evenly;
       margin-top: 20px;
@@ -61,7 +71,7 @@
     width: 100%;
     padding: 20px;
     left: 0;
-    background:#fff;
+    background: #fff;
     h1 {
       color: variables.$theme-color-dark;
     }
@@ -73,9 +83,9 @@
     }
   }
 }
-.disabled{
+.disabled {
   opacity: 0.5;
-  &:hover{
+  &:hover {
     cursor: auto;
   }
 }

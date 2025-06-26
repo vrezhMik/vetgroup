@@ -10,6 +10,7 @@ import { add_order } from "@/utils/query";
 import { Item } from "@/classes/ItemClass";
 import Cookies from "js-cookie";
 import { add_strapi_order } from "@/utils/query";
+import { updateProductStock } from "@/utils/query";
 export default function CardListView() {
   const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
   const { setCardState } = useCard();
@@ -49,11 +50,14 @@ export default function CardListView() {
     try {
       const id = getCookie("user");
       const user = getCookie("code");
+      const updateResults = await Promise.all(
+        cartItems.map((item) => updateProductStock(item.code, item.qty))
+      );
 
+      const allUpdated = updateResults.every((res) => res === true);
       let strapiRes = { status: false };
       let secondRes: { Status?: string } = {};
-
-      if (id) {
+      if (id && allUpdated) {
         strapiRes = await add_strapi_order(cartItems, cartTotal, id);
       }
 
@@ -148,7 +152,13 @@ export default function CardListView() {
             Ընդհանուր: <span>{formatPrice(cartTotal)} Դրամ</span>
           </h1>
           {isClient && jwt ? (
-            <button onClick={save_request} className={(isLoading || visibleItems.length <= 0)?style.disabled:""} disabled={isLoading || visibleItems.length <= 0}>
+            <button
+              onClick={save_request}
+              className={
+                isLoading || visibleItems.length <= 0 ? style.disabled : ""
+              }
+              disabled={isLoading || visibleItems.length <= 0}
+            >
               {isLoading ? "Ուղարկում է..." : "Ուղարկել Պատվերը"}
             </button>
           ) : (

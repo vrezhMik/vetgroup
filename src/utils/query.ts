@@ -320,3 +320,45 @@ export async function add_strapi_order(
     return { status: false };
   }
 }
+
+export async function updateProductStock(code: string, qty: number) {
+  try {
+    // Step 1: Get product by code
+    const getRes = await fetch(
+      `https://vetgroup.am/api/products?filters[code][$eq]=${encodeURIComponent(
+        code
+      )}`
+    );
+    const getData = await getRes.json();
+    const product = getData?.data?.[0];
+
+    if (!product) {
+      throw new Error(`Product with code ${code} not found`);
+    }
+
+    const productId = product.id;
+    const currentStock = product.stock ?? 0;
+    const newStock = Math.max(currentStock - qty, 0); // Prevent negative stock
+
+    // Step 2: Update stock
+    const putRes = await fetch(
+      `https://vetgroup.am/api/vetgroup-product/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: { stock: newStock } }),
+      }
+    );
+
+    const result = await putRes.json();
+
+    if (result.error) throw new Error(result.error.message);
+
+    return true;
+  } catch (err) {
+    console.error("❌ Stock update failed for", code, err);
+    return false;
+  }
+}
