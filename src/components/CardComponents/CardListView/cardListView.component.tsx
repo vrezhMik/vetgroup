@@ -157,12 +157,12 @@ export default function CardListView() {
 
   const visibleItems =
     cardViewState === CardView.History ? currentHistoryItem : cartItems;
-
+  const isHistory = cardViewState === CardView.History;
   return (
     <>
       <div className={style.cardList}>
         <div className={`${style.cardListRow} flex row`}>
-          {cardViewState !== CardView.History && (
+          {!isHistory && (
             <div className={style.cardListRowTitle}>
               <span>Նկար</span>
             </div>
@@ -173,7 +173,7 @@ export default function CardListView() {
           <div className={style.cardListRowTitle}>
             <span>Քանակ</span>
           </div>
-          {cardViewState !== CardView.History && (
+          {!isHistory && (
             <div className={style.cardListRowTitle}>
               <span>Գին</span>
             </div>
@@ -188,7 +188,7 @@ export default function CardListView() {
             const imageUrl = `https://vetgroup.am${item.image?.url}` || "";
             return (
               <div className={`row flex ${style.cardListDataRow}`} key={key}>
-                {cardViewState !== CardView.History && (
+                {!isHistory && (
                   <div className={style.cardListDataRowElement}>
                     <div className={style.cardListDataRowElementImage}>
                       <ImageComponent url={imageUrl} alt={item.description} />
@@ -200,13 +200,13 @@ export default function CardListView() {
                 </div>
 
                 <div className={style.cardListDataRowElement}>
-                  {cardViewState !== CardView.History ? (
+                  {!isHistory ? (
                     <div className={style.qtyControls}>
                       <button
                         onClick={() => {
                           updateQty(item.code, Math.max(1, item.qty - 1));
                         }}
-                        disabled={cardViewState === CardView.History}
+                        disabled={isHistory}
                       >
                         <ArrowSVG />
                       </button>
@@ -216,14 +216,14 @@ export default function CardListView() {
                         onChange={(e) =>
                           updateQty(item.code, Number(e.target.value))
                         }
-                        disabled={cardViewState === CardView.History}
+                        disabled={isHistory}
                         min={1}
                       />
                       <button
                         onClick={() => {
                           updateQty(item.code, item.qty + 1);
                         }}
-                        disabled={cardViewState === CardView.History}
+                        disabled={isHistory}
                       >
                         <ArrowSVG />
                       </button>
@@ -233,14 +233,14 @@ export default function CardListView() {
                   )}
                 </div>
 
-                {cardViewState !== CardView.History && (
+                {!isHistory && (
                   <div className={style.cardListDataRowElement}>
                     <span>{formatPrice(item.price)} Դրամ</span>
                   </div>
                 )}
                 <div className={`${style.cardListDataRowElement} flex`}>
                   <span>{formatPrice(item.price * item.qty)} Դրամ</span>
-                  {cardViewState !== CardView.History && (
+                  {!isHistory && (
                     <button onClick={() => removeItem((item as Item).getId())}>
                       <TrashSVG />
                     </button>
@@ -251,7 +251,7 @@ export default function CardListView() {
           })}
         </div>
       </div>
-      {cardViewState !== CardView.History && (
+      {!isHistory && (
         <div className={`${style.cardListCheckout}`}>
           <h1>
             Ընդհանուր: <span>{formatPrice(cartTotal)} Դրամ</span>

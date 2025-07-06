@@ -174,7 +174,7 @@
     flex-direction: column;
     padding: 1rem;
     overflow: hidden;
-
+    min-height: 70svh;
     .cardListRow {
       display: none;
     }
@@ -200,7 +200,7 @@
       position: relative;
 
       .cardListDataRowElement {
-        display: block !important; // Reset from table-cell
+        display: block !important;
         width: 100% !important;
         margin-bottom: 0.75rem;
 
@@ -238,6 +238,9 @@
     h1 {
       font-size: 1.2rem;
       text-align: center;
+      span {
+        display: block;
+      }
     }
 
     button {
