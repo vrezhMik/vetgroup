@@ -48,39 +48,85 @@ export default function CardListView() {
     window.location.href = "/login";
   };
 
+  // const save_request = async () => {
+  //   if (isLoading) return;
+  //   setIsLoading(true);
+
+  //   try {
+  //     const id = getCookie("user");
+  //     const user = getCookie("code");
+  //     const updateResults = await Promise.all(
+  //       cartItems.map((item) => updateProductStock(item.code, item.qty))
+  //     );
+
+  //     const allUpdated = updateResults.every((res) => res === true);
+  //     let strapiRes = { status: false };
+  //     let secondRes: { Status?: string } = {};
+  //     if (id && allUpdated) {
+  //       strapiRes = await add_strapi_order(cartItems, cartTotal, id);
+  //     }
+
+  //     if (user) {
+  //       secondRes = await add_order(cartItems, user);
+  //     }
+
+  //     setMessageCard(true);
+  //     if (strapiRes.status && secondRes.Status == "Success") {
+  //       cleanCart();
+  //       setMessage("Պատվերը ուղարկված է");
+  //     } else {
+  //       setMessage("Տեխնիկական խնդիր");
+  //     }
+  //   } catch (error) {
+  //     console.error("❌ Order submission failed:", error);
+  //     setMessage("Տեխնիկական խնդիր");
+  //     setMessageCard(true);
+  //   } finally {
+  //     setTimeout(() => {
+  //       setMessageCard(false);
+  //       setCardState(false);
+  //       setIsLoading(false);
+  //     }, 1500);
+  //   }
+  // };
   const save_request = async () => {
     if (isLoading) return;
     setIsLoading(true);
 
     try {
-      const id = getCookie("user");
       const user = getCookie("code");
-      const updateResults = await Promise.all(
-        cartItems.map((item) => updateProductStock(item.code, item.qty))
-      );
+      const id = getCookie("user");
 
-      const allUpdated = updateResults.every((res) => res === true);
-      let strapiRes = { status: false };
-      let secondRes: { Status?: string } = {};
-      if (id && allUpdated) {
-        strapiRes = await add_strapi_order(cartItems, cartTotal, id);
-      }
-
-      if (user) {
-        secondRes = await add_order(cartItems, user);
-      }
-
+      // ✅ Show success immediately
       setMessageCard(true);
-      if (strapiRes.status && secondRes.Status == "Success") {
-        cleanCart();
-        setMessage("Պատվերը ուղարկված է");
-      } else {
-        setMessage("Տեխնիկական խնդիր");
-      }
+      setMessage("Պատվերը ուղարկված է");
+      cleanCart();
+
+      // ✅ Background tasks (non-blocking)
+      void (async () => {
+        try {
+          if (user) {
+            await add_order(cartItems, user);
+          }
+
+          if (id) {
+            const updateResults = await Promise.all(
+              cartItems.map((item) => updateProductStock(item.code, item.qty))
+            );
+
+            const allUpdated = updateResults.every((res) => res === true);
+            if (allUpdated) {
+              await add_strapi_order(cartItems, cartTotal, id);
+            }
+          }
+        } catch (err) {
+          console.warn("⚠️ Background sync failed:", err);
+        }
+      })();
     } catch (error) {
-      console.error("❌ Order submission failed:", error);
-      setMessage("Տեխնիկական խնդիր");
+      console.error("❌ Unexpected error:", error);
       setMessageCard(true);
+      setMessage("Տեխնիկական խնդիր");
     } finally {
       setTimeout(() => {
         setMessageCard(false);
