@@ -173,6 +173,7 @@
     height: auto;
     flex-direction: column;
     padding: 1rem;
+    overflow: hidden;
 
     .cardListRow {
       display: none;
@@ -183,8 +184,10 @@
       flex-direction: column !important;
       gap: 1rem;
       max-height: 60vh;
-      overflow-y: auto;
       padding-right: 0.5rem;
+      max-height: calc(100vh - 220px); // adjust based on header + footer
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .cardListDataRow {
@@ -231,7 +234,7 @@
 
   .cardListCheckout {
     margin-top: 1rem;
-
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
     h1 {
       font-size: 1.2rem;
       text-align: center;
