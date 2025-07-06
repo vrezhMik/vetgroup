@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCart, useCard, useCardView, HistoryCardState } from "@/store/store";
+import {
+  useCart,
+  useCard,
+  useCardView,
+  HistoryCardState,
+  useUserPageMenu,
+} from "@/store/store";
 import TrashSVG from "../../Elements/Icons/TrashSVG";
 import style from "./cardListView.module.scss";
 import { CardView, ProductType } from "@/utils/Types";
@@ -97,12 +103,10 @@ export default function CardListView() {
       const user = getCookie("code");
       const id = getCookie("user");
 
-      // ✅ Show success immediately
       setMessageCard(true);
       setMessage("Պատվերը ուղարկված է");
       cleanCart();
 
-      // ✅ Background tasks (non-blocking)
       void (async () => {
         try {
           if (user) {
@@ -158,18 +162,22 @@ export default function CardListView() {
     <>
       <div className={style.cardList}>
         <div className={`${style.cardListRow} flex row`}>
-          <div className={style.cardListRowTitle}>
-            <span>Նկար</span>
-          </div>
+          {cardViewState !== CardView.History && (
+            <div className={style.cardListRowTitle}>
+              <span>Նկար</span>
+            </div>
+          )}
           <div className={style.cardListRowTitle}>
             <span>Անվանում</span>
           </div>
           <div className={style.cardListRowTitle}>
             <span>Քանակ</span>
           </div>
-          <div className={style.cardListRowTitle}>
-            <span>Գին</span>
-          </div>
+          {cardViewState !== CardView.History && (
+            <div className={style.cardListRowTitle}>
+              <span>Գին</span>
+            </div>
+          )}
           <div className={style.cardListRowTitle}>
             <span>Ընդհանուր</span>
           </div>
@@ -180,46 +188,56 @@ export default function CardListView() {
             const imageUrl = `https://vetgroup.am${item.image?.url}` || "";
             return (
               <div className={`row flex ${style.cardListDataRow}`} key={key}>
-                <div className={style.cardListDataRowElement}>
-                  <div className={style.cardListDataRowElementImage}>
-                    <ImageComponent url={imageUrl} alt={item.description} />
+                {cardViewState !== CardView.History && (
+                  <div className={style.cardListDataRowElement}>
+                    <div className={style.cardListDataRowElementImage}>
+                      <ImageComponent url={imageUrl} alt={item.description} />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className={style.cardListDataRowElement}>
                   <span>{item.description}</span>
                 </div>
+
                 <div className={style.cardListDataRowElement}>
-                  <div className={style.qtyControls}>
-                    <button
-                      onClick={() => {
-                        updateQty(item.code, Math.max(1, item.qty - 1));
-                      }}
-                      disabled={cardViewState === CardView.History}
-                    >
-                      <ArrowSVG />
-                    </button>
-                    <input
-                      type="number"
-                      value={item.qty}
-                      onChange={(e) =>
-                        updateQty(item.code, Number(e.target.value))
-                      }
-                      disabled={cardViewState === CardView.History}
-                      min={1}
-                    />
-                    <button
-                      onClick={() => {
-                        updateQty(item.code, item.qty + 1);
-                      }}
-                      disabled={cardViewState === CardView.History}
-                    >
-                      <ArrowSVG />
-                    </button>
+                  {cardViewState !== CardView.History ? (
+                    <div className={style.qtyControls}>
+                      <button
+                        onClick={() => {
+                          updateQty(item.code, Math.max(1, item.qty - 1));
+                        }}
+                        disabled={cardViewState === CardView.History}
+                      >
+                        <ArrowSVG />
+                      </button>
+                      <input
+                        type="number"
+                        value={item.qty}
+                        onChange={(e) =>
+                          updateQty(item.code, Number(e.target.value))
+                        }
+                        disabled={cardViewState === CardView.History}
+                        min={1}
+                      />
+                      <button
+                        onClick={() => {
+                          updateQty(item.code, item.qty + 1);
+                        }}
+                        disabled={cardViewState === CardView.History}
+                      >
+                        <ArrowSVG />
+                      </button>
+                    </div>
+                  ) : (
+                    <span>{item.qty}</span>
+                  )}
+                </div>
+
+                {cardViewState !== CardView.History && (
+                  <div className={style.cardListDataRowElement}>
+                    <span>{formatPrice(item.price)} Դրամ</span>
                   </div>
-                </div>
-                <div className={style.cardListDataRowElement}>
-                  <span>{formatPrice(item.price)} Դրամ</span>
-                </div>
+                )}
                 <div className={`${style.cardListDataRowElement} flex`}>
                   <span>{formatPrice(item.price * item.qty)} Դրամ</span>
                   {cardViewState !== CardView.History && (

@@ -41,15 +41,15 @@
         p {
           position: relative;
 
-          &::after {
-            content: "";
-            width: 2px;
-            height: 20px;
-            position: absolute;
-            background-color: variables.$theme-color;
-            top: 0;
-            right: -5px;
-          }
+          // &::after {
+          //   content: "";
+          //   width: 2px;
+          //   height: 20px;
+          //   position: absolute;
+          //   background-color: variables.$theme-color;
+          //   top: 0;
+          //   right: -5px;
+          // }
           &:nth-child(3) {
             &::after {
               width: 0;
