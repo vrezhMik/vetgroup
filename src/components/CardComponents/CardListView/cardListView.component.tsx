@@ -1,13 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  useCart,
-  useCard,
-  useCardView,
-  HistoryCardState,
-  useUserPageMenu,
-} from "@/store/store";
+import { useCart, useCard, useCardView, HistoryCardState } from "@/store/store";
 import TrashSVG from "../../Elements/Icons/TrashSVG";
 import style from "./cardListView.module.scss";
 import { CardView, ProductType } from "@/utils/Types";
