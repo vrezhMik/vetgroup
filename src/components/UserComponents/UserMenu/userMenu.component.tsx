@@ -33,7 +33,6 @@ export default function UserMenu() {
     });
   }, []);
 
-
   const categoryPosts = async (cat: string) => {
     setHamburger(false);
 
@@ -55,7 +54,7 @@ export default function UserMenu() {
 
       setTimeout(() => {
         scrollElement.scrollTo({ top: 0, behavior: "smooth" });
-      }, 50); 
+      }, 50);
     }, 0);
 
     const isAlreadyFetched = categorizedProducts.some(
@@ -93,7 +92,7 @@ export default function UserMenu() {
         </Link>
       </div>
 
-      <div className={style.userMenuCategories}>
+      <div className={`${style.userMenuCategories} ${style.scrollable}`}>
         {categories.map((cat, key) => (
           <button
             key={key}

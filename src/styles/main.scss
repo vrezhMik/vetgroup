@@ -32,7 +32,15 @@ input {
   outline: none;
   cursor: pointer;
 }
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari */
+    margin: 0;
+  }
+}
 .main_container {
   width: 90%;
 }

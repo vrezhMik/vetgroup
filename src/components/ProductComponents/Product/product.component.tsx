@@ -51,9 +51,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
   const fullImageUrl = imageUrl
     ? `https://vetgroup.am${imageUrl}`
     : "/placeholder.webp";
-  // const fullImageUrl = imageUrl
-  //   ? `http://localhost:1337${imageUrl}`
-  //   : "/placeholder.webp";
   if (currentProduct.getPrice() <= 0) return;
   return (
     <section
@@ -66,7 +63,6 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           alt={currentProduct?.getTitle() || ""}
           url={fullImageUrl}
         />
-        {/* <div className={style.productImageSale}>30%</div> */}
       </div>
 
       <div className={`${style.productInfo} flex`}>
@@ -103,9 +99,9 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
 
       <div className={style.productTitle}>
         <h2>
-          {currentProduct.getTitle()}
-          <br />
-          <span>{currentProduct.getDescription()}</span>
+          {currentProduct.getDescription()}
+          {/* <br /> */}
+          {/* <span>{currentProduct.getTitle()}</span> */}
         </h2>
       </div>
       <div className={`flex ${style.productAction}`}>

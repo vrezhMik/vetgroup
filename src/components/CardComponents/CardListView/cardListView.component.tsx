@@ -11,8 +11,12 @@ import { Item } from "@/classes/ItemClass";
 import Cookies from "js-cookie";
 import { add_strapi_order } from "@/utils/query";
 import { updateProductStock } from "@/utils/query";
+import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
+import ImageComponent from "@/components/Elements/Image/image.component";
 export default function CardListView() {
-  const { cartItems, removeItem, cartTotal, addItem, cleanCart } = useCart();
+  const { cartItems, removeItem, cartTotal, addItem, cleanCart, updateQty } =
+    useCart();
+
   const { setCardState } = useCard();
   const { cardViewState } = useCardView();
   const { currentHistoryItem } = HistoryCardState();
@@ -21,6 +25,7 @@ export default function CardListView() {
   const [isLoading, setIsLoading] = useState(false);
   const [jwt, setJwt] = useState<string | undefined>();
   const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
     setIsClient(true);
     setJwt(Cookies.get("jwt"));
@@ -88,12 +93,11 @@ export default function CardListView() {
   const formatPrice = (value: number): string => {
     if (isNaN(value)) return "0";
 
-    const fixed = value.toFixed(2); // ensures "xxxx.xx"
+    const fixed = value.toFixed(2);
     const [intPart, decimal] = fixed.split(".");
 
     let formatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 
-    // Only add decimal part if it's not "00"
     if (decimal !== "00") {
       formatted += "," + decimal;
     }
@@ -109,6 +113,9 @@ export default function CardListView() {
       <div className={style.cardList}>
         <div className={`${style.cardListRow} flex row`}>
           <div className={style.cardListRowTitle}>
+            <span>Նկար</span>
+          </div>
+          <div className={style.cardListRowTitle}>
             <span>Անվանում</span>
           </div>
           <div className={style.cardListRowTitle}>
@@ -123,31 +130,65 @@ export default function CardListView() {
         </div>
 
         <div className={style.cardListData}>
-          {visibleItems?.map((item, key) => (
-            <div className={`row flex ${style.cardListDataRow}`} key={key}>
-              <div className={style.cardListDataRowElement}>
-                <span>
-                  {item.description}({item.code})
-                </span>
+          {visibleItems?.map((item, key) => {
+            const imageUrl = `https://vetgroup.am${item.image?.url}` || "";
+            return (
+              <div className={`row flex ${style.cardListDataRow}`} key={key}>
+                <div className={style.cardListDataRowElement}>
+                  <div className={style.cardListDataRowElementImage}>
+                    <ImageComponent url={imageUrl} alt={item.description} />
+                  </div>
+                </div>
+                <div className={style.cardListDataRowElement}>
+                  <span>{item.description}</span>
+                </div>
+                <div className={style.cardListDataRowElement}>
+                  <div className={style.qtyControls}>
+                    <button
+                      onClick={() => {
+                        updateQty(item.code, Math.max(1, item.qty - 1));
+                      }}
+                      disabled={cardViewState === CardView.History}
+                    >
+                      <ArrowSVG />
+                    </button>
+                    <input
+                      type="number"
+                      value={item.qty}
+                      onChange={(e) =>
+                        updateQty(item.code, Number(e.target.value))
+                      }
+                      disabled={cardViewState === CardView.History}
+                      min={1}
+                    />
+                    <button
+                      onClick={() => {
+                        updateQty(item.code, item.qty + 1);
+                      }}
+                      disabled={cardViewState === CardView.History}
+                    >
+                      <ArrowSVG />
+                    </button>
+                  </div>
+                </div>
+                <div className={style.cardListDataRowElement}>
+                  <span>{formatPrice(item.price)} Դրամ</span>
+                </div>
+                <div className={`${style.cardListDataRowElement} flex`}>
+                  <span>{formatPrice(item.price * item.qty)} Դրամ</span>
+                  {cardViewState !== CardView.History && (
+                    <button onClick={() => removeItem((item as Item).getId())}>
+                      <TrashSVG />
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className={style.cardListDataRowElement}>{item.qty}</div>
-              <div className={style.cardListDataRowElement}>
-                <span>{formatPrice(item.price)} Դրամ</span>
-              </div>
-              <div className={`${style.cardListDataRowElement} flex`}>
-                <span>{formatPrice(item.price * item.qty)} Դրամ</span>
-                {cardViewState !== CardView.History && (
-                  <button onClick={() => removeItem((item as Item).getId())}>
-                    <TrashSVG />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
       {cardViewState !== CardView.History && (
-        <div className={`${style.cardListCheckout} flex`}>
+        <div className={`${style.cardListCheckout}`}>
           <h1>
             Ընդհանուր: <span>{formatPrice(cartTotal)} Դրամ</span>
           </h1>

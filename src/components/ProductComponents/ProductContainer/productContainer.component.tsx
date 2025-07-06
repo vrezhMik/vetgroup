@@ -38,7 +38,6 @@ export default function ProductContainer() {
 
     if (data?.products?.length > 0) {
       if (selectedCategory) {
-        // 👇 Clear old products only if first time loading this category
         if (!hasLoadedRef.current[selectedCategory]) {
           store.clearCategorizedProducts(selectedCategory);
           hasLoadedRef.current[selectedCategory] = true;

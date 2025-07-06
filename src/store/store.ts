@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { CardView, UserMenu } from "@/utils/Types";
+import { Item } from "@/classes/ItemClass";
 import {
   ProductsStateInterface,
   LoginFormStateInterface,
@@ -75,6 +76,25 @@ export const useCart = create<CartStateInterface>((set, get) => ({
     }),
 
   getItemCount: () => get().cartItems.length,
+  updateQty: (id: string, qty: number) =>
+    set((state) => {
+      const updatedCartItems = state.cartItems.map((item) =>
+        item.getId() === id ? new Item(item, qty) : item
+      );
+
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+      const updatedCartTotal = updatedCartItems.reduce(
+        (total, cartItem) => total + cartItem.getPrice() * cartItem.getQty(),
+        0
+      );
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+
+      return {
+        cartItems: updatedCartItems,
+        cartTotal: updatedCartTotal,
+      };
+    }),
 
   cleanCart: () =>
     set(() => {
