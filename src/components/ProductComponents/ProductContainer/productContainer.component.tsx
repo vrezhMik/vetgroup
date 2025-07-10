@@ -1,6 +1,8 @@
 "use client";
 
 import style from "./productContainer.module.scss";
+import Cookies from "js-cookie";
+
 import { useCart, useCard, useCardView, productsStore } from "@/store/store";
 import Product from "../Product/product.component";
 import SearchBar from "@/components/Elements/SearchBar/searchBar.component";
@@ -20,7 +22,14 @@ export default function ProductContainer() {
     loading,
     selectedCategories,
   } = productsStore();
+  const [company, setCompany] = useState<string | null>(null);
 
+  useEffect(() => {
+    const cookieValue = Cookies.get("company");
+    if (cookieValue) {
+      setCompany(cookieValue);
+    }
+  }, []);
   const selectedCategory = selectedCategories[0];
   const [visibleProducts, setVisibleProducts] = useState<ProductType[]>([]);
   const [initialLoad, setInitialLoad] = useState(true);
@@ -175,6 +184,13 @@ export default function ProductContainer() {
             <CartSVG />
           </button>
         </div>
+        {company == "null" && (
+          <div className={style.company}>
+            <p>
+              Ողջույան, <span>ԱՁ Արամ Աբրահամյան Գեղանիստ</span>
+            </p>
+          </div>
+        )}
       </div>
 
       <div className={`${style.mainContainerProductContainer} flex`}>
