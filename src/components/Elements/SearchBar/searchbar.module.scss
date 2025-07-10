@@ -1,7 +1,7 @@
 @use "./../../../styles/variables" as variables;
 
 .searchBar {
-  width: 100%;
+  width: 79%;
   column-gap: 20px;
   align-items: center;
   &Filters {
@@ -22,8 +22,5 @@
         color: variables.$theme-default-color;
       }
     }
-  }
-  @media (max-width: 1024px) {
-    width: 79%;
   }
 }

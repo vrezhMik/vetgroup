@@ -4,6 +4,7 @@
   &SearchBar {
     justify-content: space-between;
     position: sticky;
+    align-items: center;
     top: 0;
     z-index: 10;
     background-color: #fff;
@@ -13,6 +14,8 @@
     padding-bottom: 30px;
     &Cart {
       width: 20%;
+      display: flex;
+      justify-content: center;
       &Button {
         float: right;
         width: 40px;

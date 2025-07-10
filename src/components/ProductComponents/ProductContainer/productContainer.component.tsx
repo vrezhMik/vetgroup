@@ -23,12 +23,12 @@ export default function ProductContainer() {
     selectedCategories,
   } = productsStore();
   const [company, setCompany] = useState<string | null>(null);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     const cookieValue = Cookies.get("company");
-    if (cookieValue) {
-      setCompany(cookieValue);
-    }
+    setCompany(cookieValue || null);
+    setHasMounted(true);
   }, []);
   const selectedCategory = selectedCategories[0];
   const [visibleProducts, setVisibleProducts] = useState<ProductType[]>([]);
@@ -184,7 +184,7 @@ export default function ProductContainer() {
             <CartSVG />
           </button>
         </div>
-        {company !== "null" && company !== null && (
+        {hasMounted && company && company !== "null" && (
           <div className={style.company}>
             <p>
               Ողջույան, <span>{company}</span>
