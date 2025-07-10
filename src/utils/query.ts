@@ -42,7 +42,9 @@ export async function login(identifier: string, password: string) {
     document.cookie = `jwt=${jwt}; path=/; SameSite=Lax`;
     document.cookie = `document=${documentId}; path=/; SameSite=Lax`;
     document.cookie = `user=${id}; path=/; SameSite=Lax`;
-    document.cookie = `company=${company}; path=/; SameSite=Lax`;
+    document.cookie = `company=${encodeURIComponent(
+      company
+    )}; path=/; SameSite=Lax`;
 
     setWrongLogin(false);
 
