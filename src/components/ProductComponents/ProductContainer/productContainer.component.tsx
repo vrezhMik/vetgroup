@@ -184,10 +184,10 @@ export default function ProductContainer() {
             <CartSVG />
           </button>
         </div>
-        {company == "null" && (
+        {company != "null" && (
           <div className={style.company}>
             <p>
-              Ողջույան, <span>ԱՁ Արամ Աբրահամյան Գեղանիստ</span>
+              Ողջույան, <span>{company}</span>
             </p>
           </div>
         )}
