@@ -14,6 +14,7 @@ export default function UserSettings() {
     Cookies.remove("jwt");
     Cookies.remove("document");
     Cookies.remove("user");
+    Cookies.remove("company");
     localStorage.removeItem("cartItems");
     window.location.href = "/login";
   };
