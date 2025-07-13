@@ -187,7 +187,7 @@ export default function ProductContainer() {
         {hasMounted && company && company !== "null" && (
           <div className={style.company}>
             <p>
-              Ողջույան, <span>{company}</span>
+              Ողջույն, <span>{company}</span>
             </p>
           </div>
         )}
