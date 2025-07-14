@@ -6,7 +6,8 @@ import style from "./login.module.scss";
 import { login } from "@/utils/query";
 import { loginFormState } from "@/store/store";
 import Link from "next/link";
-
+import { useRef } from "react";
+import EyeSVG from "../Icons/EyeSVG";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,6 +26,14 @@ export default function Login() {
     }
   };
 
+  function togglePassword() {
+    if (passwordRef.current) {
+      passwordRef.current.type =
+        passwordRef.current.type === "password" ? "text" : "password";
+    }
+  }
+
+  const passwordRef = useRef<HTMLInputElement>(null);
   return (
     <div className={`flex ${style.login}`}>
       <div className={`flex ${style["login-form"]}`}>
@@ -49,8 +58,13 @@ export default function Login() {
             }}
           />
         </div>
-        <div className={`row flex ${isError ? style["error_form"] : ""}`}>
+        <div
+          className={`row flex ${isError ? style["error_form"] : ""} ${
+            style.password_row
+          }`}
+        >
           <input
+            ref={passwordRef}
             type="password"
             placeholder="Password"
             value={password}
@@ -59,6 +73,9 @@ export default function Login() {
               setIsError(false);
             }}
           />
+          <button className={style.showPassword} onClick={togglePassword}>
+            <EyeSVG />
+          </button>
         </div>
         <div className={`row flex`}>
           <button onClick={send_request}>Log In</button>

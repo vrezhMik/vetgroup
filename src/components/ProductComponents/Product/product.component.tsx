@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 export default function Product({ data, placeholder }: ProductPropsInterface) {
   const [quantity, setQuantity] = useState(1);
   const [jwt, setJwt] = useState<string | undefined>();
+  const [inputValue, setInputValue] = useState(quantity.toString());
 
   const { addItem } = useCart();
   const [currentProduct, setCurrentProduct] = useState(new Item(data, 1));
@@ -19,23 +20,41 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
     setJwt(Cookies.get("jwt"));
   }, []);
   const increment = (product: Item) => {
-    product.setQty(quantity + 1);
-    setQuantity(product.getQty());
-    setCurrentProduct(product);
+    if (quantity < product.getStock()) {
+      product.setQty(quantity + 1);
+      setQuantity(product.getQty());
+      setInputValue(product.getQty().toString());
+      setCurrentProduct(product);
+    }
   };
 
   const decrement = (product: Item) => {
-    if (quantity <= 1) return;
-    product.setQty(quantity - 1);
-    setQuantity(product.getQty());
-    setCurrentProduct(product);
+    if (quantity > 1) {
+      product.setQty(quantity - 1);
+      setQuantity(product.getQty());
+      setInputValue(product.getQty().toString());
+      setCurrentProduct(product);
+    }
   };
+  const handleBlur = () => {
+    let num = parseInt(inputValue, 10);
+    if (isNaN(num) || num < 1) num = 1;
+    if (num > currentProduct.getStock()) num = currentProduct.getStock();
 
+    setQuantity(num);
+    setInputValue(num.toString());
+    currentProduct.setQty(num);
+    setCurrentProduct(currentProduct);
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value)) {
-      setQuantity(value);
-      currentProduct.setQty(value);
+    const value = e.target.value;
+    setInputValue(value);
+
+    const num = parseInt(value, 10);
+    if (!isNaN(num) && num >= 1 && num <= currentProduct.getStock()) {
+      setQuantity(num);
+      currentProduct.setQty(num);
+      setCurrentProduct(currentProduct);
     }
   };
 
@@ -114,10 +133,9 @@ export default function Product({ data, placeholder }: ProductPropsInterface) {
           </button>
           <input
             type="number"
-            name=""
-            value={quantity}
-            id=""
+            value={inputValue}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
           <button
             onClick={() => increment(currentProduct)}
