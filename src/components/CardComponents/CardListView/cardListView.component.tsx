@@ -23,7 +23,6 @@ export default function CardListView() {
     updateCart,
     cleanCart,
   } = useCart();
-  const [notFull, setNotFull] = useState(false);
   const { setCardState } = useCard();
   const { cardViewState } = useCardView();
   const { currentHistoryItem } = HistoryCardState();
