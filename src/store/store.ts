@@ -95,7 +95,27 @@ export const useCart = create<CartStateInterface>((set, get) => ({
         cartTotal: updatedCartTotal,
       };
     }),
+  updateTotal: (products: Item[]) => {
+    const total = products.reduce(
+      (acc, product) => acc + product.getPrice() * product.getQty(),
+      0
+    );
 
+    set(() => ({
+      cartTotal: total,
+    }));
+  },
+  updateCart: (items: Item[]) => {
+    const total = items.reduce(
+      (acc, item) => acc + item.getPrice() * item.getQty(),
+      0
+    );
+    localStorage.setItem("cartItems", JSON.stringify(items));
+    set(() => ({
+      cartItems: items,
+      cartTotal: total,
+    }));
+  },
   cleanCart: () =>
     set(() => {
       localStorage.removeItem("cartItems");

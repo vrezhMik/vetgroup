@@ -35,6 +35,9 @@ export interface CartStateInterface {
   getItemCount: () => number;
   cleanCart: () => void;
   updateQty: (id: string, qty: number) => void;
+  updateCart: (items: Item[]) => void;
+
+  updateTotal: (products: Item[]) => void;
 }
 
 export interface CardStateInterface {

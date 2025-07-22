@@ -21,7 +21,7 @@ export class Item implements ProductType {
     this.price = item.price;
     this.pack_price = item.pack_price;
     this.description = item.description;
-    this.qty = qty ? qty : 1;
+    this.qty = qty ?? 1;
     this.totalPrice = 0;
     this.image = item.image ? item.image : null;
     this.__typename = item.__typename;

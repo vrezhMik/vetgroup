@@ -342,7 +342,7 @@ export async function updateProductStock(code: string, qty: number) {
 
     const productId = product.id;
     const currentStock = product.stock ?? 0;
-    const newStock = Math.max(currentStock - qty, 0); // Prevent negative stock
+    const newStock = qty === 0 ? 0 : Math.max(currentStock - qty, 0);
 
     // Step 2: Update stock
     const putRes = await fetch(

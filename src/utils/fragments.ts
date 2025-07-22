@@ -88,6 +88,8 @@ export const GET_USER_ORDERS = gql`
   query ($documentId: ID!) {
     orders(
       filters: { users_permissions_user: { documentId: { eq: $documentId } } }
+      pagination: { limit: -1 }
+      sort: ["created:desc"]
     ) {
       order_id
       total
