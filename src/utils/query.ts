@@ -121,21 +121,7 @@ export async function get_products(start: number, limit: number, cat?: string) {
   }
 }
 
-function getFormattedDateTime(): string {
-  const now = new Date();
 
-  const pad = (n: number) => n.toString().padStart(2, "0");
-
-  const month = pad(now.getMonth() + 1);
-  const day = pad(now.getDate());
-  const year = now.getFullYear();
-
-  const hours = pad(now.getHours());
-  const minutes = pad(now.getMinutes());
-  const seconds = pad(now.getSeconds());
-
-  return `${month}:${day}:${year} ${hours}:${minutes}:${seconds}`;
-}
 export async function add_order(items: Item[], user: string) {
   const data = {
     TransactionDate: getFormattedDateTime(),
@@ -278,11 +264,28 @@ function generateProductsTable(
 
   return `<table><thead><tr><th>Անվանում</th><th>Նկարագրություն</th><th>Քանակ</th><th>Գին</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
+function getFormattedDateTime(): string {
+  const now = new Date();
+
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
+  const month = pad(now.getMonth() + 1);
+  const day = pad(now.getDate());
+  const year = now.getFullYear();
+
+  const hours = pad(now.getHours());
+  const minutes = pad(now.getMinutes());
+  const seconds = pad(now.getSeconds());
+
+  return `${month}:${day}:${year} ${hours}:${minutes}:${seconds}`;
+}
 
 export async function add_strapi_order(
   cartItems: Item[],
   total: number,
-  userId: string
+  userId: string,
+  complited: boolean,
+  user: string
 ) {
   const order_id = generateOrderId();
   const created = new Date().toISOString();
@@ -294,6 +297,17 @@ export async function add_strapi_order(
     price: item.price,
   }));
 
+  const json_view = cartItems.map((item) => ({
+    "ItemID": item.backendId,
+    "Quantity": item.qty
+  })
+  );
+  const json_full_data = {
+    "TransactionDate": getFormattedDateTime(),
+    "ClientID": user,
+    "ItemsList": json_view,
+    "Note": ""
+  }
   const productsHtml = generateProductsTable(minimalProducts);
 
   try {
@@ -302,8 +316,9 @@ export async function add_strapi_order(
       created,
       total,
       products: productsHtml,
-      products_json: minimalProducts,
+      products_json: json_full_data,
       users_permissions_user: userId,
+      complited
     });
 
     if (!response || response.errors) {

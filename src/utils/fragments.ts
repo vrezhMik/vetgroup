@@ -135,6 +135,7 @@ export const ADD_ORDER_FRAGMENT = gql`
     $products: String!
     $users_permissions_user: ID!
     $products_json: JSON!
+     $complited: Boolean!
   ) {
     createOrder(
       data: {
@@ -142,6 +143,7 @@ export const ADD_ORDER_FRAGMENT = gql`
         created: $created
         total: $total
         products: $products
+        complited: $complited 
         users_permissions_user: $users_permissions_user
         products_json: $products_json
       }
@@ -150,6 +152,7 @@ export const ADD_ORDER_FRAGMENT = gql`
       created
       total
       products
+      complited
       products_json
       users_permissions_user {
         email

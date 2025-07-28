@@ -57,18 +57,27 @@ export default function CardListView() {
   const save_request = async () => {
     if (isLoading) return;
     setIsLoading(true);
+
     try {
       const user = getCookie("code");
       const id = getCookie("user");
       if (!user) throw new Error("User not found");
 
-      const result1C = await add_order(cartItems, user);
+      let result1C = null;
+      let itemsToRemove: { ItemCode: string; Quantity: number }[] = [];
+      let notFull = false;
 
-      const itemsToRemove =
-        (result1C.ItemsToProvide as { ItemCode: string; Quantity: number }[]) ||
-        [];
+      let complited = false;
 
-      const notFull = itemsToRemove.length !== 0;
+      try {
+        result1C = await add_order(cartItems, user);
+        itemsToRemove = result1C.ItemsToProvide || [];
+        notFull = itemsToRemove.length !== 0;
+        complited = true;
+      } catch {
+        console.warn("1C API failed, proceeding to save order locally");
+        complited = false;
+      }
 
       const updatedCartItems = cartItems
         .map((item) => {
@@ -76,11 +85,7 @@ export default function CardListView() {
             (p) => p.ItemCode === item.backendId
           );
           const newQty = missing ? item.qty - missing.Quantity : item.qty;
-          if (newQty <= 0) {
-            updateProductStock(item.code, newQty);
-            return null;
-          }
-          return new Item(item, newQty);
+          return newQty > 0 ? new Item(item, newQty) : null;
         })
         .filter((item): item is Item => item !== null);
 
@@ -92,27 +97,32 @@ export default function CardListView() {
       }
 
       if (id) {
+        await add_strapi_order(
+          updatedCartItems,
+          freshTotal,
+          id,
+          complited,
+          user
+        );
+
         const updateResults = await Promise.all(
           updatedCartItems.map((item) =>
             updateProductStock(item.code, item.qty)
           )
         );
         const allUpdated = updateResults.every((res) => res === true);
-        if (allUpdated) {
-          if (freshTotal > 0) {
-            await add_strapi_order(updatedCartItems, freshTotal, id);
-          }
-          setMessageCard(true);
-          cleanCart();
 
-          if (notFull) {
-            setMessage("Ցավում ենք, որոշ ապրանքներն այս պահին հասանելի չեն։");
-          } else {
-            setMessage("Պատվերը հաջողությամբ ուղարկվեց։");
-          }
+        cleanCart();
+        setMessageCard(true);
+
+        if (notFull) {
+          setMessage("Ցավում ենք, որոշ ապրանքներն այս պահին հասանելի չեն։");
         } else {
-          setMessageCard(true);
-          setMessage("Չհաջողվեց թարմացնել պահեստի տվյալները։");
+          setMessage("Պատվերը հաջողությամբ ուղարկվեց։");
+        }
+
+        if (!allUpdated) {
+          setMessage("Պատվերը պահվեց, բայց պահեստի տվյալները չեն թարմացվել։");
         }
       }
     } catch {
@@ -125,7 +135,7 @@ export default function CardListView() {
         setIsLoading(false);
       }, 1500);
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 500);
     }
   };
