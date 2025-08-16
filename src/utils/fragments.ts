@@ -45,7 +45,7 @@ export const CHANGE_PASSWORD_FRAGMENT = gql`
 
 export const GET_PRODUCTS_FRAGMENT = gql`
   query GetProducts($start: Int!, $limit: Int!) {
-    products(pagination: { start: $start, limit: $limit }, sort: "name:asc") {
+    products(pagination: { start: $start, limit: $limit }, sort: ["name:asc","stock:desc"]) {
       code
       name
       description
@@ -68,7 +68,7 @@ export const GET_PRODCUTS_BY_CAT = gql`
     products(
       filters: { category: { title: { eq: $cat } } }
       pagination: { start: $start, limit: $limit }
-      sort: ["name:asc"]
+      sort: ["name:asc","stock:desc"]
     ) {
       code
       name
