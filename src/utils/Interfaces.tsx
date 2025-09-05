@@ -4,6 +4,7 @@ import {
   CardView,
   UserMenu,
   CurrentUserType,
+  OrderHistoryType,
 } from "./Types";
 import { Item } from "@/classes/ItemClass";
 
@@ -99,6 +100,6 @@ export interface LoginFormStateInterface {
 }
 
 export interface HistoryCardInterface {
-  currentHistoryItem: ProductType[];
-  setCurrentHistoryItem: (item: ProductType[]) => void;
+  currentHistoryItem: ProductType[] | OrderHistoryType;
+  setCurrentHistoryItem: (item: ProductType[] | OrderHistoryType) => void;
 }

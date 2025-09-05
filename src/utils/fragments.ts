@@ -160,3 +160,13 @@ export const ADD_ORDER_FRAGMENT = gql`
     }
   }
 `;
+
+
+export const GET_PRODCUTS_BY_ID = gql`
+  query ProductByBackendId($id: String!) {
+    products(filters: { backendId: { eq: $id } }) {
+        description
+        price
+    }
+  }
+`

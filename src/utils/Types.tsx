@@ -57,3 +57,10 @@ export type ProductType = {
     title: string;
   };
 };
+
+export type OrderHistoryType = {
+  TransactionDate: string;
+  ClientID: string;
+  ItemsList: [{ ItemID: string; Quantity: number }];
+  Note: string;
+};

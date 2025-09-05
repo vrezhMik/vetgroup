@@ -13,6 +13,7 @@ import { add_strapi_order } from "@/utils/query";
 import { updateProductStock } from "@/utils/query";
 import ArrowSVG from "@/components/Elements/Icons/ArrowSVG";
 import ImageComponent from "@/components/Elements/Image/image.component";
+import { get_product_by_id } from "@/utils/query";
 export default function CardListView() {
   const {
     cartItems,
@@ -31,7 +32,7 @@ export default function CardListView() {
   const [isLoading, setIsLoading] = useState(false);
   const [jwt, setJwt] = useState<string | undefined>();
   const [isClient, setIsClient] = useState(false);
-
+  const [resolvedItems, setResolvedItems] = useState<ProductType[]>([]);
   useEffect(() => {
     setIsClient(true);
     setJwt(Cookies.get("jwt"));
@@ -157,6 +158,24 @@ export default function CardListView() {
 
   const visibleItems =
     cardViewState === CardView.History ? currentHistoryItem : cartItems;
+  useEffect(() => {
+    if (!Array.isArray(visibleItems)) {
+      const fetchItems = async () => {
+        try {
+          const products = await Promise.all(
+            visibleItems.ItemsList.map((currentItem) =>
+              get_product_by_id(currentItem.ItemID)
+            )
+          );
+          setResolvedItems(products[0].products);
+        } catch (err) {
+          console.error("Failed to load products", err);
+        }
+      };
+
+      fetchItems();
+    }
+  }, [visibleItems]);
   const isHistory = cardViewState === CardView.History;
   return (
     <>
@@ -184,71 +203,100 @@ export default function CardListView() {
         </div>
 
         <div className={style.cardListData}>
-          {visibleItems?.map((item, key) => {
-            const imageUrl = `https://vetgroup.am${item.image?.url}` || "";
-            return (
-              <div className={`row flex ${style.cardListDataRow}`} key={key}>
-                {!isHistory && (
+          {!Array.isArray(visibleItems)
+            ? // branch 1: OrderProductType with ItemsList
+              resolvedItems.map((item, key) => (
+                <div className={`row flex ${style.cardListDataRow}`} key={key}>
                   <div className={style.cardListDataRowElement}>
-                    <div className={style.cardListDataRowElementImage}>
-                      <ImageComponent url={imageUrl} alt={item.description} />
+                    <span>{item.description}</span>
+                  </div>
+                  <div className={style.cardListDataRowElement}>
+                    <span>{visibleItems.ItemsList[key].Quantity}</span>
+                  </div>
+                  <div className={`${style.cardListDataRowElement} flex`}>
+                    <span>
+                      {formatPrice(
+                        item.price * visibleItems.ItemsList[key].Quantity
+                      )}{" "}
+                      Դրամ
+                    </span>
+                  </div>
+                </div>
+              ))
+            : // branch 2: ProductType[]
+              visibleItems.map((item, key) => {
+                const imageUrl = item?.image?.url
+                  ? `https://vetgroup.am${item.image.url}`
+                  : "";
+                return (
+                  <div
+                    className={`row flex ${style.cardListDataRow}`}
+                    key={key}
+                  >
+                    {!isHistory && (
+                      <div className={style.cardListDataRowElement}>
+                        <div className={style.cardListDataRowElementImage}>
+                          <ImageComponent
+                            url={imageUrl}
+                            alt={item.description ?? ""}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div className={style.cardListDataRowElement}>
+                      <span>{item.description}</span>
+                    </div>
+                    <div className={style.cardListDataRowElement}>
+                      {!isHistory ? (
+                        <div className={style.qtyControls}>
+                          <button
+                            onClick={() =>
+                              updateQty(item.code, Math.max(1, item.qty - 1))
+                            }
+                            disabled={isHistory}
+                          >
+                            <ArrowSVG />
+                          </button>
+                          <input
+                            type="number"
+                            value={item.qty}
+                            onChange={(e) =>
+                              updateQty(item.code, Number(e.target.value) || 1)
+                            }
+                            disabled={isHistory}
+                            min={1}
+                          />
+                          <button
+                            onClick={() => updateQty(item.code, item.qty + 1)}
+                            disabled={isHistory}
+                          >
+                            <ArrowSVG />
+                          </button>
+                        </div>
+                      ) : (
+                        <span>{item.qty}</span>
+                      )}
+                    </div>
+
+                    {!isHistory && (
+                      <div className={style.cardListDataRowElement}>
+                        <span>{formatPrice(item.price)} Դրամ</span>
+                      </div>
+                    )}
+
+                    <div className={`${style.cardListDataRowElement} flex`}>
+                      <span>{formatPrice(item.price * item.qty)} Դրամ</span>
+                      {!isHistory && (
+                        <button
+                          onClick={() => removeItem((item as Item).getId())}
+                        >
+                          <TrashSVG />
+                        </button>
+                      )}
                     </div>
                   </div>
-                )}
-                <div className={style.cardListDataRowElement}>
-                  <span>{item.description}</span>
-                </div>
-
-                <div className={style.cardListDataRowElement}>
-                  {!isHistory ? (
-                    <div className={style.qtyControls}>
-                      <button
-                        onClick={() => {
-                          updateQty(item.code, Math.max(1, item.qty - 1));
-                        }}
-                        disabled={isHistory}
-                      >
-                        <ArrowSVG />
-                      </button>
-                      <input
-                        type="number"
-                        value={item.qty}
-                        onChange={(e) =>
-                          updateQty(item.code, Number(e.target.value))
-                        }
-                        disabled={isHistory}
-                        min={1}
-                      />
-                      <button
-                        onClick={() => {
-                          updateQty(item.code, item.qty + 1);
-                        }}
-                        disabled={isHistory}
-                      >
-                        <ArrowSVG />
-                      </button>
-                    </div>
-                  ) : (
-                    <span>{item.qty}</span>
-                  )}
-                </div>
-
-                {!isHistory && (
-                  <div className={style.cardListDataRowElement}>
-                    <span>{formatPrice(item.price)} Դրամ</span>
-                  </div>
-                )}
-                <div className={`${style.cardListDataRowElement} flex`}>
-                  <span>{formatPrice(item.price * item.qty)} Դրամ</span>
-                  {!isHistory && (
-                    <button onClick={() => removeItem((item as Item).getId())}>
-                      <TrashSVG />
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
         </div>
       </div>
       {!isHistory && (
@@ -260,9 +308,15 @@ export default function CardListView() {
             <button
               onClick={save_request}
               className={
-                isLoading || visibleItems.length <= 0 ? style.disabled : ""
+                isLoading ||
+                (Array.isArray(visibleItems) && visibleItems.length <= 0)
+                  ? style.disabled
+                  : ""
               }
-              disabled={isLoading || visibleItems.length <= 0}
+              disabled={
+                isLoading ||
+                (Array.isArray(visibleItems) && visibleItems.length <= 0)
+              }
             >
               {isLoading ? "Ուղարկում է..." : "Ուղարկել Պատվերը"}
             </button>

@@ -11,7 +11,7 @@ import { loginFormState } from "@/store/store";
 import { GET_CATEGORIES } from "./fragments";
 import { GET_PRODCUTS_BY_CAT } from "./fragments";
 import { GET_SEARCH_FRAGMENTS } from "./fragments";
-import { ADD_ORDER_FRAGMENT } from "./fragments";
+import { ADD_ORDER_FRAGMENT, GET_PRODCUTS_BY_ID } from "./fragments";
 
 function setWrongLogin(value: boolean) {
   loginFormState.setState({ isError: value });
@@ -379,5 +379,21 @@ export async function updateProductStock(code: string, qty: number) {
   } catch (err) {
     console.error("❌ Stock update failed for", code, err);
     return false;
+  }
+}
+
+
+export async function get_product_by_id(id: string) {
+  try {
+    const response = await graphQL_Query(GET_PRODCUTS_BY_ID, { id: id });
+    return response;
+  } catch (error: unknown) {
+    if (error instanceof ApolloError) {
+      console.error("GraphQL error:", error.message);
+    } else if (error instanceof Error) {
+      console.error("JS error:", error.message);
+    } else {
+      console.error("Unknown error:", error);
+    }
   }
 }
